@@ -7,14 +7,7 @@ namespace Assets
 {
     public class DestroyByContact : MonoBehaviour 
     void 
-    {
-        OnTriggerEnter(Collider Other) {
-            if other.tag( == "Boundary")
-            {return;
-            }
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
+
     public class TerrainGenerator : MonoBehaviour
     {
         // Use this for initialization
