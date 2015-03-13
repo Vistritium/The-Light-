@@ -5,9 +5,6 @@ using UnityEngine;
 
 namespace Assets
 {
-    public class DestroyByContact : MonoBehaviour 
-    void 
-
     public class TerrainGenerator : MonoBehaviour
     {
         // Use this for initialization
