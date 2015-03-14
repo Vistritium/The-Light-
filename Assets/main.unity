@@ -549,12 +549,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 791076852}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82ac55827b17c5d46afb168863cca87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  iterations: 30
+  numberOfGeneratedFlavors: 20
 --- !u!1 &804580361
 GameObject:
   m_ObjectHideFlags: 0
