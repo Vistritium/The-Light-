@@ -1,4 +1,4 @@
-//#define GENERATE_NEW
+#define GENERATE_NEW
 using System;
 using System.IO;
 using System.Net;
@@ -26,7 +26,10 @@ namespace AssemblyCSharp
 
 			var rotation = Quaternion.AngleAxis ((float)random.NextDouble() * 360f, end - begening);
 
-			var cross = Vector3.Cross (begening, end);
+		    var toEnd = end - begening;
+		    var someRandom = new Vector3(toEnd.x + 2, toEnd.y - 2, toEnd.z - 9);
+
+		    var cross = Vector3.Cross(toEnd, someRandom);
 
 			Vector3 rotated = rotation * cross;
 			rotated.Normalize ();

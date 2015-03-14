@@ -27,7 +27,7 @@ public class TestPoints : MonoBehaviour {
         points = new List<List<List<Vector3>>>();
 	    for (int i = 0; i < numberOfGeneratedFlavors; i++)
 	    {
-	        var generatedPoints = BoltPointsGenerator.GeneratePoints(this.transform.position + Vector3.left * 10, this.transform.position + Vector3.right * 10, 0.05f, iterations, i);
+	        var generatedPoints = BoltPointsGenerator.GeneratePoints(Vector3.left * 10, Vector3.right * 10, 0.05f, iterations, i);
 	        generatedPoints.RemoveAt(0);
             points.Add(generatedPoints);
 	    }
