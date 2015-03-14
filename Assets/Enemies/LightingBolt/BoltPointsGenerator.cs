@@ -15,6 +15,7 @@ namespace AssemblyCSharp
 			if (iterations == 0) {
 				return;
 			}
+            Debug.Log(string.Format("Iterations left:{0}", iterations));
 
 			var middlePoint = Vector3.Lerp (begening, end, 0.5f);
 
