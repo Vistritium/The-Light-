@@ -11,8 +11,7 @@ public class LoggerSystem : MonoBehaviour {
 	
 	}
 
-
-	
+		
 	// Update is called once per frame
 	void Update () {
 		if (!logged) {
@@ -24,7 +23,7 @@ public class LoggerSystem : MonoBehaviour {
 
 			var serialized = BoltPointsGenerator.serialized;
 			if(serialized != 0 ){
-				Debug.Log(string.Format("{0} deserialized {1} files", typeof(BoltPointsGenerator).Name, serialized));
+				Debug.Log(string.Format("{0} serialized {1} files", typeof(BoltPointsGenerator).Name, serialized));
 			}
 
 		}

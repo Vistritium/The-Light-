@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System;
 
 public class FollowingMachine : MonoBehaviour {
 
 	private GameObject player;
 
-	private Vector3 displacementFromPlayer;
+	public Vector3 displacementFromPlayer =  Vector3.right * 10f + Vector3.up * 3f + Vector3.forward * 3f;
 
-	private Vector3 backDisplacement;
-
-	public float backFactor = 3f;
+	public Vector3 backDisplacement = Vector3.back * 8f;
 
 	private float backLerpFactor = 0.05f;
 
@@ -19,17 +18,15 @@ public class FollowingMachine : MonoBehaviour {
 	private Oscilator oscilator;
 
 	private Vector3 initialPosition;
+
+	public event Action onPosition;
 	
 	// Use this for initialization
 	void Start () {
 		this.player = GameObject.Find ("Player");
 
-		displacementFromPlayer = Vector3.right * 10f + Vector3.up * 3f + Vector3.forward * 3f;
-
 		initialPosition = displacementFromPlayer;
 		this.transform.localPosition = initialPosition;
-
-		backDisplacement = Vector3.back * 8f;
 
 		this.transform.parent = player.transform;
 
@@ -43,8 +40,6 @@ public class FollowingMachine : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		
-
 		var additionalPositionVector = Vector3.zero;
 
 		if (backLerpFactor < 1.0f) {
@@ -52,6 +47,9 @@ public class FollowingMachine : MonoBehaviour {
 			this.backLerpFactor += Time.deltaTime * backLerpFactor;
 		} else if (!this.oscilate) {
 			InitOscilator ();
+			if(onPosition != null){
+				onPosition.Invoke();
+			}
 		} else {
 			additionalPositionVector = Vector3.forward * oscilator.GetCurrentValue ();
 		}

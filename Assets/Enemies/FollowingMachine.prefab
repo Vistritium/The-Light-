@@ -115,7 +115,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: .300000012
   m_StartWidth: 1
   m_EndWidth: 1
   m_Colors:
@@ -147,7 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ac0e2e984ccae45b898b36e1e87381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backFactor: 5
+  displacementFromPlayer: {x: 0, y: 0, z: 0}
+  backDisplacement: {x: 0, y: 0, z: 0}
 --- !u!136 &13656058
 CapsuleCollider:
   m_ObjectHideFlags: 1

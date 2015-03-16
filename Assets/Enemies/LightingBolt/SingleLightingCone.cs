@@ -34,27 +34,26 @@ public class SingleLightingCone : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Time.time >= timeToChange) {
-			timeToChange += timeOfBolt;
-			IteratePoints();
+
+		if (points != null && points.Count > 0) {
+			if (Time.time >= timeToChange) {
+				timeToChange += timeOfBolt;
+				IteratePoints();
+			}
+			
+			currentLerp = (Time.time - (timeToChange - timeOfBolt)) / timeOfBolt;
 		}
-
-		 currentLerp = (Time.time - (timeToChange - timeOfBolt)) / timeOfBolt;
-
-
-
-
 
 
 	}
 
 
-    private void GenerateNew()
+    public void GenerateNew()
     {
         points = new List<List<List<Vector3>>>();
         for (int i = 0; i < numberOfGeneratedFlavors; i++)
         {
-			var generatedPoints = BoltPointsGenerator.GeneratePoints(Vector3.left * 10, Vector3.right * 10, 0.05f, iterations, (i + 1) * ((flavor + 1) * 100));
+			var generatedPoints = BoltPointsGenerator.GeneratePoints(from, to, 0.05f, iterations, (i + 1) * ((flavor + 1) * 100));
             generatedPoints.RemoveAt(0);
             points.Add(generatedPoints);
         }
@@ -82,7 +81,7 @@ public class SingleLightingCone : MonoBehaviour {
 	void Start ()
 	{
 		timeToChange = timeOffset;
-	    GenerateNew();
+	   // GenerateNew();
        // InvokeRepeating("IteratePoints", 0.3f, 0.5f);
 
 	}
@@ -135,7 +134,10 @@ public class SingleLightingCone : MonoBehaviour {
 
         reuse.transform.localPosition = middle;
 
-        reuse.transform.LookAt(Vector3.Scale(from, this.transform.localScale) + this.transform.position);
+		var fromGlobal = this.transform.TransformPoint (from);
+		reuse.transform.LookAt(fromGlobal);
+		
+		
     }
 
     
