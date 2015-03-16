@@ -10,6 +10,7 @@ public class SingleLightingCone : MonoBehaviour {
 	public float timeOffset = 0;
 	public float timeOfBolt = 1f;
 	public int flavor = 0;
+	public float power = 0.05f;
 
 	private float timeToChange;
 
@@ -53,7 +54,7 @@ public class SingleLightingCone : MonoBehaviour {
         points = new List<List<List<Vector3>>>();
         for (int i = 0; i < numberOfGeneratedFlavors; i++)
         {
-			var generatedPoints = BoltPointsGenerator.GeneratePoints(from, to, 0.05f, iterations, (i + 1) * ((flavor + 1) * 100));
+			var generatedPoints = BoltPointsGenerator.GeneratePoints(from, to, power, iterations, (i + 1) * ((flavor + 1) * 100));
             generatedPoints.RemoveAt(0);
             points.Add(generatedPoints);
         }

@@ -9,6 +9,8 @@ public class LightingEffect : MonoBehaviour {
 	private GameObject singleLightingCone;
 	public int lightingsNumber = 3;
 	public float timeOfBolts = 0.5f;
+	public float power = 0.05f;
+	public bool initOnStart = true;
 
 	public Vector3 from;
 	public Vector3 to;
@@ -17,7 +19,9 @@ public class LightingEffect : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		if (initOnStart) {
+			Initialize();
+		}
 
 	
 	}
@@ -38,6 +42,7 @@ public class LightingEffect : MonoBehaviour {
 			singleLightingConeIntantiated.from = from;
 			singleLightingConeIntantiated.to = to;
 			singleLightinsEffects.Add(singleLightingConeIntantiated);
+			singleLightingConeIntantiated.power = power;
 			
 			singleLightingConeIntantiated.GenerateNew();
 		}
