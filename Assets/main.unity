@@ -517,17 +517,16 @@ GameObject:
   m_Component:
   - 4: {fileID: 791076853}
   - 33: {fileID: 791076856}
-  - 135: {fileID: 791076855}
   - 23: {fileID: 791076854}
   - 114: {fileID: 791076857}
-  - 114: {fileID: 791076858}
+  - 114: {fileID: 791076855}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &791076853
 Transform:
   m_ObjectHideFlags: 0
@@ -564,18 +563,25 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!135 &791076855
-SphereCollider:
+--- !u!114 &791076855
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 791076852}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35d7ec2ad7b8264a9022d64e0bcdd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iterations: 15
+  numberOfGeneratedFlavors: 30
+  timeOffset: 0
+  timeOfBolt: .0500000007
+  flavor: 0
+  from: {x: 0, y: -10, z: 0}
+  to: {x: 0, y: 10, z: 0}
+  lightingObject: {fileID: 146030, guid: d3059e65ce2f2804cb3916a17273dd88, type: 2}
 --- !u!33 &791076856
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -597,22 +603,6 @@ MonoBehaviour:
   target: {fileID: 0}
   iterations: 30
   numberOfGeneratedFlavors: 20
---- !u!114 &791076858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 791076852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35d7ec2ad7b8264a9022d64e0bcdd84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iterations: 15
-  numberOfGeneratedFlavors: 30
-  from: {x: 0, y: -10, z: 0}
-  to: {x: 0, y: 10, z: 0}
-  lightingObject: {fileID: 113856, guid: d3059e65ce2f2804cb3916a17273dd88, type: 2}
 --- !u!1 &804580361
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +699,7 @@ Transform:
   - {fileID: 1607258117}
   - {fileID: 1936655169}
   - {fileID: 791076853}
+  - {fileID: 1813483771}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!114 &808061023
@@ -1075,6 +1066,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607258116}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1813483769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1813483771}
+  - 114: {fileID: 1813483770}
+  m_Layer: 0
+  m_Name: Lighting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1813483770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813483769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a315523849f5a47adcf4d224609fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singleLightingCone: {fileID: 164210, guid: 11595d330deda34479b5f3d209e744ec, type: 2}
+  lightingsNumber: 10
+  timeOfBolts: .600000024
+--- !u!4 &1813483771
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813483769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.71000099, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 808061022}
+  m_RootOrder: 3
 --- !u!1 &1936655168
 GameObject:
   m_ObjectHideFlags: 0

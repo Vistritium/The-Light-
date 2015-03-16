@@ -1,4 +1,4 @@
-#define GENERATE_NEW
+//#define GENERATE_NEW
 using System;
 using System.IO;
 using System.Net;
