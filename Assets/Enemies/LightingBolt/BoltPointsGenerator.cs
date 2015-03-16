@@ -13,6 +13,9 @@ namespace AssemblyCSharp
 	public static class BoltPointsGenerator
 	{
 
+		public static int serialized = 0;
+		public static int deserialized = 0;
+
 		static System.Random random = new System.Random ();
 
 		public static void GenerateAndAddPoints(Vector3 begening, Vector3 end, int iterations, float power, List<List<Vector3>> addTo){
@@ -67,7 +70,7 @@ namespace AssemblyCSharp
 
             if (File.Exists(filePath) && !generateNew)
 		    {
-                Debug.Log("Deserializing");
+				deserialized++;
                 BinaryFormatter bf = new BinaryFormatter();
                 var file = File.Open(filePath, FileMode.Open);
 		        List<List<Vector3>> result = SerializableVector3.ToVectorListList((List<List<SerializableVector3>>) bf.Deserialize(file));
@@ -77,8 +80,8 @@ namespace AssemblyCSharp
 		    }
 		    else
 		    {
-                Debug.Log("Serializing");
-                var result = new List<List<Vector3>>(iterations);
+				serialized++;
+				var result = new List<List<Vector3>>(iterations);
 
                 result.Add(new List<Vector3>() { begening, end });
 
