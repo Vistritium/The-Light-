@@ -11,6 +11,7 @@ public class LightingEffect : MonoBehaviour {
 	public float timeOfBolts = 0.5f;
 	public float power = 0.05f;
 	public bool initOnStart = true;
+	public int iterations = 20;
 
 	public Vector3 from;
 	public Vector3 to;
@@ -43,6 +44,7 @@ public class LightingEffect : MonoBehaviour {
 			singleLightingConeIntantiated.to = to;
 			singleLightinsEffects.Add(singleLightingConeIntantiated);
 			singleLightingConeIntantiated.power = power;
+			singleLightingConeIntantiated.iterations = iterations;
 			
 			singleLightingConeIntantiated.GenerateNew();
 		}

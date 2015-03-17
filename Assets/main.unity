@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d346d5e0796f34daef0edfdeba0e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireDelay: 2
+  fireDelay: 0
   fireLength: 2
 --- !u!4 &184221079
 Transform:
@@ -265,6 +265,8 @@ GameObject:
   - 4: {fileID: 311907881}
   - 114: {fileID: 311907882}
   - 114: {fileID: 311907883}
+  - 135: {fileID: 311907884}
+  - 54: {fileID: 311907885}
   m_Layer: 0
   m_Name: ElectricBlast
   m_TagString: Untagged
@@ -279,11 +281,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 311907880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 10}
+  m_LocalPosition: {x: 6.74521637, y: 18.9896049, z: -217.668839}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 808061022}
-  m_RootOrder: 0
+  m_Father: {fileID: 372440144}
+  m_RootOrder: 4
 --- !u!114 &311907882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +301,7 @@ MonoBehaviour:
   timeOfBolts: .5
   power: .5
   initOnStart: 1
+  iterations: 8
   from: {x: -.5, y: 0, z: 0}
   to: {x: .5, y: 0, z: 0}
 --- !u!114 &311907883
@@ -309,10 +312,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 311907880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d5e38c8a48a3804b8ec1f160d89377d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6558ef636090cbe46b9b704d3de30465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: .5
+  target: {x: 0, y: 0, z: 0}
+--- !u!135 &311907884
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 311907880}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &311907885
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 311907880}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &329006291
 Prefab:
   m_ObjectHideFlags: 0
@@ -388,6 +418,7 @@ Transform:
   - {fileID: 184221079}
   - {fileID: 80691290}
   - {fileID: 1018365585}
+  - {fileID: 311907881}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!1001 &393784935
@@ -797,7 +828,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 808061022}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!23 &791076854
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -956,7 +987,6 @@ Transform:
   m_LocalPosition: {x: 0, y: .469999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 311907881}
   - {fileID: 1607258117}
   - {fileID: 1936655169}
   - {fileID: 791076853}
@@ -1116,10 +1146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a315523849f5a47adcf4d224609fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightingsNumber: 3
+  lightingsNumber: 7
   timeOfBolts: .5
-  power: .0500000007
+  power: .0700000003
   initOnStart: 0
+  iterations: 30
   from: {x: 0, y: 0, z: 0}
   to: {x: 0, y: 0, z: 0}
 --- !u!1 &1269585046
@@ -1219,7 +1250,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 808061022}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!23 &1607258118
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1295,6 +1326,7 @@ MonoBehaviour:
   timeOfBolts: .600000024
   power: .0500000007
   initOnStart: 1
+  iterations: 8
   from: {x: -10, y: 0, z: 0}
   to: {x: 0, y: 10, z: 0}
 --- !u!4 &1813483771
@@ -1308,7 +1340,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 808061022}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1936655168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,7 +1368,7 @@ Transform:
   m_Children:
   - {fileID: 543078175}
   m_Father: {fileID: 808061022}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &2073835791
 GameObject:
   m_ObjectHideFlags: 0
