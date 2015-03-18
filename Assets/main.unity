@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
+  speedProvider: {fileID: 0}
 --- !u!135 &311907884
 SphereCollider:
   m_ObjectHideFlags: 0

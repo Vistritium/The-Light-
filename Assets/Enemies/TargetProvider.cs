@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
-	public interface TargetProvider
+	public class TargetProvider : MonoBehaviour
 	{
-		Vector3 GetTarget();
+		public virtual Vector3 GetTarget(){
+			return Vector3.zero;
+		}
 	}
 }
 
