@@ -11,6 +11,11 @@ public class PlayerControlScript : MonoBehaviour {
 	public float turnAccel = 1;
 	public float turnDampen = 3;
 
+	public float dashLocalSpeed = 10;
+	public float dashDampen = 10;
+
+	public float dashDistance = 0;
+
 	public float hitForce = 10;
 	public float hitDamage = 6;
 	public float hitStunDuration = 1;
@@ -28,14 +33,22 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public enum StateTypes{
 		normal,
-		stunned
+		stunned,
+		dash
 	};
 
 	public StateTypes state = StateTypes.normal;
 
+	private GameObject cameraTarget;
+
 	// Use this for initialization
 	void Start () {
+		//cameraTarget = GameObject.Find ("Player");
+		cameraTarget = transform.parent.gameObject;
+
 		GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, forwardSpeed);
+
+		transform.position = cameraTarget.transform.position;
 	}
 
 
@@ -72,36 +85,51 @@ public class PlayerControlScript : MonoBehaviour {
 		Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
 
 		// React accordingly if you hit something.
-		if (enteredTriggerTag != "" && state == StateTypes.normal)
+		if (enteredTriggerTag != "" && state != StateTypes.stunned)
 		{
-			if (enteredTriggerTag == "MiddlePlayerCollider")
+			// If you touched DashPad:
+			if (enteredTriggerTag == "DashPad")
 			{
-				hp = 0;
-			}
-			else if (enteredTriggerTag == "LeftPlayerCollider")
-			{
-				tempSpeed[0] = hitForce;
-			}
-			else if (enteredTriggerTag == "RightPlayerCollider")
-			{
-				tempSpeed[0] = -hitForce;
-			}
+				if (state == StateTypes.normal)
+				{
+					state = StateTypes.dash;
+					tempSpeed[2] = dashLocalSpeed;
 
-			state = StateTypes.stunned;
-			stunTimer = hitStunDuration;
+					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
+				}
+			}
+			// If you hit a wall, check, which side and subtract hp:
+			else
+			{
+				if (enteredTriggerTag == "MiddlePlayerCollider")
+				{
+					hp = 0;
+				}
+				else if (enteredTriggerTag == "LeftPlayerCollider")
+				{
+					tempSpeed[0] = hitForce;
+				}
+				else if (enteredTriggerTag == "RightPlayerCollider")
+				{
+					tempSpeed[0] = -hitForce;
+				}
 
-			hp -= hitDamage;
+				state = StateTypes.stunned;
+				stunTimer = hitStunDuration;
+
+				hp -= hitDamage;
+			}
 		}
 
 		enteredTriggerTag = "";
 
 		// Calculate input:
-		if (Input.GetKey (KeyCode.A) && state == StateTypes.normal)
+		if (Input.GetKey (KeyCode.A) && state != StateTypes.stunned)
 		{
 			tempSpeed [0] -= turnAccel * Time.deltaTime;
 			turnPressed = 1;
 		}
-		else if (Input.GetKey (KeyCode.D) && state == StateTypes.normal)
+		else if (Input.GetKey (KeyCode.D) && state != StateTypes.stunned)
 		{
 			tempSpeed [0] += turnAccel * Time.deltaTime;
 			turnPressed = 1;
@@ -125,14 +153,47 @@ public class PlayerControlScript : MonoBehaviour {
 				tempSpeed[0] -= (Mathf.Abs (tempSpeed [0]) / tempSpeed[0]) * turnDampen * Time.deltaTime;
 		}
 
-		if (tempSpeed [2] < maxForwardSpeed)
+		// If you're dashing, change your speed accordingly:
+		if (state == StateTypes.dash)
+		{
+			// Add or subtract acceleration from speed:
+			if (dashDistance != 0 && transform.position.z < cameraTarget.transform.position.z + dashDistance)
+			{
+				tempSpeed[2] += dashDampen * Time.deltaTime;
+				if (tempSpeed[2] > -1f)
+					tempSpeed[2] = -1f;
+			}
+			else
+			{
+				tempSpeed[2] -= dashDampen * Time.deltaTime;
+			}
+
+			// If you reached the top point of your movement, calculate your dostance from original point:
+			if (dashDistance == 0 && Mathf.Abs(tempSpeed[2]) <= dashDampen * Time.deltaTime)
+			{
+				dashDistance = transform.position.z - cameraTarget.transform.position.z;
+				dashDistance = dashDistance / 2;
+			}
+
+			// If you reached original point, stop dashing:
+			if (transform.position.z < cameraTarget.transform.position.z && tempSpeed[2] < dashLocalSpeed / 2)
+			{
+				tempSpeed[2] = 0;
+				transform.position = new Vector3(transform.position.x, cameraTarget.transform.position.y, transform.position.z);
+				dashDistance = 0;
+				state = StateTypes.normal;
+				cameraTarget.GetComponent<CameraTargetScript> ().Dash();
+			}
+		}
+
+		/*if (tempSpeed [2] < maxForwardSpeed)
 		{
 			tempSpeed [2] += forwardAccel * Time.deltaTime;
 		}
 		else
 		{
 			tempSpeed [2] = maxForwardSpeed;
-		}
+		}*/
 
 		// If you are dead, do something:
 		if (hp <= 0)
