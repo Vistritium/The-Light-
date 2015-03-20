@@ -4,39 +4,42 @@ using AssemblyCSharp;
 
 public class BulletShot : MonoBehaviour {
 
-	public Vector3 target = Vector3.zero;
+	public TargetProvider targetProvider;
 	public SpeedProvider speedProvider;
-
-
-	private class SimpleSpeedProvider : SpeedProvider {
-		public float GetSpeed(){
-			return 5f;
-		}
-	}
+	
 
 	// Use this for initialization
 	void Start () {
+
+		this.speedProvider = GetComponent<SpeedProvider> ();
 		if (speedProvider == null) {
-			speedProvider = new SimpleSpeedProvider();
+			this.gameObject.AddComponent<SpeedProvider>();
+			this.speedProvider = GetComponent<SpeedProvider> ();
 		}
-		
+
+		this.targetProvider = GetComponent<TargetProvider> ();
+		if (this.targetProvider == null) {
+			this.gameObject.AddComponent<TargetProvider>();
+			this.targetProvider = GetComponent<TargetProvider>();
+		}
+
+
 	}
 
-	void SetSpeedProvider(SpeedProvider provider){
-		this.speedProvider = provider;
-	}
-
-	void SetTarget(Vector3 target){
-		this.target = target;
-	}
 	
 	// Update is called once per frame
 	void Update () {
-		var toVector = (target - this.transform.position);
-		toVector.Normalize ();
+		var toVector = (targetProvider.GetTarget() - this.transform.position);
+		if (toVector.magnitude < 0.1) {
+			Destroy(this.gameObject);
+		} else {
+			toVector.Normalize ();
+			this.transform.Translate (toVector * Time.deltaTime * speedProvider.GetSpeed());
+		}
 
-		this.transform.Translate (toVector * Time.deltaTime * speedProvider.GetSpeed());
 	}
+
+	
 
 
 	void OnTriggerEnter(Collider other)

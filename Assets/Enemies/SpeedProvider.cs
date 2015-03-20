@@ -7,7 +7,8 @@ namespace AssemblyCSharp
 {
 	public class SpeedProvider : MonoBehaviour
 	{
-		float speed = 5f;
+
+		public float speed = 1f;
 
 		public virtual float GetSpeed(){
 			return speed;

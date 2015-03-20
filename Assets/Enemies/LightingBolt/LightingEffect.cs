@@ -12,9 +12,11 @@ public class LightingEffect : MonoBehaviour {
 	public float power = 0.05f;
 	public bool initOnStart = true;
 	public int iterations = 20;
-
+	
 	public Vector3 from;
 	public Vector3 to;
+
+	private bool initialized = false;
 
 	private List<SingleLightingCone> singleLightinsEffects = new List<SingleLightingCone>();
 
@@ -28,9 +30,12 @@ public class LightingEffect : MonoBehaviour {
 	}
 
 	public void Initialize(){
+		if (initialized) {
+			return;
+		}
+		initialized = true;
 		singleLightingCone = Templates.GetTemplate ("SingleLightingCone");
 		var timeOfBoltsPart = timeOfBolts / lightingsNumber;
-		
 		for (int i = 0; i < lightingsNumber; i++) {
 			var gameObj = Instantiate(singleLightingCone);
 			gameObj.SetActive(true);

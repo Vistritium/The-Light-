@@ -1,11 +1,20 @@
 
 using System;
+using UnityEngine;
+
+
 namespace AssemblyCSharp
 {
-	public interface SpeedProviderProvider
+	public class SpeedProviderProvider : MonoBehaviour
 	{
 
-		SpeedProvider GetSpeedProvider();
+		public float speed = 1f;
+
+		public virtual void ProvideSpeedProvider(GameObject gameObject){
+			gameObject.AddComponent<SpeedProvider> ();
+			gameObject.GetComponent<SpeedProvider> ().speed = speed;
+		}
+
 
 	}
 }
