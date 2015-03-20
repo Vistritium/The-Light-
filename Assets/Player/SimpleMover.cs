@@ -5,7 +5,7 @@ namespace Assets.Player
     public class SimpleMover : MonoBehaviour
     {
 
-        public float speed = 5f;
+		public float speed = 5;
 
         // Use this for initialization
         void Start () {

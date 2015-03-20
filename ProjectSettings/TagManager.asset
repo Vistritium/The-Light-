@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Tile
+  - LeftPlayerCollider
+  - RightPlayerCollider
+  - MiddlePlayerCollider
+  - DashPad
   layers:
   - Default
   - TransparentFX
