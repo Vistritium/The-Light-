@@ -6,6 +6,7 @@ public class BulletShot : MonoBehaviour {
 
 	public TargetProvider targetProvider;
 	public SpeedProvider speedProvider;
+	public GameObject boundary;
 	
 
 	// Use this for initialization
@@ -44,7 +45,9 @@ public class BulletShot : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		Destroy (this.gameObject);
+		if (other.gameObject != boundary) {
+			Destroy (this.gameObject);
+		}
 	}
 
 

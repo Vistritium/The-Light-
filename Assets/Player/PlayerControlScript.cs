@@ -26,10 +26,13 @@ public class PlayerControlScript : MonoBehaviour {
 	public float hpMax = 10;
 	public float hpRegen = 5;
 
+	public float fireRate;
+
 	public string enteredTriggerTag = "";
 
-
 	private int turnPressed = 0;
+
+	private float nextFire = 0;
 
 	public enum StateTypes{
 		normal,
@@ -40,6 +43,9 @@ public class PlayerControlScript : MonoBehaviour {
 	public StateTypes state = StateTypes.normal;
 
 	private GameObject cameraTarget;
+
+	public GameObject shot;
+	public Transform shotSpawn;
 
 	// Use this for initialization
 	void Start () {
@@ -133,6 +139,12 @@ public class PlayerControlScript : MonoBehaviour {
 		{
 			tempSpeed [0] += turnAccel * Time.deltaTime;
 			turnPressed = 1;
+		}
+		else if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+
 		}
 
 		// Keep max turning speed:
