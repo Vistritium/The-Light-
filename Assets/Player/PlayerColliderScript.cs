@@ -9,7 +9,8 @@ public class PlayerColliderScript : MonoBehaviour {
 		if (other.gameObject.tag != "DashPad")
 		{
 			PlayerControlScript temp = transform.parent.gameObject.GetComponent<PlayerControlScript> ();
-			temp.enteredTriggerTag = gameObject.tag;
+			if (temp.enteredTriggerTag != "MiddlePlayerCollider")
+				temp.enteredTriggerTag = gameObject.tag;
 			//Debug.Log(other.gameObject.name);
 		}
 		else

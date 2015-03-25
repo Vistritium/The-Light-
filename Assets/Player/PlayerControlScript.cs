@@ -26,6 +26,11 @@ public class PlayerControlScript : MonoBehaviour {
 	public float hpMax = 10;
 	public float hpRegen = 5;
 
+	public float rotationForce = 5;
+	public float rotationStart = 10;
+	public float rotation = 0;
+	public float rotationSpeed = 0;
+
 	public string enteredTriggerTag = "";
 
 
@@ -33,9 +38,10 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public enum StateTypes{
 		normal,
-		stunned,
-		dash
+		stunned
 	};
+
+	public int dashing = 0;
 
 	public StateTypes state = StateTypes.normal;
 
@@ -75,6 +81,26 @@ public class PlayerControlScript : MonoBehaviour {
 			}
 		}
 
+		// Rotate the car forward if it hit something:
+		rotation += rotationSpeed * Time.deltaTime;
+		rotationSpeed -= rotationForce * Time.deltaTime;
+
+		if (rotation < 0)
+		{
+			rotation = 0;
+			rotationSpeed = 0;
+		}
+
+		var temp = transform.rotation;
+		temp.z = rotation;
+		temp.y = 180;
+		transform.rotation = temp;
+
+		var temp2 = transform.position;
+		temp2.y = transform.rotation.z * 5;
+		transform.position = temp2;
+
+
 		#endregion
 
 		#region Speeds Management
@@ -92,7 +118,7 @@ public class PlayerControlScript : MonoBehaviour {
 			{
 				if (state == StateTypes.normal)
 				{
-					state = StateTypes.dash;
+					dashing = 1;
 					tempSpeed[2] = dashLocalSpeed;
 
 					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
@@ -104,6 +130,9 @@ public class PlayerControlScript : MonoBehaviour {
 				if (enteredTriggerTag == "MiddlePlayerCollider")
 				{
 					hp = 0;
+					cameraTarget.GetComponent<CameraTargetScript> ().Stop();
+
+					rotationSpeed = rotationStart;
 				}
 				else if (enteredTriggerTag == "LeftPlayerCollider")
 				{
@@ -124,15 +153,18 @@ public class PlayerControlScript : MonoBehaviour {
 		enteredTriggerTag = "";
 
 		// Calculate input:
-		if (Input.GetKey (KeyCode.A) && state != StateTypes.stunned)
+		if (hp > 0)
 		{
-			tempSpeed [0] -= turnAccel * Time.deltaTime;
-			turnPressed = 1;
-		}
-		else if (Input.GetKey (KeyCode.D) && state != StateTypes.stunned)
-		{
-			tempSpeed [0] += turnAccel * Time.deltaTime;
-			turnPressed = 1;
+			if (Input.GetKey (KeyCode.A) && state != StateTypes.stunned)
+			{
+				tempSpeed [0] -= turnAccel * Time.deltaTime;
+				turnPressed = 1;
+			}
+			else if (Input.GetKey (KeyCode.D) && state != StateTypes.stunned)
+			{
+				tempSpeed [0] += turnAccel * Time.deltaTime;
+				turnPressed = 1;
+			}
 		}
 
 		// Keep max turning speed:
@@ -154,12 +186,13 @@ public class PlayerControlScript : MonoBehaviour {
 		}
 
 		// If you're dashing, change your speed accordingly:
-		if (state == StateTypes.dash)
+		if (dashing == 1)
 		{
 			// Add or subtract acceleration from speed:
 			if (dashDistance != 0 && transform.position.z < cameraTarget.transform.position.z + dashDistance)
 			{
 				tempSpeed[2] += dashDampen * Time.deltaTime;
+				// Keep minimal speed, so you reach your original position eventually:
 				if (tempSpeed[2] > -1f)
 					tempSpeed[2] = -1f;
 			}
@@ -181,7 +214,7 @@ public class PlayerControlScript : MonoBehaviour {
 				tempSpeed[2] = 0;
 				transform.position = new Vector3(transform.position.x, cameraTarget.transform.position.y, transform.position.z);
 				dashDistance = 0;
-				state = StateTypes.normal;
+				dashing = 0;
 				cameraTarget.GetComponent<CameraTargetScript> ().Dash();
 			}
 		}
@@ -198,7 +231,13 @@ public class PlayerControlScript : MonoBehaviour {
 		// If you are dead, do something:
 		if (hp <= 0)
 		{
-			tempSpeed[1] = 4;
+			//tempSpeed[1] = 4;
+			cameraTarget.GetComponent<CameraTargetScript> ().EndMoving();
+
+			// Stop dashing:
+			dashing = 0;
+
+			tempSpeed[2] = 0;
 		}
 
 		// After speed calculations have been made, apply values from temp variable to real speed vector:

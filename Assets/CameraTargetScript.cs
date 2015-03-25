@@ -7,6 +7,7 @@ public class CameraTargetScript : MonoBehaviour {
 	public float speedMax = 10;
 	public float speedAcceleration = 0.1f;
 	public float speedAdditional = 0;
+	public float deadDampen = 20;
 	public float dashSpeed = 20;
 	public float dashTime = 3;
 	public float dashDampen = 10;
@@ -16,7 +17,8 @@ public class CameraTargetScript : MonoBehaviour {
 	public enum CameraTargetStates{
 		normal,
 		dashStart,
-		dash
+		dash,
+		end
 	};
 
 	public CameraTargetStates state = CameraTargetStates.normal;
@@ -30,7 +32,20 @@ public class CameraTargetScript : MonoBehaviour {
 	void Update ()
 	{
 		// Speed up progressively over time:
-		speed += speedAcceleration * Time.deltaTime;
+		if (speed < speedMax)
+			speed += speedAcceleration * Time.deltaTime;
+
+		// If player is ded, slow down:
+		if (state == CameraTargetStates.end)
+		{
+			speed -= deadDampen * Time.deltaTime;
+			if (speed < 0)
+				speed = 0;
+
+			speedAdditional -= deadDampen * Time.deltaTime;
+			if (speedAdditional < 0)
+				speedAdditional = 0;
+		}
 
 		// Deal with dashing mechanic:
 		if (state == CameraTargetStates.dashStart)
@@ -73,5 +88,21 @@ public class CameraTargetScript : MonoBehaviour {
 		state = CameraTargetStates.dash;
 		//speedAdditional = dashSpeed;
 		dashTimer = dashTime;
+	}
+
+	public void EndMoving()
+	{
+		if (state != CameraTargetStates.end)
+		{
+			speedMax = 0;
+			state = CameraTargetStates.end;
+		}
+	}
+
+	public void Stop()
+	{
+		speed = 0;
+		speedMax = 0;
+		speedAdditional = 0;
 	}
 }
