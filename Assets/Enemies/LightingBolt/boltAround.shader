@@ -20,9 +20,7 @@
 
 
             float4 frag() : COLOR 
-			{		 
-			
-				
+			{		 				
                 return float4(_Color.xyz, 0.05);  
 			}
             ENDCG

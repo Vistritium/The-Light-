@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class SingleLightingCone : MonoBehaviour {
 
@@ -29,7 +30,16 @@ public class SingleLightingCone : MonoBehaviour {
 	private float currentLerp;
 
 	public float GetCurrentLerp(){
+
 		return currentLerp;
+	}
+
+
+	void Awake(){
+	//	timeToChange = Time.time + timeOfBolt;
+	//	currentLerp = (Time.time - (timeToChange - timeOfBolt)) / timeOfBolt;
+	//	Debug.Log ("Current lerp: " + currentLerp);
+		
 	}
 
 
@@ -42,9 +52,16 @@ public class SingleLightingCone : MonoBehaviour {
 				IteratePoints();
 			}
 			
-			currentLerp = (Time.time - (timeToChange - timeOfBolt)) / timeOfBolt;
-		}
 
+		}
+		currentLerp = (Time.time - (timeToChange - timeOfBolt)) / timeOfBolt;
+
+		if (currentLerp > 1) {
+			if(points == null){
+				Debug.Log("Points are null");
+			}
+			Debug.Log(string.Format("Current lerp > 1.lerp: {0}, time:{1}, timeToChange:{2}, timeOfBolt:{3}",currentLerp, Time.time, timeToChange, timeOfBolt)); 
+		}
 
 	}
 
@@ -81,7 +98,7 @@ public class SingleLightingCone : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		timeToChange = timeOffset;
+		timeToChange = Time.time + timeOffset;
 	   // GenerateNew();
        // InvokeRepeating("IteratePoints", 0.3f, 0.5f);
 

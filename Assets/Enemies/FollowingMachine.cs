@@ -56,15 +56,9 @@ public class FollowingMachine : MonoBehaviour {
 
 		this.transform.localPosition = initialPosition + additionalPositionVector;
 		
+	//	var gonnaBePosition = initialPosition + additionalPositionVector;
 
-		//var gonnaBePosition = displacementFromPlayer + additionalPositionVector;
-
-		//var gonnaBeDistance = Vector3.Distance (gonnaBePosition, this.transform.position);
-	//	if (gonnaBeDistance > 1.8) {
-		//	Debug.Log("distance: " + gonnaBeDistance);
-	//	}
-
-		//this.transform.position = Vector3.Lerp (this.transform.position, gonnaBePosition, 1f);
+	//	this.transform.localPosition = Vector3.Lerp (this.transform.localPosition, gonnaBePosition, Time.deltaTime * 0.1f);
 
 	}
 }
