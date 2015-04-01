@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e92459c456688e4ebb43b967607332b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 15
 --- !u!114 &705941558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1130,7 @@ GameObject:
   - 114: {fileID: 804580364}
   - 114: {fileID: 804580363}
   - 114: {fileID: 804580365}
+  - 114: {fileID: 804580366}
   m_Layer: 0
   m_Name: TerrainManager
   m_TagString: Untagged
@@ -1186,6 +1187,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 0}
   playerExplosion: {fileID: 0}
+--- !u!114 &804580366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 804580361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8027223d68de4142bf770de1237a27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &808061021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,8 +1663,8 @@ MonoBehaviour:
   hitDamage: 6
   hitStunDuration: .300000012
   stunTimer: 0
-  hp: 10
-  hpMax: 10
+  hp: 100
+  hpMax: 100
   hpRegen: 5
   rotationForce: 80
   rotationStart: 50
