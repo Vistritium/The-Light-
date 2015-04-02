@@ -8,6 +8,8 @@ namespace Assets
 {
     public class TerrainGenerator : MonoBehaviour
     {
+		public GameObject terrain;
+
         // Use this for initialization
         private void Start()
         {
@@ -23,7 +25,15 @@ namespace Assets
 
         //called when new tiles are generated
         private void NewTilesAdded(List<GameObject> newTiles)
-        {
+        {  
+			foreach (var newTile in newTiles) {
+				Debug.Log("adding new tile");
+				var hazard = Instantiate (terrain);
+				hazard.transform.parent = newTile.transform;
+				hazard.transform.localPosition = Vector3.up*3 + UnityEngine.Random.Range(-3, 3) * Vector3.right;
+		
+			}
+
             Debug.Log("New tiles added: " + newTiles.Select(x => x.ToString()).Aggregate((x1, x2) => x1 + " " + x2));
         }
     }
