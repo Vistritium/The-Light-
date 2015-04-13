@@ -58,9 +58,9 @@ public class SingleLightingCone : MonoBehaviour {
 
 		if (currentLerp > 1) {
 			if(points == null){
-				Debug.Log("Points are null");
+			//	Debug.Log("Points are null");
 			}
-			Debug.Log(string.Format("Current lerp > 1.lerp: {0}, time:{1}, timeToChange:{2}, timeOfBolt:{3}",currentLerp, Time.time, timeToChange, timeOfBolt)); 
+	//		Debug.Log(string.Format("Current lerp > 1.lerp: {0}, time:{1}, timeToChange:{2}, timeOfBolt:{3}",currentLerp, Time.time, timeToChange, timeOfBolt)); 
 		}
 
 	}
@@ -117,6 +117,8 @@ public class SingleLightingCone : MonoBehaviour {
 
     private void IteratePoints()
     {
+		var tempScale = this.transform.localScale;
+		this.transform.localScale = Vector3.one;
         currentIndex = currentIndex + 1;
         if (currentIndex >= points.Count)
         {
@@ -139,19 +141,20 @@ public class SingleLightingCone : MonoBehaviour {
                 lastPoint = point;
             }
         }
-
+		
+		this.transform.localScale = tempScale;
     }
 
     private void reuseGameObject(Vector3 from, Vector3 to, GameObject reuse)
     {
+
         var middle = Vector3.Lerp(from, to, 0.5f);
 
-        var distance = Vector3.Distance(@from, to);
+		var distance = Vector3.Distance (@from, to);
 
         reuse.transform.localScale = new Vector3(reuse.transform.localScale.x, reuse.transform.localScale.y, distance);
 
         reuse.transform.localPosition = middle;
-
 		var fromGlobal = this.transform.TransformPoint (from);
 		reuse.transform.LookAt(fromGlobal);
 		

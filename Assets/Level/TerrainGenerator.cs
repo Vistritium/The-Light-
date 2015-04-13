@@ -30,7 +30,6 @@ namespace Assets
         {  
 			  
 				foreach (var newTile in newTiles) {
-					Debug.Log("adding new tile");
 					var hazard = Instantiate (terrain);
 					hazard.transform.parent = newTile.transform;
 					hazard.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.right;
@@ -56,8 +55,7 @@ namespace Assets
 				wall1.transform.localPosition = UnityEngine.Random.Range(1, 1)  * Vector3.up + UnityEngine.Random.Range(5, 5) * Vector3.right;
 
 			}
-			
-			Debug.Log("New tiles added: " + newTiles.Select(x => x.ToString()).Aggregate((x1, x2) => x1 + " " + x2));
+
         }
     }
 }
