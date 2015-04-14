@@ -1,0 +1,175 @@
+fileFormatVersion: 2
+guid: 6e0f4f7c79f82304f8664fafe1c8c42b
+timeCreated: 1429044204
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: ' 1'
+    100002: //RootNode
+    100004: audi_exhaust
+    100006: audi_front_lights
+    100008: audi_front_lights_inside
+    100010: audi_grill
+    100012: audi_rear_lights
+    100014: audi_rear_lights_inside
+    100016: audi_rear_panel
+    100018: audi_roof
+    100020: audi_side_windows
+    100022: audi_tyres_filling_01
+    100024: audi_tyres_filling_02
+    100026: audi_tyres_filling_03
+    100028: audi_tyres_filling_04
+    100030: audi_wheel_front_left
+    100032: audi_wheel_front_right
+    100034: audi_wheel_rear_left
+    100036: audi_wheel_rear_right
+    100038: tyre001
+    100040: tyre002
+    100042: tyre003
+    400000: ' 1'
+    400002: //RootNode
+    400004: audi_exhaust
+    400006: audi_front_lights
+    400008: audi_front_lights_inside
+    400010: audi_grill
+    400012: audi_rear_lights
+    400014: audi_rear_lights_inside
+    400016: audi_rear_panel
+    400018: audi_roof
+    400020: audi_side_windows
+    400022: audi_tyres_filling_01
+    400024: audi_tyres_filling_02
+    400026: audi_tyres_filling_03
+    400028: audi_tyres_filling_04
+    400030: audi_wheel_front_left
+    400032: audi_wheel_front_right
+    400034: audi_wheel_rear_left
+    400036: audi_wheel_rear_right
+    400038: tyre001
+    400040: tyre002
+    400042: tyre003
+    2300000: ' 1'
+    2300002: //RootNode
+    2300004: audi_exhaust
+    2300006: audi_front_lights
+    2300008: audi_front_lights_inside
+    2300010: audi_grill
+    2300012: audi_rear_lights
+    2300014: audi_rear_lights_inside
+    2300016: audi_rear_panel
+    2300018: audi_roof
+    2300020: audi_side_windows
+    2300022: audi_tyres_filling_01
+    2300024: audi_tyres_filling_02
+    2300026: audi_tyres_filling_03
+    2300028: audi_tyres_filling_04
+    2300030: audi_wheel_front_left
+    2300032: audi_wheel_front_right
+    2300034: audi_wheel_rear_left
+    2300036: audi_wheel_rear_right
+    2300038: tyre001
+    2300040: tyre002
+    2300042: tyre003
+    3300000: ' 1'
+    3300002: //RootNode
+    3300004: audi_exhaust
+    3300006: audi_front_lights
+    3300008: audi_front_lights_inside
+    3300010: audi_grill
+    3300012: audi_rear_lights
+    3300014: audi_rear_lights_inside
+    3300016: audi_rear_panel
+    3300018: audi_roof
+    3300020: audi_side_windows
+    3300022: audi_tyres_filling_01
+    3300024: audi_tyres_filling_02
+    3300026: audi_tyres_filling_03
+    3300028: audi_tyres_filling_04
+    3300030: audi_wheel_front_left
+    3300032: audi_wheel_front_right
+    3300034: audi_wheel_rear_left
+    3300036: audi_wheel_rear_right
+    3300038: tyre001
+    3300040: tyre002
+    3300042: tyre003
+    4300000: audi_body
+    4300002: audi_roof
+    4300004: audi_side_windows
+    4300006: audi_exhaust
+    4300008: audi_rear_panel
+    4300010: audi_rear_lights
+    4300012: audi_rear_lights_inside
+    4300014: audi_front_lights
+    4300016: audi_front_lights_inside
+    4300018: audi_wheel_rear_left
+    4300020: tyre001
+    4300022: audi_tyres_filling_02
+    4300024: audi_wheel_front_left
+    4300026: audi_tyres_filling_01
+    4300030: audi_wheel_front_right
+    4300032: tyre002
+    4300034: audi_tyres_filling_03
+    4300036: audi_wheel_rear_right
+    4300038: tyre003
+    4300040: audi_tyres_filling_04
+    4300042: audi_grill
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
