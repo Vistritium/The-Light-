@@ -102,6 +102,10 @@ public class PlayerControlScript : MonoBehaviour {
 		temp.y = 180;
 		transform.rotation = temp;
 
+		transform.Rotate(new Vector3(0, 90, 0));
+       
+        
+
 		var temp2 = transform.position;
 		temp2.y = transform.rotation.z * 5;
 		transform.position = temp2;
