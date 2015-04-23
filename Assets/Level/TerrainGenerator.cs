@@ -42,9 +42,9 @@ namespace Assets
 				//hazard2.transform.parent = newTile.transform;
 				//hazard2.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.right;
 				
-				var hazard3 = Instantiate (terrain);
-				hazard3.transform.parent = newTile.transform;
-				hazard3.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.left;
+				//var hazard3 = Instantiate (terrain);
+				//hazard3.transform.parent = newTile.transform;
+				//hazard3.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.left;
 
 				    var wall = Instantiate (this.wall);
 			    	wall.transform.parent = newTile.transform;

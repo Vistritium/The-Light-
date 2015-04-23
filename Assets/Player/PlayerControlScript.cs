@@ -49,6 +49,7 @@ public class PlayerControlScript : MonoBehaviour {
 	public StateTypes state = StateTypes.normal;
 
 	private GameObject cameraTarget;
+	private GameObject modelTarget;
 
 	public GameObject shot;
 	public Transform shotSpawn;
@@ -57,6 +58,7 @@ public class PlayerControlScript : MonoBehaviour {
 	void Start () {
 		//cameraTarget = GameObject.Find ("Player");
 		cameraTarget = transform.parent.gameObject;
+		modelTarget = GameObject.Find ("Model");
 
 		GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, forwardSpeed);
 
@@ -87,6 +89,10 @@ public class PlayerControlScript : MonoBehaviour {
 			}
 		}
 
+		#endregion
+
+		#region Rotations
+
 		// Rotate the car forward if it hit something:
 		rotation += rotationSpeed * Time.deltaTime;
 		rotationSpeed -= rotationForce * Time.deltaTime;
@@ -98,18 +104,26 @@ public class PlayerControlScript : MonoBehaviour {
 		}
 
 		var temp = transform.rotation;
-		temp.z = rotation;
-		temp.y = 180;
-		transform.rotation = temp;
+		//temp.x = rotation;
+		//temp.y = 270;
+		//temp.z = rotation;
+		//temp.w = rotation;
+		transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
 
-		transform.Rotate(new Vector3(0, 90, 0));
+		//transform.Rotate(new Vector3(0, 90, 0));
        
-        
 
 		var temp2 = transform.position;
-		temp2.y = transform.rotation.z * 5;
+		temp2.y = rotation * 0.05f;
 		transform.position = temp2;
 
+
+		// Rotate the model:
+		if (hp > 0)
+		{
+			modelTarget.transform.LookAt(modelTarget.transform.position - GetComponent<Rigidbody>().velocity - cameraTarget.GetComponent<CameraTargetScript>().speed * Vector3.forward);
+			modelTarget.transform.Rotate(new Vector3(0, 90, 0));
+		}
 
 		#endregion
 
