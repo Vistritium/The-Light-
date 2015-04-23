@@ -34,13 +34,13 @@ namespace Assets
 					hazard.transform.parent = newTile.transform;
 					hazard.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.right;
 
-				var hazard1 = Instantiate (terrain);
-				hazard1.transform.parent = newTile.transform;
-				hazard1.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.left;
+				//var hazard1 = Instantiate (terrain);
+				//hazard1.transform.parent = newTile.transform;
+				//hazard1.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.left;
 
-				var hazard2 = Instantiate (terrain);
-				hazard2.transform.parent = newTile.transform;
-				hazard2.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.right;
+				//var hazard2 = Instantiate (terrain);
+				//hazard2.transform.parent = newTile.transform;
+				//hazard2.transform.localPosition = UnityEngine.Random.Range(-4, 4) * Vector3.right;
 				
 				var hazard3 = Instantiate (terrain);
 				hazard3.transform.parent = newTile.transform;
@@ -48,11 +48,11 @@ namespace Assets
 
 				    var wall = Instantiate (this.wall);
 			    	wall.transform.parent = newTile.transform;
-					wall.transform.localPosition = UnityEngine.Random.Range(1, 1)  * Vector3.up + UnityEngine.Random.Range(5, 5) * Vector3.left;
+					wall.transform.localPosition = Vector3.up + UnityEngine.Random.Range(5, 5) * Vector3.left;
 					
 				var wall1 = Instantiate (this.wall);
 				wall1.transform.parent = newTile.transform;
-				wall1.transform.localPosition = UnityEngine.Random.Range(1, 1)  * Vector3.up + UnityEngine.Random.Range(5, 5) * Vector3.right;
+				wall1.transform.localPosition = Vector3.up + UnityEngine.Random.Range(5, 5) * Vector3.right;
 
 			}
 
