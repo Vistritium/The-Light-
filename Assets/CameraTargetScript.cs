@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraTargetScript : MonoBehaviour {
 	
@@ -13,6 +14,8 @@ public class CameraTargetScript : MonoBehaviour {
 	public float dashDampen = 10;
 	public float dashAcceleration = 20;
 	public float dashTimer = 0;
+	private int count;
+	public Text countText;
 
 	public enum CameraTargetStates{
 		normal,
@@ -25,7 +28,8 @@ public class CameraTargetScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
+		count = 0;
+		SetCountText (); 
 	}
 	
 	// Update is called once per frame
@@ -104,5 +108,21 @@ public class CameraTargetScript : MonoBehaviour {
 		speed = 0;
 		speedMax = 0;
 		speedAdditional = 0;
+	}
+
+	void OnTriggerEnter(Collider other) 
+	{
+		if (other.gameObject.tag == "Pick Up")
+		{
+			other.gameObject.SetActive (false);
+			count = count + 1;
+			SetCountText ();
+		}
+	}
+
+	void SetCountText ()
+	{
+		countText.text = "Punkty: " + count.ToString ();
+	
 	}
 }

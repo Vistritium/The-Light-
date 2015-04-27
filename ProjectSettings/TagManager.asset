@@ -10,6 +10,7 @@ TagManager:
   - DashPad
   - Tile
   - Boundary
+  - Pick Up
   layers:
   - Default
   - TransparentFX
