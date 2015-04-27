@@ -11,6 +11,7 @@ namespace Assets
 		public GameObject terrain;
 		public GameObject wall;
 		public GameObject jumper;
+		public GameObject pickUp;
 		System.Random rnd = new System.Random();
 	public int n;
 		// Use this for initialization
@@ -39,6 +40,11 @@ namespace Assets
 				wall1.transform.parent = newTile.transform;
 				wall1.transform.localPosition = Vector3.up + UnityEngine.Random.Range (5, 5) * Vector3.right;
 
+				var pickup1 = Instantiate (pickUp);
+				pickup1.transform.parent = newTile.transform;
+				pickup1.transform.localPosition = UnityEngine.Random.Range (-3, 3) * Vector3.right 
+					+ UnityEngine.Random.Range (1, 1) * Vector3.up
+						+ UnityEngine.Random.Range (3, 3) * Vector3.forward ;
 
 			}
 			// Spawnowanie przeszkod
