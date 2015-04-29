@@ -20,7 +20,10 @@ public class PlayerControlScript : MonoBehaviour {
 	public float hitDamage = 6;
 	public float hitStunDuration = 1;
 
+	public float powerUpDuration = 10;
+
 	public float stunTimer = 0;
+	public float poweredTimer = 0;
 
 	public float hp = 10;
 	public float hpMax = 10;
@@ -41,12 +44,15 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public enum StateTypes{
 		normal,
+		powered,
 		stunned
 	};
 
 	public int dashing = 0;
 
 	public StateTypes state = StateTypes.normal;
+
+	public int ringsCollected = 0;
 
 	private GameObject cameraTarget;
 	private GameObject modelTarget;
@@ -77,6 +83,16 @@ public class PlayerControlScript : MonoBehaviour {
 			hp += hpRegen * Time.deltaTime;
 			if (hp > hpMax)
 				hp = hpMax;
+		}
+
+		if (poweredTimer > 0)
+		{
+			poweredTimer -= Time.deltaTime;
+			if (poweredTimer <= 0)
+			{
+				poweredTimer = 0;
+				state = StateTypes.normal;
+			}
 		}
 
 		if (stunTimer > 0)
@@ -138,7 +154,7 @@ public class PlayerControlScript : MonoBehaviour {
 		if (enteredTriggerTag != "" && state != StateTypes.stunned)
 		{
 			// If you touched DashPad:
-			if (enteredTriggerTag == "DashPad")
+			if (enteredTriggerTag == "DashPad" && state != StateTypes.powered)
 			{
 				if (state == StateTypes.normal)
 				{
@@ -148,8 +164,23 @@ public class PlayerControlScript : MonoBehaviour {
 					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
 				}
 			}
+			// If you collected Audi ring:
+			else if (enteredTriggerTag == "Ring")
+			{
+				ringsCollected++;
+
+				if (ringsCollected >= 4)
+				{
+					ringsCollected = 0;
+
+					cameraTarget.GetComponent<CameraTargetScript> ().EnterAudi();
+
+					state = StateTypes.powered;
+					poweredTimer = powerUpDuration;
+				}
+			}
 			// If you hit a wall, check, which side and subtract hp:
-			else
+			else if (state != StateTypes.powered)
 			{
 				if (enteredTriggerTag == "MiddlePlayerCollider")
 				{
@@ -171,6 +202,10 @@ public class PlayerControlScript : MonoBehaviour {
 				stunTimer = hitStunDuration;
 
 				hp -= hitDamage;
+			}
+			else
+			{
+
 			}
 		}
 
@@ -246,7 +281,7 @@ public class PlayerControlScript : MonoBehaviour {
 				transform.position = new Vector3(transform.position.x, cameraTarget.transform.position.y, transform.position.z);
 				dashDistance = 0;
 				dashing = 0;
-				cameraTarget.GetComponent<CameraTargetScript> ().Dash();
+				//cameraTarget.GetComponent<CameraTargetScript> ().Dash();
 			}
 		}
 

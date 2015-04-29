@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class CameraTargetScript : MonoBehaviour {
 	
@@ -14,22 +13,22 @@ public class CameraTargetScript : MonoBehaviour {
 	public float dashDampen = 10;
 	public float dashAcceleration = 20;
 	public float dashTimer = 0;
-	private int count;
-	public Text countText;
-
+	public float audiTime = 10;
+	
+	private float savedTime = 0;
+	
 	public enum CameraTargetStates{
 		normal,
 		dashStart,
 		dash,
 		end
 	};
-
+	
 	public CameraTargetStates state = CameraTargetStates.normal;
 	
 	// Use this for initialization
 	void Start () {
-		count = 0;
-		SetCountText (); 
+		
 	}
 	
 	// Update is called once per frame
@@ -38,19 +37,19 @@ public class CameraTargetScript : MonoBehaviour {
 		// Speed up progressively over time:
 		if (speed < speedMax)
 			speed += speedAcceleration * Time.deltaTime;
-
+		
 		// If player is ded, slow down:
 		if (state == CameraTargetStates.end)
 		{
 			speed -= deadDampen * Time.deltaTime;
 			if (speed < 0)
 				speed = 0;
-
+			
 			speedAdditional -= deadDampen * Time.deltaTime;
 			if (speedAdditional < 0)
 				speedAdditional = 0;
 		}
-
+		
 		// Deal with dashing mechanic:
 		if (state == CameraTargetStates.dashStart)
 		{
@@ -58,9 +57,15 @@ public class CameraTargetScript : MonoBehaviour {
 			{
 				speedAdditional += dashAcceleration * Time.deltaTime;
 				if (speedAdditional > dashSpeed)
+				{
 					speedAdditional = dashSpeed;
+					
+					state = CameraTargetStates.dash;
+					dashTimer = savedTime;
+				}
 			}
 		}
+		// Aka. if you're in the middle of dashing:
 		else if (dashTimer > 0)
 		{
 			dashTimer -= Time.deltaTime;
@@ -69,6 +74,7 @@ public class CameraTargetScript : MonoBehaviour {
 				dashTimer = 0;
 			}
 		}
+		// Aka. if you're not dashing and have to lose additional speed:
 		else if (speedAdditional > 0)
 		{
 			speedAdditional -= dashDampen * Time.deltaTime;
@@ -78,22 +84,34 @@ public class CameraTargetScript : MonoBehaviour {
 				state = CameraTargetStates.normal;
 			}
 		}
-
+		
 		this.transform.position = this.transform.position + Time.deltaTime*Vector3.forward*(speed + speedAdditional);
 	}
-
-	public void StartDashing()
+	
+	public void StartDashing(float arg0 = -1f)
 	{
 		state = CameraTargetStates.dashStart;
+		
+		if (arg0 < 0)
+			arg0 = dashTime;
+		
+		savedTime = arg0;
 	}
-
+	
+	public void EnterAudi()
+	{
+		state = CameraTargetStates.dashStart;
+		
+		savedTime = audiTime;
+	}
+	
 	public void Dash()
 	{
 		state = CameraTargetStates.dash;
 		//speedAdditional = dashSpeed;
 		dashTimer = dashTime;
 	}
-
+	
 	public void EndMoving()
 	{
 		if (state != CameraTargetStates.end)
@@ -102,27 +120,11 @@ public class CameraTargetScript : MonoBehaviour {
 			state = CameraTargetStates.end;
 		}
 	}
-
+	
 	public void Stop()
 	{
 		speed = 0;
 		speedMax = 0;
 		speedAdditional = 0;
-	}
-
-	void OnTriggerEnter(Collider other) 
-	{
-		if (other.gameObject.tag == "Pick Up")
-		{
-			other.gameObject.SetActive (false);
-			count = count + 1;
-			SetCountText ();
-		}
-	}
-
-	void SetCountText ()
-	{
-		countText.text = "Punkty: " + count.ToString ();
-	
 	}
 }

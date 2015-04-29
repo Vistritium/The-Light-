@@ -16,6 +16,12 @@ public class PlayerColliderScript : MonoBehaviour {
 		{
 			// Do whole lot of nothing
 		}
+		else if (other.gameObject.tag == "Ring")
+		{
+			PlayerControlScript temp = transform.parent.gameObject.GetComponent<PlayerControlScript> ();
+			temp.enteredTriggerTag = other.gameObject.tag;
+			Destroy(other.gameObject);
+		}
 		else
 		{
 			PlayerControlScript temp = transform.parent.gameObject.GetComponent<PlayerControlScript> ();
