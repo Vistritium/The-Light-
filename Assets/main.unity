@@ -376,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 283114017}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20.5200005, y: .810000002, z: 9.57999992}
-  m_LocalScale: {x: 4, y: 2, z: 2}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1203,6 +1203,7 @@ MonoBehaviour:
   jumper: {fileID: 119144, guid: 70f001467ddef5e449fc0e89f52fd85b, type: 2}
   pickUp: {fileID: 123080, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
   n: 0
+  p: 0
 --- !u!1 &808061021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   speedMax: 50
-  speedAcceleration: 5
+  speedAcceleration: 3
   speedAdditional: 0
   deadDampen: 10
   dashSpeed: 20
@@ -2331,6 +2332,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6500214, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 123080, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
