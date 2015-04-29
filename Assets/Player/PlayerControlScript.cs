@@ -34,6 +34,8 @@ public class PlayerControlScript : MonoBehaviour {
 	public float rotation = 0;
 	public float rotationSpeed = 0;
 
+	public float carLength = 10;
+
 	public float fireRate;
 
 	public string enteredTriggerTag = "";
@@ -41,6 +43,8 @@ public class PlayerControlScript : MonoBehaviour {
 	private int turnPressed = 0;
 
 	private float nextFire = 0;
+
+	private bool carStopped = false;
 
 	public enum StateTypes{
 		normal,
@@ -151,7 +155,7 @@ public class PlayerControlScript : MonoBehaviour {
 		Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
 
 		// React accordingly if you hit something.
-		if (enteredTriggerTag != "" && state != StateTypes.stunned)
+		if (enteredTriggerTag != "" && state != StateTypes.stunned && carStopped == false)
 		{
 			// If you touched DashPad:
 			if (enteredTriggerTag == "DashPad" && state != StateTypes.powered)
@@ -188,6 +192,7 @@ public class PlayerControlScript : MonoBehaviour {
 					cameraTarget.GetComponent<CameraTargetScript> ().Stop();
 
 					rotationSpeed = rotationStart;
+					carStopped = true;
 				}
 				else if (enteredTriggerTag == "LeftPlayerCollider")
 				{
