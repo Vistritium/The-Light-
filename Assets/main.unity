@@ -1588,6 +1588,21 @@ MonoBehaviour:
   pickUp: {fileID: 123080, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
   n: 0
   p: 0
+  x01: 3
+  y01: .5
+  z01: 2
+  x02: -3
+  y02: .5
+  z02: 0
+  x11: 3
+  y11: 0
+  z11: 0
+  x21: 0
+  y21: 0
+  z21: 0
+  x31: 0
+  y31: 0
+  z31: 0
 --- !u!1 &808061021
 GameObject:
   m_ObjectHideFlags: 0

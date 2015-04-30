@@ -15,6 +15,26 @@ namespace Assets
 		System.Random rnd = new System.Random();
 	public int n;
 		public int p;
+
+		//ustawienia przeszkod
+		public int x01;
+		public float y01;
+		public int z01;
+		public int x02;
+		public float y02;
+		public int z02;
+		public int x11;
+		public int y11;
+		public int z11;
+		public int x21;
+		public int y21;
+		public int z21;
+		public int x31;
+		public int y31;
+		public int z31;
+
+
+
 		// Use this for initialization
 		private void Start()
 		{
@@ -46,7 +66,7 @@ namespace Assets
 			
 			foreach (var newTile in newTiles) {
 
-					 n = rnd.Next (0,7 );	
+					 n = rnd.Next (0,1 );	
 				if (n == 0) {
 					// *     *
 					// *     *
@@ -55,13 +75,13 @@ namespace Assets
 					//lewa strona
 					var hazard = Instantiate (terrain);
 					hazard.transform.parent = newTile.transform;
-					hazard.transform.localPosition = -4 * Vector3.right
-							+ 0.5f*Vector3.up;
+					hazard.transform.localPosition = x01 * Vector3.right
+							+ y01*Vector3.up + z01*Vector3.forward;
 
 					var hazard1 = Instantiate (terrain);
 					hazard1.transform.parent = newTile.transform;
-						hazard1.transform.localPosition = -3 * Vector3.right + 0.5f*Vector3.up;
-
+						hazard1.transform.localPosition = x02 * Vector3.right + y02*Vector3.up + z02*Vector3.forward;
+						/*
 					var hazard2 = Instantiate (terrain);
 					hazard2.transform.parent = newTile.transform;
 					hazard2.transform.localPosition = -4* Vector3.right 
@@ -92,8 +112,9 @@ namespace Assets
 					p = 0;
 					}
 					else continue;
-
-				} else if (n == 1) {
+*/
+					} }
+						else if (n == 1) {
 
 					//        *  
 					//      ***
