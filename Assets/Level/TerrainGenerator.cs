@@ -23,16 +23,35 @@ namespace Assets
 		public int x02;
 		public float y02;
 		public int z02;
-		public int x11;
-		public int y11;
-		public int z11;
-		public int x21;
-		public int y21;
-		public int z21;
-		public int x31;
-		public int y31;
-		public int z31;
+		public int x03;
+		public float y03;
+		public int z03;
+		public int x04;
+		public float y04;
+		public int z04;
+		public int x05;
+		public float y05;
+		public int z05;
 
+		public int x11;
+		public float y11;
+		public int z11;
+		public int x12;
+		public float y12;
+		public int z12;
+		public int x13;
+		public float y13;
+		public int z13;
+
+		public int x21;
+		public float y21;
+		public int z21;
+		public int x22;
+		public float y22;
+		public int z22;
+		public int x23;
+		public float y23;
+		public int z23;
 
 
 		// Use this for initialization
@@ -66,13 +85,9 @@ namespace Assets
 			
 			foreach (var newTile in newTiles) {
 
-					 n = rnd.Next (0,1 );	
+					 n = rnd.Next (0,3);	
 				if (n == 0) {
-					// *     *
-					// *     *
-					//**_____**
-					  if (p!=2) {
-					//lewa strona
+
 					var hazard = Instantiate (terrain);
 					hazard.transform.parent = newTile.transform;
 					hazard.transform.localPosition = x01 * Vector3.right
@@ -81,105 +96,67 @@ namespace Assets
 					var hazard1 = Instantiate (terrain);
 					hazard1.transform.parent = newTile.transform;
 						hazard1.transform.localPosition = x02 * Vector3.right + y02*Vector3.up + z02*Vector3.forward;
-						/*
-					var hazard2 = Instantiate (terrain);
-					hazard2.transform.parent = newTile.transform;
-					hazard2.transform.localPosition = -4* Vector3.right 
-							+  1 * Vector3.forward + 0.5f*Vector3.up;
 
-					var hazard3 = Instantiate (terrain);
-					hazard3.transform.parent = newTile.transform;
-						hazard3.transform.localPosition = -3 * Vector3.right 
-							+ 1 * Vector3.forward + 0.5f*Vector3.up;
+						var hazard2 = Instantiate (terrain);
+						hazard2.transform.parent = newTile.transform;
+						hazard2.transform.localPosition = x03 * Vector3.right + y03*Vector3.up + z03*Vector3.forward;
+					/*
+						var hazard3 = Instantiate (terrain);
+						hazard3.transform.parent = newTile.transform;
+						hazard3.transform.localPosition = x04 * Vector3.right + y04*Vector3.up + z04*Vector3.forward;
 
-					var hazard4 = Instantiate (terrain);
-					hazard4.transform.parent = newTile.transform;
-					hazard4.transform.localPosition = -3 * Vector3.right 
-							+ 2 * Vector3.forward + 0.5f*Vector3.up;
-					// prawa strona
-					var hazard5 = Instantiate (terrain);
-					hazard5.transform.parent = newTile.transform;
-						hazard5.transform.localPosition = 4 * Vector3.right + 0.5f*Vector3.up;
-					
-					var hazard6 = Instantiate (terrain);
-					hazard6.transform.parent = newTile.transform;
-						hazard6.transform.localPosition = 3 * Vector3.right + 0.5f*Vector3.up;
-					
-					var hazard7 = Instantiate (terrain);
-					hazard7.transform.parent = newTile.transform;
-					hazard7.transform.localPosition = 3 * Vector3.right 
-							+ 1* Vector3.forward + 0.5f*Vector3.up;
-					p = 0;
-					}
-					else continue;
+						
+						var hazard5 = Instantiate (terrain);
+						hazard5.transform.parent = newTile.transform;
+						hazard5.transform.localPosition = x05 * Vector3.right + y05*Vector3.up + z05*Vector3.forward;
 */
-					} }
+					p=0;
+					} 
 						else if (n == 1) {
-
-					//        *  
-					//      ***
-					//______***  
-					//prawa strona
-					var hazard1 = Instantiate (terrain);
-					hazard1.transform.parent = newTile.transform;
-					hazard1.transform.localPosition = 4 * Vector3.right + 0.5f*Vector3.up;
-
 					var hazard = Instantiate (terrain);
 					hazard.transform.parent = newTile.transform;
-					hazard.transform.localPosition =  3 * Vector3.right + 0.5f*Vector3.up;
-
+					hazard.transform.localPosition = x11 * Vector3.right
+						+ y11*Vector3.up + z11*Vector3.forward;
+					
+					var hazard1 = Instantiate (terrain);
+					hazard1.transform.parent = newTile.transform;
+					hazard1.transform.localPosition = x12 * Vector3.right + y12*Vector3.up + z12*Vector3.forward;
+					
 					var hazard2 = Instantiate (terrain);
 					hazard2.transform.parent = newTile.transform;
-					hazard2.transform.localPosition = 4 * Vector3.right 
-						+ 1 * Vector3.forward + 0.5f*Vector3.up;
-
-					var hazard3 = Instantiate (terrain);
-					hazard3.transform.parent = newTile.transform;
-					hazard3.transform.localPosition = 3 * Vector3.right 
-						+ 1 * Vector3.forward + 0.5f*Vector3.up;
-
-					var hazard4 = Instantiate (terrain);
-					hazard4.transform.parent = newTile.transform;
-					hazard4.transform.localPosition = UnityEngine.Random.Range (3, 3) * Vector3.right 
-						+ 2 * Vector3.forward + 0.5f*Vector3.up;
-					//lewa strona
+					hazard2.transform.localPosition = x13 * Vector3.right + y13*Vector3.up + z13*Vector3.forward;
 					/*
-					var hazard6 = Instantiate (terrain);
-					hazard6.transform.parent = newTile.transform;
-					hazard6.transform.localPosition = UnityEngine.Random.Range (1, 1) * Vector3.left; 
+						var hazard3 = Instantiate (terrain);
+						hazard3.transform.parent = newTile.transform;
+						hazard3.transform.localPosition = x14 * Vector3.right + y14*Vector3.up + z14*Vector3.forward;
 
-					var hazard5 = Instantiate (terrain);
-					hazard5.transform.parent = newTile.transform;
-					hazard5.transform.localPosition = UnityEngine.Random.Range (1, 1) * Vector3.left 
-						+ UnityEngine.Random.Range (1, 1) * Vector3.forward;
-						*/
-					p = 1;
+						
+						var hazard5 = Instantiate (terrain);
+						hazard5.transform.parent = newTile.transform;
+						hazard5.transform.localPosition = x15 * Vector3.right + y15*Vector3.up + z15*Vector3.forward;
+*/
+					p=1;
 				}
+
 				else if (n == 2) {
 					//
 					// ___*
 					// __**
 					// __*
 
+					var hazard = Instantiate (terrain);
+					hazard.transform.parent = newTile.transform;
+					hazard.transform.localPosition = x21 * Vector3.right
+						+ y21*Vector3.up + z21*Vector3.forward;
+					
 					var hazard1 = Instantiate (terrain);
 					hazard1.transform.parent = newTile.transform;
-					hazard1.transform.localPosition =  0 * Vector3.left + 0.5f*Vector3.up;
-						
-
-
+					hazard1.transform.localPosition = x22 * Vector3.right + y22*Vector3.up + z22*Vector3.forward;
+					
 					var hazard2 = Instantiate (terrain);
 					hazard2.transform.parent = newTile.transform;
-					hazard2.transform.localPosition = 1 * Vector3.left + 0.5f*Vector3.up;
+					hazard2.transform.localPosition = x23 * Vector3.right + y23*Vector3.up + z23*Vector3.forward;
 
-					var hazard3 = Instantiate (terrain);
-					hazard3.transform.parent = newTile.transform;
-					hazard3.transform.localPosition = 0 * Vector3.left
-						+ 1* Vector3.forward  + 0.5f*Vector3.up;
-
-					var hazard4 = Instantiate (terrain);
-					hazard4.transform.parent = newTile.transform;
-					hazard4.transform.localPosition = 1 * Vector3.left
-						+ 1* Vector3.back  + 0.5f*Vector3.up;
 					
 					p = 2;
 				}
