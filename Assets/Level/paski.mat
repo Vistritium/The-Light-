@@ -8,9 +8,9 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: paski
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 6
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -125,7 +125,7 @@ Material:
       data:
         first:
           name: _Mode
-        second: 0
+        second: 1
       data:
         first:
           name: _Metallic

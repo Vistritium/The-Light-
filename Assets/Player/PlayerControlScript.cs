@@ -28,6 +28,9 @@ public class PlayerControlScript : MonoBehaviour {
 	public float hp = 10;
 	public float hpMax = 10;
 	public float hpRegen = 5;
+	public Texture2D healthTexture;
+	private float barWidth;
+	private float barHeight;
 
 	public float rotationForce = 5;
 	public float rotationStart = 10;
@@ -63,6 +66,22 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public GameObject shot;
 	public Transform shotSpawn;
+
+	void Awake()
+	{
+		barHeight = Screen.height * 0.04f;
+		barWidth = barHeight * 10.0f;
+		
+	}
+
+	void OnGUI()
+	{
+		GUI.DrawTexture(new Rect(Screen.width - barWidth - 10,
+		                         Screen.height - barHeight - 300,
+		                         hp * barWidth / hpMax,
+		                         barHeight),
+		                healthTexture);
+	}
 
 	// Use this for initialization
 	void Start () {
