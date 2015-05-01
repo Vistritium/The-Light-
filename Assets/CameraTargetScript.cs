@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraTargetScript : MonoBehaviour {
-	
+	public string enteredTriggerTag = "";
 	public float speed = 5;
 	public float speedMax = 10;
 	public float speedAcceleration = 0.1f;
@@ -23,9 +23,36 @@ public class CameraTargetScript : MonoBehaviour {
 		dash,
 		end
 	};
+
+	// Transform of the camera to shake. Grabs the gameObject's transform
+	// if null.
+	public Transform camTransform;
+	
+	// How long the object should shake for.
+	public float shake = 0f;
+	
+	// Amplitude of the shake. A larger value shakes the camera harder.
+	public float shakeAmount = 0.7f;
+	public float decreaseFactor = 1.0f;
+	
+	Vector3 originalPos;
+
 	
 	public CameraTargetStates state = CameraTargetStates.normal;
+
+	void Awake()
+	{
+		if (enteredTriggerTag == "MiddlePlayerCollider")
+		{
+			camTransform = GetComponent(typeof(Transform)) as Transform;
+		}
+	}
 	
+	void OnEnable()
+	{
+		originalPos = camTransform.localPosition;
+	}
+
 	// Use this for initialization
 	void Start () {
 		
@@ -34,6 +61,18 @@ public class CameraTargetScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		/*
+		if (shake > 0)
+		{
+			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+			
+			shake -= Time.deltaTime * decreaseFactor;
+		}
+		else
+		{
+			shake = 0f;
+			camTransform.localPosition = originalPos;
+		}*/
 		// Speed up progressively over time:
 		if (speed < speedMax)
 			speed += speedAcceleration * Time.deltaTime;
