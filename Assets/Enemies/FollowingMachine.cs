@@ -20,6 +20,9 @@ public class FollowingMachine : MonoBehaviour {
 	private Vector3 initialPosition;
 
 	public event Action onPosition;
+
+
+	bool removing = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -36,9 +39,38 @@ public class FollowingMachine : MonoBehaviour {
 		this.oscilate = true;
 		oscilator =  new Oscilator (-3, 4, 1f);
 	}
+
+
+	private void Remove(){
+		Debug.Log ("Removing FollowingMachine!");
+		removing = true;
+	}
+
+	private void Removing(){
+		if (!removing) {
+			return;
+		}
+
+		initialPosition = initialPosition + Vector3.back * Time.deltaTime * 5;
+
+
+
+		if (!this.gameObject.GetComponentInChildren<Renderer> ().isVisible) {
+			Debug.Log("Following machine removed!");
+			Destroy(this.gameObject);
+		}
+
+
+
+	}
+
+
+
 	
 	// Update is called once per frame
 	void Update () {
+
+		Removing ();
 
 		var additionalPositionVector = Vector3.zero;
 

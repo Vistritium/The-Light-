@@ -126,8 +126,12 @@ public class CameraTargetScript : MonoBehaviour {
 		
 		this.transform.position = this.transform.position + Time.deltaTime*Vector3.forward*(speed + speedAdditional);
 	}
+
+	public void StartDashing(){
+		StartDashing (-1f);
+	}
 	
-	public void StartDashing(float arg0 = -1f)
+	public void StartDashing(float arg0)
 	{
 		state = CameraTargetStates.dashStart;
 		

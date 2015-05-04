@@ -37,8 +37,10 @@ public class LaserShootingComponent : MonoBehaviour {
 		if (!firing && firingTimeProvider.ShouldFire ()) {
 			Debug.Log("Firing");
 			firing = true;
-			var from = player.transform.position + Random.Range(-5, 5) * Vector3.right + Vector3.back * 10f;
-			var to = player.transform.position + Vector3.forward * 20f + Random.Range(-5, 5) * Vector3.right;
+
+			var from = player.transform.position + Vector3.forward * 60f + Random.Range(-5, 5) * Vector3.right;
+			var to = player.transform.position + Random.Range(-5, 5) * Vector3.right + Vector3.back * 10f;
+
 
 			localPlaceFrom = this.transform.InverseTransformPoint(from);
 			localPlaceTo = this.transform.InverseTransformPoint(to);

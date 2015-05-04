@@ -47,6 +47,8 @@ public class PlayerControlScript : MonoBehaviour {
 
 	private float nextFire = 0;
 
+	bool dead = false;
+
 	private bool carStopped = false;
 
 	public enum StateTypes{
@@ -318,21 +320,38 @@ public class PlayerControlScript : MonoBehaviour {
 			tempSpeed [2] = maxForwardSpeed;
 		}*/
 
+
+	
 		// If you are dead, do something:
 		if (hp <= 0)
 		{
 			//tempSpeed[1] = 4;
 			cameraTarget.GetComponent<CameraTargetScript> ().EndMoving();
 
+
 			// Stop dashing:
 			dashing = 0;
 
 			tempSpeed[2] = 0;
+
+			if(!dead){
+				DeadOnce();
+			}
+			dead = true;
+			
 		}
 
 		// After speed calculations have been made, apply values from temp variable to real speed vector:
 		GetComponent<Rigidbody>().velocity = tempSpeed;
 
 		#endregion
+
+	
+	}
+
+
+	//called ONCE when player is dead
+	private void DeadOnce(){
+		CameraShake.ShakeCamera ();
 	}
 }

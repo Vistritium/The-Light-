@@ -8,6 +8,7 @@ namespace AssemblyCSharp
 	{
 
 		bool fire = false;
+		bool removing = false;
 
 		void Awake(){
 			InvokeRepeating ("SetFire", 1f, 3f);
@@ -18,12 +19,15 @@ namespace AssemblyCSharp
 			fire = true;
 		}
 
-
+		private void Remove(){
+			removing = true;
+			Debug.Log ("Shooting for following machine disabled");
+		}
 
 
 
 		public virtual bool ShouldFire(){
-			if (fire) {
+			if (fire && !removing) {
 				fire = false;
 				return true;
 			}
