@@ -127,16 +127,16 @@ namespace Assets
 		private void NewTilesAdded(List<GameObject> newTiles)
 		{ 	
 			// Spawn side walls:
-			foreach (var newTile in newTiles) {
-				var wall = Instantiate (this.wall);
-				wall.transform.parent = newTile.transform;
-				wall.transform.localPosition = Vector3.up + 6 * Vector3.left;
-				
-				var wall1 = Instantiate (this.wall);
-				wall1.transform.parent = newTile.transform;
-				wall1.transform.localPosition = Vector3.up + 6 * Vector3.right;
-				
-			}
+//			foreach (var newTile in newTiles) {
+//				var wall = Instantiate (this.wall);
+//				wall.transform.parent = newTile.transform;
+//				wall.transform.localPosition = Vector3.up + 6 * Vector3.left;
+//				
+//				var wall1 = Instantiate (this.wall);
+//				wall1.transform.parent = newTile.transform;
+//				wall1.transform.localPosition = Vector3.up + 6 * Vector3.right;
+//				
+//			}
 			
 			
 			foreach (var newTile in newTiles)

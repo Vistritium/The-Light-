@@ -1214,7 +1214,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 494752, guid: ead275d59a7d28f4e80874eee2488d04, type: 2}
       propertyPath: m_LocalPosition.z
-      value: .0700000003
+      value: -26.9599991
       objectReference: {fileID: 0}
     - target: {fileID: 494752, guid: ead275d59a7d28f4e80874eee2488d04, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1262,6 +1262,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 113344, guid: ead275d59a7d28f4e80874eee2488d04, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327656, guid: ead275d59a7d28f4e80874eee2488d04, type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1409,7 +1413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ececa6f9456b7c14ba39a3af9c981638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicTerrain: {fileID: 113344, guid: ead275d59a7d28f4e80874eee2488d04, type: 2}
+  basicTerrain: {fileID: 190456, guid: 7d81bfe031bc9084983dfd5e1a332e8d, type: 2}
+  basicWall: {fileID: 190400, guid: e452865743523ab44a4613cb8f17fda6, type: 2}
+  wallType1: {fileID: 165222, guid: df463f4d995012d48bcdbdf4585c0308, type: 2}
+  wallType2: {fileID: 184574, guid: 2400a33e59cb9934883428810d64fcb1, type: 2}
+  wallType1ChancePercent: 35
+  wallType2ChancePercent: 18
 --- !u!114 &804580364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1586,7 +1595,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 469588, guid: 1dc29a32f17540f40aadd4ee5b6272ce, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 469588, guid: 1dc29a32f17540f40aadd4ee5b6272ce, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2024,7 +2033,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 404568, guid: 70f001467ddef5e449fc0e89f52fd85b, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 119144, guid: 70f001467ddef5e449fc0e89f52fd85b, type: 2}
       propertyPath: m_Name
@@ -2145,7 +2154,7 @@ Transform:
   - {fileID: 804580362}
   - {fileID: 1576626344}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &1269585048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2796,7 +2805,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464872, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6500214, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
       propertyPath: m_Enabled
