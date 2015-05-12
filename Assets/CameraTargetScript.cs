@@ -14,6 +14,8 @@ public class CameraTargetScript : MonoBehaviour {
 	public float dashAcceleration = 20;
 	public float dashTimer = 0;
 	public float audiTime = 10;
+
+	private PlayerControlScript player;
 	
 	private float savedTime = 0;
 	
@@ -55,7 +57,7 @@ public class CameraTargetScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		player = GameObject.Find ("Audi").GetComponent<PlayerControlScript>();
 	}
 	
 	// Update is called once per frame
@@ -111,6 +113,7 @@ public class CameraTargetScript : MonoBehaviour {
 			if (dashTimer <= 0)
 			{
 				dashTimer = 0;
+				player.EndDashEffects();
 			}
 		}
 		// Aka. if you're not dashing and have to lose additional speed:

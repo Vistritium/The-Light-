@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class PlayerControlScript : MonoBehaviour {
 
@@ -65,6 +66,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	private GameObject cameraTarget;
 	private GameObject modelTarget;
+	private TrailRenderer[] trails;
 
 	public GameObject shot;
 	public Transform shotSpawn;
@@ -87,6 +89,8 @@ public class PlayerControlScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		AssetDatabase.Refresh();
+
 		//cameraTarget = GameObject.Find ("Player");
 		cameraTarget = transform.parent.gameObject;
 		modelTarget = GameObject.Find ("Model");
@@ -94,6 +98,11 @@ public class PlayerControlScript : MonoBehaviour {
 		GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, forwardSpeed);
 
 		transform.position = cameraTarget.transform.position;
+
+		trails = new TrailRenderer[2];
+
+		trails [0] = GameObject.Find ("Trail1").GetComponent<TrailRenderer>();
+		trails [1] = GameObject.Find ("Trail2").GetComponent<TrailRenderer>();
 	}
 
 
@@ -187,6 +196,7 @@ public class PlayerControlScript : MonoBehaviour {
 					tempSpeed[2] = dashLocalSpeed;
 
 					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
+					ApplyDashEffects();
 				}
 			}
 			// If you collected Audi ring:
@@ -346,7 +356,18 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#endregion
 
-	
+	}
+
+	public void ApplyDashEffects()
+	{
+		for (int i = 0; i < 2; i++)
+			trails [i].time = 0.1f;
+	}
+
+	public void EndDashEffects()
+	{
+		for (int i = 0; i < 2; i++)
+			trails [i].time = 0f;
 	}
 
 

@@ -22,7 +22,7 @@ public class UnitsManager : MonoBehaviour {
 
 
 		Defer.DeferAction (() => {
-			SpawnLaserMachine (LaserMachineType.SHORT_DURATION);
+			//SpawnLaserMachine (LaserMachineType.SHORT_DURATION);
 		}, 5.0f);
 
 	}

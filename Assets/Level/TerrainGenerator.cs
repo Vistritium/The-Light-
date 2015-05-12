@@ -14,11 +14,13 @@ namespace Assets
 		public GameObject pickUp;
 		public GameObject dashPad;
 		public GameObject audiRing;
+		public GameObject rail;
 		System.Random rnd = new System.Random();
 		public int n;
 		public int p;
 		
 		private CameraTargetScript cameraScript;
+		private UnitsManager unitManager;
 		
 		/*
 		//ustawienia przeszkod
@@ -38,20 +40,10 @@ namespace Assets
 		public int y31;
 		public int z31;
 		*/
-		
+
 		public float[,,] smallObstacles;
 		public int[] smallObstacleNumbers;
 		public int smallObstaclesAmount;
-		
-		public float path = 1;
-		public float pathMin = 1;
-		public float pathMax = 7;
-		public float pathSpeed = 0;
-		public float pathAcceleration = 2;
-		public float pathMaxTurnSpeed = 0.5f;
-		public float pathWidth = 3;
-		public int pathTimerMin = 5;
-		public int pathTimerMax = 10;
 		
 		public int obstacleDistMin = 6;
 		public int obstacleDistMax = 15;
@@ -67,6 +59,18 @@ namespace Assets
 		public int dashPadDistanceMin = 50;
 		public int dashPadDistanceMax = 200;
 		public int dashPadCounter = 500;
+
+		public int opponentDistanceMin = 1000;
+		public int opponentDistanceMax = 1500;
+		public int timeWithOpponent = 500;
+		public int opponentCounter = 0;
+
+		public int railLength = 10;
+		public int railExtraDist = 50;
+		public int railCounter = 0;
+		public Vector3 railOffset;
+
+		public int changedStateCounter = 0;
 		
 		public int obstacleCounter = 50;
 		
@@ -75,6 +79,14 @@ namespace Assets
 		
 		private float[] paths;
 		public int[] pathsCounters;
+
+		public enum GeneratorStates
+		{
+			normal,
+			enemy
+		}
+
+		public GeneratorStates state = GeneratorStates.normal;
 		
 		// Use this for initialization
 		private void Start()
@@ -98,7 +110,9 @@ namespace Assets
 			smallObstaclesAmount = 3;
 			
 			cameraScript = GameObject.Find ("Player").GetComponent<CameraTargetScript>();
-			
+			unitManager = GameObject.Find ("Systems").GetComponent<UnitsManager>();
+
+			opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
 		}
 		
 		// Update is called once per frame
@@ -115,11 +129,11 @@ namespace Assets
 			foreach (var newTile in newTiles) {
 				var wall = Instantiate (this.wall);
 				wall.transform.parent = newTile.transform;
-				wall.transform.localPosition = Vector3.up + UnityEngine.Random.Range (6, 6) * Vector3.left;
+				wall.transform.localPosition = Vector3.up + 6 * Vector3.left;
 				
 				var wall1 = Instantiate (this.wall);
 				wall1.transform.parent = newTile.transform;
-				wall1.transform.localPosition = Vector3.up + UnityEngine.Random.Range (6, 6) * Vector3.right;
+				wall1.transform.localPosition = Vector3.up + 6 * Vector3.right;
 				
 			}
 			
@@ -165,110 +179,66 @@ namespace Assets
 				if (pathsCounters[i] > 0)
 					pathsCounters[i]++;
 			}
-			
+
+			if (opponentCounter > 0)
+			{
+				opponentCounter--;
+
+				if (opponentCounter == 0)
+				{	
+					changedStateCounter = timeWithOpponent;
+					state = GeneratorStates.enemy;
+
+					unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.SHORT_DURATION);
+				}
+			}
+
+			if (changedStateCounter > 0)
+			{
+				changedStateCounter--;
+
+				if (changedStateCounter == 0)
+				{
+					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
+					state = GeneratorStates.normal;
+
+					//unitManager.newLaserMachine.SendMessage("Remove");
+				}
+			}
+
+			if (opponentCounter < railExtraDist)
+			{
+				railCounter--;
+
+				if (railCounter <= 0)
+				{
+					CreateRailSegment (tile, railOffset, step);
+					railCounter = railLength;
+				}
+			}
+			else
+			{
+				railCounter = 0;
+			}
+
+
 			#region Set obstacles[]' values, where new obstacles should be
 			
 			// If it is time to place an obstacle, do it:
 			if (obstacleCounter == 0)
 			{
-				// Firstly, reset the counter:
-				obstacleCounter = UnityEngine.Random.Range(obstacleDistMin, obstacleDistMax);
-				
 				bool[] obstacles = new bool[] {false, false, false};
-				bool done = false;
-				
-				// Sum up, how many driving routes are there:
-				int sum = 0;
-				
-				for (i = 0; i < 3; i++)
-					if (pathsCounters[i] > obstacleFreeTime)
-						sum++;
-				
-				// If exactly two paths are free, occupy one of them:
-				if (sum == 2)
-					for (i = 0; i < 2; i++)
+
+				switch (state)
 				{
-					if (pathsCounters[i] > obstacleFreeTime && pathsCounters[i+1] > obstacleFreeTime)
-					{
-						obstacles[i + UnityEngine.Random.Range(0, 2)] = true;
-						done = true;
-						
-						for (j = 0; j < 3; j++)
-						{
-							if (pathsCounters[j] <= obstacleFreeTime)
-								obstacles[j] = true;
-						}
-					}
+				case GeneratorStates.normal:
+					obstacles = PlacementAlgorithm1(obstacles);
+					break;
+				case GeneratorStates.enemy:
+					obstacles = PlacementAlgorithm2(obstacles);
+					break;
 				}
-				
-				// Else, if two paths on the sides are free, do nothing .:
-				if (done == false && pathsCounters[0] > obstacleFreeTime && pathsCounters[2] > obstacleFreeTime && pathsCounters[1]  <= obstacleFreeTime)
-				{
-					//if (UnityEngine.Random.Range(0, 2) == 1)
-					//	obstacles[1] = true;
-					
-					done = true;
-				}
-				
-				// If you have one pathway, that player had to take, create one obstacle around it:
-				if (done == false && sum == 1)
-				{
-					j = UnityEngine.Random.Range(0, 3 - sum);
-					i = 0;
-					while (done == false && i < 3)
-					{
-						if (pathsCounters[i] <= obstacleFreeTime)
-						{
-							if (j == 0)
-							{
-								//sum--;
-								obstacles[i] = true;
-								done = true;
-							}
-							else
-								j--;
-						}
-						
-						i++;
-					}
-					
-					done = true;
-				}
-				
-				// If you have free field, create one or two obstacles:
-				if (done == false)
-				{
-					if (UnityEngine.Random.Range(0, 2) == 1)
-					{
-						// Place one obstacle:
-						obstacles[UnityEngine.Random.Range(0, 3)] = true;
-						
-						done = true;
-					}
-					else
-					{
-						// Place two obstacles:
-						
-						i = UnityEngine.Random.Range(0, 3);
-						
-						if (i <2 && pathsCounters[1] < obstacleFreeTime * 2)
-							i = 2;
-						
-						if (i == 0 && pathsCounters[0] < obstacleFreeTime * 2)
-							i++;
-						
-						if (i == 1 && pathsCounters[2] < obstacleFreeTime * 2)
-							i++;
-						
-						obstacles[i] = true;
-						if (i < 2)
-							obstacles[i + 1] = true;
-						else
-							obstacles[0] = true;
-						
-						done = true;
-					}
-				}
+
 				
 				#endregion
 				
@@ -318,6 +288,13 @@ namespace Assets
 			}
 			*/
 		}
+
+		private void CreateRailSegment(GameObject tile, Vector3 pos, int step)
+		{
+			var wall = Instantiate (rail);
+			wall.transform.parent = tile.transform;
+			wall.transform.localPosition = pos + new Vector3(0, 0, step);
+		}
 		
 		
 		private void CreateSmallObstacle(GameObject tile, Vector3 pos)
@@ -341,7 +318,149 @@ namespace Assets
 			wall.transform.parent = tile.transform;
 			wall.transform.localPosition = pos;
 		}
-		
+
+		private bool[] PlacementAlgorithm1(bool[] obstacles)
+		{
+			int i, j;
+
+			// Firstly, reset the counter:
+			obstacleCounter = UnityEngine.Random.Range (obstacleDistMin, obstacleDistMax);
+			
+			//bool[] obstacles = new bool[] {false, false, false};
+			bool done = false;
+			
+			// Sum up, how many driving routes are there:
+			int sum = 0;
+			
+			for (i = 0; i < 3; i++)
+				if (pathsCounters [i] > obstacleFreeTime)
+					sum++;
+			
+			// If exactly two paths are free, occupy one of them:
+			if (sum == 2)
+				for (i = 0; i < 2; i++) {
+					if (pathsCounters [i] > obstacleFreeTime && pathsCounters [i + 1] > obstacleFreeTime) {
+						obstacles [i + UnityEngine.Random.Range (0, 2)] = true;
+						done = true;
+					
+						for (j = 0; j < 3; j++) {
+							if (pathsCounters [j] <= obstacleFreeTime)
+								obstacles [j] = true;
+						}
+					}
+				}
+			
+			// Else, if two paths on the sides are free, do nothing .:
+			if (done == false && pathsCounters [0] > obstacleFreeTime && pathsCounters [2] > obstacleFreeTime && pathsCounters [1] <= obstacleFreeTime) {
+				//if (UnityEngine.Random.Range(0, 2) == 1)
+				//	obstacles[1] = true;
+				
+				done = true;
+			}
+			
+			// If you have one pathway, that player had to take, create one obstacle around it:
+			if (done == false && sum == 1) {
+				j = UnityEngine.Random.Range (0, 3 - sum);
+				i = 0;
+				while (done == false && i < 3) {
+					if (pathsCounters [i] <= obstacleFreeTime) {
+						if (j == 0) {
+							//sum--;
+							obstacles [i] = true;
+							done = true;
+						} else
+							j--;
+					}
+					
+					i++;
+				}
+				
+				done = true;
+			}
+			
+			// If you have free field, create one or two obstacles:
+			if (done == false) {
+				if (UnityEngine.Random.Range (0, 2) == 1) {
+					// Place one obstacle:
+					obstacles [UnityEngine.Random.Range (0, 3)] = true;
+					
+					done = true;
+				} else {
+					// Place two obstacles:
+					
+					i = UnityEngine.Random.Range (0, 3);
+					
+					if (i < 2 && pathsCounters [1] < obstacleFreeTime * 2)
+						i = 2;
+					
+					if (i == 0 && pathsCounters [0] < obstacleFreeTime * 2)
+						i++;
+					
+					if (i == 1 && pathsCounters [2] < obstacleFreeTime * 2)
+						i++;
+					
+					obstacles [i] = true;
+					if (i < 2)
+						obstacles [i + 1] = true;
+					else
+						obstacles [0] = true;
+					
+					done = true;
+				}
+			}
+
+			return obstacles;
+		}
+
+		private bool[] PlacementAlgorithm2(bool[] obstacles)
+		{
+			int i, j;
+			
+			// Firstly, reset the counter:
+			obstacleCounter = UnityEngine.Random.Range (obstacleDistMin, obstacleDistMax);
+
+			//bool[] obstacles = new bool[] {false, false, false};
+			bool done = false;
+			
+			// Choose the driving route, that has been obstructed most lately:
+			int sum = 0;
+
+			for (i = 1; i < 3; i++)
+				if (pathsCounters [i] < pathsCounters[sum])
+					sum=i;
+
+			if (pathsCounters [sum] > obstacleFreeTime * 2)
+			{
+				j = UnityEngine.Random.Range (0, 2);
+
+				i = 0;
+				while (done == false && i < 3)
+				{
+					if (i != sum)
+					{
+						if (j == 0)
+						{
+							obstacles[i] = true;
+							done = true;
+						}
+						else
+						{
+							j--;
+						}
+					}
+
+					i++;
+				}
+			}
+			else
+			{
+				done = true;
+			}
+			
+			return obstacles;
+		}
+
+		// Place object like pickup or dashpad:
 		private int PlaceObject(bool[] obstacles, GameObject tile, GameObject obj, int step, float height)
 		{
 			int sum = 0;
