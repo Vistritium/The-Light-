@@ -58,8 +58,6 @@ namespace Assets.Level
 
 			var rightWall = Instantiate (leftWall);
 
-			Debug.Log (leftWall.transform.localScale);
-
 			rightWall.transform.parent = newTile.transform;
 			rightWall.transform.localPosition = Vector3.right * newTile.transform.localScale.x * lengthFactorX;
 
@@ -67,7 +65,7 @@ namespace Assets.Level
 
 			rightWall.transform.localEulerAngles = rightWall.transform.localEulerAngles + new Vector3 (0, 180, 0);
 
-
+			Debug.Log(newTile.transform.localPosition);
 
            /* newTile.tag = basicTerrain.tag;
             newTile.layer = basicTerrain.layer;*/
