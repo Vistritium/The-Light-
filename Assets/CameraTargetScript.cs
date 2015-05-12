@@ -15,6 +15,20 @@ public class CameraTargetScript : MonoBehaviour {
 	public float dashTimer = 0;
 	public float audiTime = 10;
 
+	public Vector3 ringsBaseOffset;
+	public Vector3 ringsSmallOffset;
+	public Vector3 ringsMoveOffset;
+	public float ringsMoveTime = 2;
+	public float ringsCounter = 0;
+	private int ringsMoveDirection = 0;
+	private int ringsAmount = 0;
+	private Vector3 ringAdditionalBaseOffset;
+	private GameObject ringAdditional;
+
+	public GameObject mistGenerator;
+	public GameObject audiRing;
+	private GameObject[] rings;
+
 	private PlayerControlScript player;
 	
 	private float savedTime = 0;
@@ -58,11 +72,75 @@ public class CameraTargetScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Audi").GetComponent<PlayerControlScript>();
+
+		rings = new GameObject[4];
+
+		for (int i = 0; i < 4; i++)
+		{
+			rings[i] = Instantiate (audiRing);
+			rings[i].transform.parent = this.transform;
+			rings[i].transform.localPosition = ringsBaseOffset + ringsSmallOffset * i;
+
+			rings[i].SetActive(false);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		#region Collecting audi rings
+
+		// If the audi ring collection is in progress, move the counter accordingly:
+		if (ringsCounter > 0)
+		{
+			ringsCounter += ringsMoveDirection * Time.deltaTime;
+		}
+
+		if (ringsCounter > ringsMoveTime * 2)
+		{
+			ringsCounter = ringsMoveTime;
+			ringsMoveDirection = -1;
+
+			Destroy(ringAdditional);
+			rings[ringsAmount].SetActive(true);
+			ringsAmount++;
+
+			if (ringsAmount >= 4)
+			{
+				ringsAmount = 0;
+
+				for (int i = 0; i < 4; i++)
+					rings[i].SetActive(false);
+
+				GameObject temp = Instantiate (mistGenerator);
+				temp.transform.parent = this.transform;
+				temp.transform.localPosition = ringsBaseOffset + ringsSmallOffset * 2 + ringsMoveOffset;
+			}
+		}
+
+		if (ringsCounter < ringsMoveTime)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				rings[i].transform.localPosition = ringsBaseOffset + ringsSmallOffset * i + ringsMoveOffset * (ringsCounter / ringsMoveTime);
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				rings[i].transform.localPosition = ringsBaseOffset + ringsSmallOffset * i + ringsMoveOffset;
+			}
+		}
+
+		if (ringsCounter > 0 && ringsCounter < ringsMoveTime * 1.5f && ringsMoveDirection == 1)
+		{
+			ringAdditional.transform.localPosition = ringAdditionalBaseOffset + ((ringsBaseOffset + ringsSmallOffset * ringsAmount + ringsMoveOffset) - ringAdditionalBaseOffset) * (ringsCounter / (ringsMoveTime * 1.5f));
+		}
+
+		#endregion
+
+
 		/*
 		if (shake > 0)
 		{
@@ -165,6 +243,20 @@ public class CameraTargetScript : MonoBehaviour {
 			speedMax = 0;
 			state = CameraTargetStates.end;
 		}
+	}
+
+	public void PickRing(Vector3 pos)
+	{
+		ringsCounter = 0.1f;
+
+		ringsMoveDirection = 1;
+
+		ringAdditional = Instantiate (audiRing);
+		ringAdditional.transform.parent = this.transform;
+		ringAdditional.GetComponent<BoxCollider> ().enabled = false;
+
+		ringAdditionalBaseOffset = transform.InverseTransformPoint(pos);
+		//rings[i].transform.localPosition = ringsBaseOffset + ringsSmallOffset * i;
 	}
 	
 	public void Stop()

@@ -80,6 +80,7 @@ namespace Assets
 		private float[] paths;
 		public int[] pathsCounters;
 
+
 		public enum GeneratorStates
 		{
 			normal,

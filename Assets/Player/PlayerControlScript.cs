@@ -203,6 +203,7 @@ public class PlayerControlScript : MonoBehaviour {
 			else if (enteredTriggerTag == "Ring")
 			{
 				ringsCollected++;
+				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
 
 				if (ringsCollected >= 4)
 				{
