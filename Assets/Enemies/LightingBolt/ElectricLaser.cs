@@ -51,12 +51,12 @@ public class ElectricLaser : MonoBehaviour {
 	public void UpdatePositions(){
 
 		this.transform.position = Vector3.Lerp (from, to, 0.5f);
+		
 		if (lightinEffectGameObject != null) {
 			foreach (Transform transform in lightinEffectGameObject.transform) {
 				transform.localScale = new Vector3(Vector3.Distance(from, to) / begeningDistance, 1, 1);
 			}
 		}
-
 
 		this.transform.LookAt (from);
 		

@@ -11,9 +11,13 @@ public class UnitsManager : MonoBehaviour {
 	public enum LaserMachineType {
 		LONG_DURATION,
 		MEDIUM_DURATION,
-		SHORT_DURATION
+		SHORT_DURATION,
 
 	}
+
+	public float shortDurtation = 25f;
+	public float mediumDuration = 35f;
+	public float longDuration = 50f;
 
 
 	// Use this for initialization
@@ -22,8 +26,8 @@ public class UnitsManager : MonoBehaviour {
 
 
 		Defer.DeferAction (() => {
-			//SpawnLaserMachine (LaserMachineType.SHORT_DURATION);
-		}, 5.0f);
+		//	SpawnLaserMachine (LaserMachineType.SHORT_DURATION);
+		}, 1f);
 
 	}
 	
@@ -40,13 +44,13 @@ public class UnitsManager : MonoBehaviour {
 
 		switch (machineType) {
 		case LaserMachineType.LONG_DURATION:
-			duration = 50f;
+			duration = longDuration;
 			break;
 		case LaserMachineType.MEDIUM_DURATION:
-			duration = 35f;
+			duration = mediumDuration;
 			break;
 		case LaserMachineType.SHORT_DURATION:
-			duration = 25;
+			duration = shortDurtation;
 			break;
 		default:
 			throw new System.ArgumentOutOfRangeException ();

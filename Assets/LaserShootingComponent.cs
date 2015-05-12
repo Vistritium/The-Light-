@@ -12,6 +12,8 @@ public class LaserShootingComponent : MonoBehaviour {
 
 	GameObject player;
 
+	GameObject sparks;
+
 	bool firing = false;
 
 	float currentShootingTime = 0;
@@ -26,6 +28,10 @@ public class LaserShootingComponent : MonoBehaviour {
 		electricLaser = ElectricLaser.GetElectricLaser ();
 
 		electricLaser.gameObject.SetActive (false);
+
+		sparks = Templates.GetTemplate ("Sparks");
+		sparks = Instantiate (sparks);
+		sparks.SetActive (false);
 
 	}
 	
@@ -49,6 +55,7 @@ public class LaserShootingComponent : MonoBehaviour {
 			electricLaser.UpdatePositions();
 
 			currentShootingTime = 0;
+			sparks.SetActive(true);
 
 		}
 
@@ -63,10 +70,12 @@ public class LaserShootingComponent : MonoBehaviour {
 			electricLaser.from = this.transform.position;
 			electricLaser.to = currentPoint;
 
+			sparks.transform.position = currentPoint;
+
 
 			if(currentShootingTime >= 1){
 				firing = false;
-
+				sparks.SetActive(false);
 				electricLaser.from = Vector3.zero;
 				electricLaser.to = Vector3.zero;
 
