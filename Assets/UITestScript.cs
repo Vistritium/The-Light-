@@ -40,16 +40,32 @@ public class UITestScript: Graphic
             prevX = new Vector2(outer * c, outer * s);
             vert.position = prevX;
             vbo.Add(vert);
+
             if (this.fill) {
                 vert.position = Vector2.zero;
                 vbo.Add(vert);
                 vbo.Add(vert);
             } else {
+				const int barHeight = 15;
+				const int barSpacing = 10;
+				
+				float c2 = Mathf.Cos(rad + Mathf.PI / 45.0f);
+				float s2 = Mathf.Sin(rad + Mathf.PI / 45.0f);
+
                 vert.position = new Vector2(inner * c, inner * s);
                 vbo.Add(vert);
                 vert.position = prevY;
                 vbo.Add(vert);
-                prevY = new Vector2(inner * c, inner * s);
+                prevY = new Vector2(inner * c2, inner * s2);
+
+				if (i % barSpacing == 0) {
+					vert.position = new Vector2((inner + barHeight) * c, (inner + barHeight) * s);
+					vbo.Add(vert);
+					vert.position = new Vector2((inner + barHeight) * c2, (inner + barHeight) * s2);
+					vbo.Add(vert);
+					vert.position = prevY;
+					vbo.Add(vert);
+				}
             }
         }
     }
