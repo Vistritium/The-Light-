@@ -79,6 +79,8 @@ public class PlayerControlScript : MonoBehaviour {
 	public GameObject shot;
 	public Transform shotSpawn;
 
+	public GameObject needle;
+
 	void Awake()
 	{
 		barHeight = Screen.height * 0.04f;
@@ -88,11 +90,11 @@ public class PlayerControlScript : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUI.DrawTexture(new Rect(Screen.width - barWidth - 10,
-		                         Screen.height - barHeight - 300,
-		                         hp * barWidth / hpMax,
-		                         barHeight),
-		                healthTexture);
+//		GUI.DrawTexture(new Rect(Screen.width - barWidth - 10,
+//		                         Screen.height - barHeight - 300,
+//		                         hp * barWidth / hpMax,
+//		                         barHeight),
+//		                healthTexture);
 	}
 
 	// Use this for initialization
@@ -122,6 +124,8 @@ public class PlayerControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
 
 		#region Timers and States
 
@@ -404,6 +408,18 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#endregion
 
+
+		#region Update HUD
+
+		needle.transform.rotation = Quaternion.identity;
+		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
+		                              125 -
+		                              ((cameraTarget.GetComponent<CameraTargetScript>().speed +
+		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
+		                              / cameraTarget.GetComponent<CameraTargetScript>().speedMax)
+		                              * 260);// * Time.deltaTime);
+
+		#endregion
 	}
 
 	public void ApplyDashEffects()
