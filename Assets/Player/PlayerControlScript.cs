@@ -38,6 +38,13 @@ public class PlayerControlScript : MonoBehaviour {
 	public float rotation = 0;
 	public float rotationSpeed = 0;
 
+	public float wheelRotationSpeed = 2;
+	private float wheelTotalRotation = 0;
+
+	public GameObject[] wheelObjects;
+
+	public float trackWidth = 8;
+
 	public float carLength = 10;
 
 	public float fireRate;
@@ -67,6 +74,7 @@ public class PlayerControlScript : MonoBehaviour {
 	private GameObject cameraTarget;
 	private GameObject modelTarget;
 	private TrailRenderer[] trails;
+	public GameObject[] smokes;
 
 	public GameObject shot;
 	public Transform shotSpawn;
@@ -103,6 +111,11 @@ public class PlayerControlScript : MonoBehaviour {
 
 		trails [0] = GameObject.Find ("Trail1").GetComponent<TrailRenderer>();
 		trails [1] = GameObject.Find ("Trail2").GetComponent<TrailRenderer>();
+
+		//smokes = new GameObject[2];
+
+		//smokes[0] = GameObject.Find ("Smoker1");
+		//smokes[1] = GameObject.Find ("Smoker2");
 	}
 
 
@@ -126,6 +139,9 @@ public class PlayerControlScript : MonoBehaviour {
 			{
 				poweredTimer = 0;
 				state = StateTypes.normal;
+
+				EndSmokeEffects();
+				EndDashEffects();
 			}
 		}
 
@@ -154,13 +170,7 @@ public class PlayerControlScript : MonoBehaviour {
 		}
 
 		var temp = transform.rotation;
-		//temp.x = rotation;
-		//temp.y = 270;
-		//temp.z = rotation;
-		//temp.w = rotation;
 		transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
-
-		//transform.Rotate(new Vector3(0, 90, 0));
        
 
 		var temp2 = transform.position;
@@ -173,6 +183,16 @@ public class PlayerControlScript : MonoBehaviour {
 		{
 			modelTarget.transform.LookAt(modelTarget.transform.position - GetComponent<Rigidbody>().velocity - cameraTarget.GetComponent<CameraTargetScript>().speed * Vector3.forward);
 			modelTarget.transform.Rotate(new Vector3(0, 90, 0));
+		}
+
+		// Rotate wheels accortingly to speed:
+		for (int i = 0; i < 4; i++)
+		{
+			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
+
+			wheelObjects[i].transform.rotation = Quaternion.AngleAxis(-wheelTotalRotation, modelTarget.transform.forward);
+			wheelObjects[i].transform.Rotate(new Vector3(0, -90, 0));
+			//wheelObjects[i].transform.Rotate(modelTarget.transform.right, wheelRotationSpeed * cameraTarget.GetComponent<CameraTargetScript>().speed); 
 		}
 
 		#endregion
@@ -213,6 +233,9 @@ public class PlayerControlScript : MonoBehaviour {
 
 					state = StateTypes.powered;
 					poweredTimer = powerUpDuration;
+
+					ApplyDashEffects();
+					ApplySmokeEffects();
 				}
 			}
 			// If you hit a wall, check, which side and subtract hp:
@@ -261,10 +284,18 @@ public class PlayerControlScript : MonoBehaviour {
 				tempSpeed [0] += turnAccel * Time.deltaTime;
 				turnPressed = 1;
 			}
-			else if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+
+
+			if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 			{
 				nextFire = Time.time + fireRate;
 				Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+				
+			}
+
+			if (Input.GetKey(KeyCode.R))
+			{
+				Application.LoadLevel("main");
 				
 			}
 		}
@@ -275,6 +306,22 @@ public class PlayerControlScript : MonoBehaviour {
 		{
 			tempSpeed[0] = Mathf.Abs (tempSpeed [0]) / tempSpeed[0];
 			tempSpeed[0] *= turnSpeed;
+		}
+
+		// When in Audi Mode, no boundaries keep you inside the track, so theese have to instead:
+		if (state == StateTypes.powered)
+		{
+			if (tempSpeed[0] > 0 && transform.localPosition.x > trackWidth)
+			{
+				tempSpeed[0] = 0;
+				turnPressed = 0;
+			}
+
+			if (tempSpeed[0] < 0 && transform.localPosition.x < -trackWidth)
+			{
+				tempSpeed[0] = 0;
+				turnPressed = 0;
+			}
 		}
 
 		// If no turning key has been pressed, stop turning:
@@ -371,6 +418,17 @@ public class PlayerControlScript : MonoBehaviour {
 			trails [i].time = 0f;
 	}
 
+	public void ApplySmokeEffects()
+	{
+		for (int i = 0; i < 2; i++)
+			smokes [i].SetActive (true);
+	}
+
+	public void EndSmokeEffects()
+	{
+		for (int i = 0; i < 2; i++)
+			smokes [i].SetActive (false);
+	}
 
 	//called ONCE when player is dead
 	private void DeadOnce(){

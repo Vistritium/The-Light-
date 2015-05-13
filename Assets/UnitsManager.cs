@@ -38,7 +38,7 @@ public class UnitsManager : MonoBehaviour {
 
 
 
-	public void SpawnLaserMachine(LaserMachineType machineType){
+	public GameObject SpawnLaserMachine(LaserMachineType machineType){
 
 		float duration = 0;
 
@@ -64,13 +64,14 @@ public class UnitsManager : MonoBehaviour {
 
 		newLaserMachine.SetActive (true);
 
-		Defer.DeferAction (() => {
-			newLaserMachine.SendMessage("Remove");
-		}, duration);
+		// ZIS GOT CHANGED:
+		//Defer.DeferAction (() => {
+			//newLaserMachine.SendMessage("Remove");
+		//}, duration);
 
 
 
-
+		return newLaserMachine;
 	}
 
 

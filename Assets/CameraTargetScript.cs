@@ -153,6 +153,8 @@ public class CameraTargetScript : MonoBehaviour {
 			shake = 0f;
 			camTransform.localPosition = originalPos;
 		}*/
+
+
 		// Speed up progressively over time:
 		if (speed < speedMax)
 			speed += speedAcceleration * Time.deltaTime;

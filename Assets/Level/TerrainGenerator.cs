@@ -70,6 +70,8 @@ namespace Assets
 		public int railCounter = 0;
 		public Vector3 railOffset;
 
+		private GameObject railObject;
+
 		public int changedStateCounter = 0;
 		
 		public int obstacleCounter = 50;
@@ -101,14 +103,21 @@ namespace Assets
 			smallObstacles = new float[,,] 
 			{ 
 				{ {-1, 0, -1}, {0, 0, -1},  {-1, 0, 0}, {0, 0, 0},  {1, 0, 0}, {0, 0, 1},  {1, 0, 1} },
-				{ {-1, 0, 1}, {-1, 0, 0},  {0, 0, 0}, {1, 0, 0},  {1, 0, -1}, {0, 0, 0},  {0, 0, 0} },
-				{ {-1, 0, 0}, {0, 0, 0},  {1, 0, 0}, {1, 0, 1},  {1, 0, -1}, {0, 0, 0},  {0, 0, 0} }
+				{ {-1, 0, 1}, {-1, 0, 0},  {0, 0, 0}, {1, 0, 0},  {1, 0, -1}, {-1, 1, 0},  {0, 0, 0} },
+				{ {-1, 0, 0}, {0, 0, 0},  {1, 0, 0}, {1, 0, 1},  {1, 0, -1}, {0, 1, 0},  {1, 1, 0} },
+				{ {-1, 0, 0}, {1, 0, 0},  {-1, 0, -1}, {0, 0, -1},  {1, 0, -1}, {1, 0, 1},  {1, 1, 1} },
+				{ {-1, 0, 0}, {1, 0, 0},  {-1, 0, -1}, {0, 0, -1},  {0, 0, 1}, {0, 1, 1},  {0, 0, 0} },
+				{ {-1, 0, -1}, {0, 0, -1},  {1, 0, -1}, {0, 0, 1},  {1, 0, 1}, {0, 0, 0},  {0, 0, 0} },
+				{ {-1, 0, 0}, {0, 0, 0},  {1, 0, 0}, {-1, 0, 1},  {0, 0, 1}, {0, 1, 0},  {-1, 1, 1} },
+				{ {0, 0, 0}, {0, 0, 0},  {0, 0, 0}, {0, 0, 0},  {0, 0, 0}, {0, 0, 0},  {0, 0, 0} },
+				{ {0, 0, 0}, {0, 0, 0},  {0, 0, 0}, {0, 0, 0},  {0, 0, 0}, {0, 0, 0},  {0, 0, 0} }
+
 			};
 			
 			smallObstacleNumbers = new int[]
-			{7, 5, 5};
+			{7, 6, 7, 7, 6, 5, 7};
 			
-			smallObstaclesAmount = 3;
+			smallObstaclesAmount = 7;
 			
 			cameraScript = GameObject.Find ("Player").GetComponent<CameraTargetScript>();
 			unitManager = GameObject.Find ("Systems").GetComponent<UnitsManager>();
@@ -190,12 +199,18 @@ namespace Assets
 					changedStateCounter = timeWithOpponent;
 					state = GeneratorStates.enemy;
 
-					unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.SHORT_DURATION);
+					//railObject = unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.SHORT_DURATION);
 				}
 			}
 
 			if (changedStateCounter > 0)
 			{
+				if (changedStateCounter == timeWithOpponent - railExtraDist)
+					railObject = unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.LONG_DURATION);
+
+				if (changedStateCounter == railExtraDist)
+					railObject.SendMessage("Remove");
+
 				changedStateCounter--;
 
 				if (changedStateCounter == 0)
@@ -203,11 +218,11 @@ namespace Assets
 					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
 					state = GeneratorStates.normal;
 
-					//unitManager.newLaserMachine.SendMessage("Remove");
+					//railObject.SendMessage("Remove");
 				}
 			}
 
-			if (opponentCounter < railExtraDist)
+			if (opponentCounter < 1)
 			{
 				railCounter--;
 
