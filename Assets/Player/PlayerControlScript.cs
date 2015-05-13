@@ -124,6 +124,11 @@ public class PlayerControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKey(KeyCode.R))
+		{
+			Application.LoadLevel("main");
+			
+		}
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
 
@@ -297,11 +302,6 @@ public class PlayerControlScript : MonoBehaviour {
 				
 			}
 
-			if (Input.GetKey(KeyCode.R))
-			{
-				Application.LoadLevel("main");
-				
-			}
 		}
 
 
