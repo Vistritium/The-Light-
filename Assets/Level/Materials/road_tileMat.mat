@@ -18,14 +18,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 29c43414dccb1b840a958192249fea91, type: 3}
+          m_Texture: {fileID: 2800000, guid: 3f5ff050f7b3e724e9e0c4178dfac754, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: a465183ca91bd2f4fb270b27fb932191, type: 3}
+          m_Texture: {fileID: 2800000, guid: 373f5cdef0ac5ff4bb0589eeb517b72c, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -46,14 +46,14 @@ Material:
         first:
           name: _OcclusionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 14048289546fafd4cb7d1d5e552f8009, type: 3}
+          m_Texture: {fileID: 2800000, guid: 5b6f603d6ac5b3b4da772d5cf6beb91a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 29c43414dccb1b840a958192249fea91, type: 3}
+          m_Texture: {fileID: 2800000, guid: 3f5ff050f7b3e724e9e0c4178dfac754, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -138,7 +138,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .800000012, g: .800000012, b: .800000012, a: 1}
+        second: {r: .29411763, g: .29411763, b: .29411763, a: 1}
       data:
         first:
           name: _EmissionColorUI
