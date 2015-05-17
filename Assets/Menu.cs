@@ -12,19 +12,16 @@ public class Menu : MonoBehaviour {
 	public GUISkin skinjakosc;
 	public GUISkin skinRozdzielczosc;
 	public bool czyPokazac;
-	public float poziomGlosnociEfektow;
-	public float poziomglosnosciMuzyki;
 	public AudioSource efekty;
 	public AudioSource muzyka;
 	int obecnaJakosc;
 	int ostatniaJakosc;
 	int obecnyPelnyEkran;
 	int ostatniPelnyekran;
-	string[] listaJakosci = {"Ultra","Bardzo Wysokie","Wysokie","Średnie","Niskie","Bardzo Niskie"};
 	string[] listaEkran = {"Tak","Nie"};
 	public bool pelenEkran = false;
 	public Vector2 pozycjaScrolla = Vector2.zero;
-	
+	public FontStyle czcionka;
 	
 	
 	
