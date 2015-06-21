@@ -64,7 +64,6 @@ namespace Assets.Level
 
                 if (newTilesAdded != null)
                 {
-					Debug.Log(newlyGenerated[0].transform.localPosition);
                     newTilesAdded.Invoke(newlyGenerated);
                 }
                 

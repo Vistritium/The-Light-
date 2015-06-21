@@ -199,14 +199,14 @@ namespace Assets
 					changedStateCounter = timeWithOpponent;
 					state = GeneratorStates.enemy;
 
-					//railObject = unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.SHORT_DURATION);
+					//railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.SHORT_DURATION);
 				}
 			}
 
 			if (changedStateCounter > 0)
 			{
 				if (changedStateCounter == timeWithOpponent - railExtraDist)
-					railObject = unitManager.SpawnLaserMachine(UnitsManager.LaserMachineType.LONG_DURATION);
+					railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION);
 
 				if (changedStateCounter == railExtraDist)
 					railObject.SendMessage("Remove");

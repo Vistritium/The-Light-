@@ -11,7 +11,10 @@ public class BulletShot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        this.speedProvider = GetComponent<SpeedProvider>();
+        this.targetProvider = GetComponent<TargetProvider>();
 
+/*
 		this.speedProvider = GetComponent<SpeedProvider> ();
 		if (speedProvider == null) {
 			this.gameObject.AddComponent<SpeedProvider>();
@@ -23,6 +26,7 @@ public class BulletShot : MonoBehaviour {
 			this.gameObject.AddComponent<TargetProvider>();
 			this.targetProvider = GetComponent<TargetProvider>();
 		}
+*/
 
 
 	}
@@ -30,12 +34,18 @@ public class BulletShot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var toVector = (targetProvider.GetTarget() - this.transform.position);
+
+	    var target = targetProvider.GetTarget();
+
+        var toVector = (target - this.transform.position);
 		if (toVector.magnitude < 0.1) {
 			Destroy(this.gameObject);
 		} else {
-			toVector.Normalize ();
-			this.transform.Translate (toVector * Time.deltaTime * speedProvider.GetSpeed());
+			var normalized = toVector.normalized;
+
+		    var speed = speedProvider.GetSpeed();
+
+            this.transform.position = this.transform.position + normalized * Time.deltaTime * speed;
 		}
 
 	}

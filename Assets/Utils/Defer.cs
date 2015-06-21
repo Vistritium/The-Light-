@@ -22,7 +22,6 @@ namespace AssemblyCSharp
 
 			float triggerTime = Time.time + seconds;
 
-			Debug.Log ("Adding");
 			actions.Add (action, triggerTime);
 		
 		}

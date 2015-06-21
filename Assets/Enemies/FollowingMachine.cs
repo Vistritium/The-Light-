@@ -33,6 +33,8 @@ public class FollowingMachine : MonoBehaviour {
 
 		this.transform.parent = player.transform;
 
+
+
 	}
 
 	private void InitOscilator(){
@@ -50,8 +52,7 @@ public class FollowingMachine : MonoBehaviour {
 		if (!removing) {
 			return;
 		}
-
-		initialPosition = initialPosition + Vector3.back * Time.deltaTime * 5;
+        initialPosition = initialPosition + backDisplacement.normalized * Time.deltaTime * 5;
 
 
 

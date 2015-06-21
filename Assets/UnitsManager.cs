@@ -8,14 +8,14 @@ public class UnitsManager : MonoBehaviour {
 
 	public List<Action> actions;
 
-	public enum LaserMachineType {
+	public enum MachineDuration {
 		LONG_DURATION,
 		MEDIUM_DURATION,
 		SHORT_DURATION,
 
 	}
 
-	public float shortDurtation = 25f;
+	public float shortDurtation = 15;
 	public float mediumDuration = 35f;
 	public float longDuration = 50f;
 
@@ -26,7 +26,7 @@ public class UnitsManager : MonoBehaviour {
 
 
 		Defer.DeferAction (() => {
-		//	SpawnLaserMachine (LaserMachineType.SHORT_DURATION);
+			SpawnLaserBallShooterMachine(MachineDuration.SHORT_DURATION);
 		}, 1f);
 
 	}
@@ -38,18 +38,18 @@ public class UnitsManager : MonoBehaviour {
 
 
 
-	public GameObject SpawnLaserMachine(LaserMachineType machineType){
+	public GameObject SpawnLaserMachine(MachineDuration machineDuration){
 
 		float duration = 0;
 
-		switch (machineType) {
-		case LaserMachineType.LONG_DURATION:
+		switch (machineDuration) {
+		case MachineDuration.LONG_DURATION:
 			duration = longDuration;
 			break;
-		case LaserMachineType.MEDIUM_DURATION:
+		case MachineDuration.MEDIUM_DURATION:
 			duration = mediumDuration;
 			break;
-		case LaserMachineType.SHORT_DURATION:
+		case MachineDuration.SHORT_DURATION:
 			duration = shortDurtation;
 			break;
 		default:
@@ -74,5 +74,44 @@ public class UnitsManager : MonoBehaviour {
 		return newLaserMachine;
 	}
 
+
+    public GameObject SpawnLaserBallShooterMachine(MachineDuration machineDuration)
+    {
+
+        float duration = 0;
+
+        switch (machineDuration)
+        {
+            case MachineDuration.LONG_DURATION:
+                duration = longDuration;
+                break;
+            case MachineDuration.MEDIUM_DURATION:
+                duration = mediumDuration;
+                break;
+            case MachineDuration.SHORT_DURATION:
+                duration = shortDurtation;
+                break;
+            default:
+                throw new System.ArgumentOutOfRangeException();
+        }
+
+
+
+        var machineTemplate = Templates.GetTemplate("BallsShootingMachine");
+
+        var newShootingMachine = Instantiate(machineTemplate);
+
+        newShootingMachine.SetActive(true);
+
+        // ZIS GOT CHANGED:
+        Defer.DeferAction (() => {
+            Debug.Log("sending remove");
+            newShootingMachine.SendMessage("Remove");
+        }, duration);
+
+
+
+        return newShootingMachine;
+    }
 
 }
