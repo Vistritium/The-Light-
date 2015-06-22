@@ -421,18 +421,28 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#region Update HUD
 
+<<<<<<< HEAD
 /*		needle.transform.rotation = Quaternion.identity;
+=======
+		needle.transform.rotation = Quaternion.identity;
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speed);
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedAdditional);
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedMax);
 
+>>>>>>> 7bb9dd1b020e020bf3394f56a9ee459c3da3da46
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
 		                              125 -
 		                              ((cameraTarget.GetComponent<CameraTargetScript>().speed +
 		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
+<<<<<<< HEAD
+		                              / cameraTarget.GetComponent<CameraTargetScript>().speedMax)
+		                              * 260);// * Time.deltaTime);
+*/
+=======
 		                              / (cameraTarget.GetComponent<CameraTargetScript>().speedMax + 1))
 		                              * 220);// * Time.deltaTime);
-*/
+
+>>>>>>> 7bb9dd1b020e020bf3394f56a9ee459c3da3da46
 		#endregion
 	}
 
