@@ -40,6 +40,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public float wheelRotationSpeed = 2;
 	private float wheelTotalRotation = 0;
+	private float lastTurningSpeed = 0;
 
 	public GameObject[] wheelObjects;
 
@@ -70,6 +71,7 @@ public class PlayerControlScript : MonoBehaviour {
 	public StateTypes state = StateTypes.normal;
 
 	public int ringsCollected = 0;
+	private bool ringFlag = false;
 
 	private GameObject cameraTarget;
 	private GameObject modelTarget;
@@ -129,6 +131,8 @@ public class PlayerControlScript : MonoBehaviour {
 			Application.LoadLevel("main");
 			
 		}
+
+		ringFlag = false;
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
 
@@ -199,10 +203,16 @@ public class PlayerControlScript : MonoBehaviour {
 		{
 			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
-			wheelObjects[i].transform.rotation = Quaternion.AngleAxis(-wheelTotalRotation, modelTarget.transform.forward);
-			wheelObjects[i].transform.Rotate(new Vector3(0, -90, 0));
+			//wheelObjects[i].transform.rotation = Quaternion.AngleAxis(-wheelTotalRotation, modelTarget.transform.forward);
+			if (i < 3)
+				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, (GetComponent<Rigidbody>().velocity[0] - lastTurningSpeed) * Time.deltaTime * 1500f, -wheelTotalRotation);
+			else
+				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, 0, -wheelTotalRotation);
+			//wheelObjects[i].transform.Rotate(new Vector3(0, -90, 0));
 			//wheelObjects[i].transform.Rotate(modelTarget.transform.right, wheelRotationSpeed * cameraTarget.GetComponent<CameraTargetScript>().speed); 
 		}
+
+		lastTurningSpeed = GetComponent<Rigidbody>().velocity[0];
 
 		#endregion
 
@@ -411,14 +421,14 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#region Update HUD
 
-		needle.transform.rotation = Quaternion.identity;
+/*		needle.transform.rotation = Quaternion.identity;
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
 		                              125 -
 		                              ((cameraTarget.GetComponent<CameraTargetScript>().speed +
 		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
 		                              / cameraTarget.GetComponent<CameraTargetScript>().speedMax)
 		                              * 260);// * Time.deltaTime);
-
+*/
 		#endregion
 	}
 
@@ -444,6 +454,80 @@ public class PlayerControlScript : MonoBehaviour {
 	{
 		for (int i = 0; i < 2; i++)
 			smokes [i].SetActive (false);
+	}
+
+	public void ReceiveHitInfo(string tag){
+		// React accordingly if you hit something.
+		if (tag != "" && state != StateTypes.stunned && carStopped == false)
+		{
+			// Since you can't change speedx, speedy or speedz directly, make a temp variable to operate on:
+			Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
+
+			// If you touched DashPad:
+			if (tag == "DashPad" && state != StateTypes.powered)
+			{
+				if (state == StateTypes.normal)
+				{
+					dashing = 1;
+					tempSpeed[2] = dashLocalSpeed;
+					
+					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
+					ApplyDashEffects();
+				}
+			}
+			// If you collected Audi ring:
+			else if (tag == "Ring" && ringFlag == false)
+			{
+				ringFlag = true;
+				ringsCollected++;
+				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
+				
+				if (ringsCollected >= 4)
+				{
+					ringsCollected = 0;
+					
+					cameraTarget.GetComponent<CameraTargetScript> ().EnterAudi();
+					
+					state = StateTypes.powered;
+					poweredTimer = powerUpDuration;
+					
+					ApplyDashEffects();
+					ApplySmokeEffects();
+				}
+			}
+			// If you hit a wall, check, which side and subtract hp:
+			else if (state != StateTypes.powered)
+			{
+				if (tag == "MiddlePlayerCollider")
+				{
+					hp = 0;
+					cameraTarget.GetComponent<CameraTargetScript> ().Stop();
+					
+					rotationSpeed = rotationStart;
+					carStopped = true;
+				}
+				else if (tag == "LeftPlayerCollider")
+				{
+					tempSpeed[0] = hitForce;
+				}
+				else if (tag == "RightPlayerCollider")
+				{
+					tempSpeed[0] = -hitForce;
+				}
+				
+				state = StateTypes.stunned;
+				stunTimer = hitStunDuration;
+				
+				hp -= hitDamage;
+			}
+			else
+			{
+				
+			}
+
+			// After speed calculations have been made, apply values from temp variable to real speed vector:
+			GetComponent<Rigidbody>().velocity = tempSpeed;
+		}
 	}
 
 	//called ONCE when player is dead

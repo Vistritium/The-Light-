@@ -13,7 +13,10 @@ public class PlayerColliderScript : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (script.state == PlayerControlScript.StateTypes.powered)
+		//script.ReceiveHitInfo ("painis");
+
+		// If the player is in AudiMode, blast hit boxes into oblivion:
+		if (script.state == PlayerControlScript.StateTypes.powered && other.gameObject.GetComponent<Rigidbody>())
 		{
 			GameObject temp = GameObject.Find("Player");
 			other.gameObject.GetComponent<Rigidbody>().constraints = ~(RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation);
@@ -29,9 +32,11 @@ public class PlayerColliderScript : MonoBehaviour {
 			//other.gameObject.GetComponent<Rigidbody>().velocity = (other.gameObject.transform.position - transform.parent.position).normalized * temp.GetComponent<CameraTargetScript>().speed * 4 + Vector3.up * Random.Range(5f, 10f);
 		}
 
+		// Also, react accordingly to other hit objects:
 		if (other.gameObject.tag == "DashPad")
 		{
-			script.enteredTriggerTag = other.gameObject.tag;
+			//script.enteredTriggerTag = other.gameObject.tag;
+			script.ReceiveHitInfo (other.gameObject.tag);
 
 		}
 		else if (other.gameObject.tag == "Boundary")
@@ -40,13 +45,20 @@ public class PlayerColliderScript : MonoBehaviour {
 		}
 		else if (other.gameObject.tag == "Ring")
 		{
-			script.enteredTriggerTag = other.gameObject.tag;
-			Destroy(other.gameObject);
+			//script.enteredTriggerTag = other.gameObject.tag;
+			if (other.gameObject)
+			{
+				script.ReceiveHitInfo (other.gameObject.tag);
+				Destroy(other.gameObject);
+			}
 		}
+		// If you hit regular box, inform the player, from what direction did the hit come from:
 		else
 		{
-			if (script.enteredTriggerTag != "MiddlePlayerCollider")
-				script.enteredTriggerTag = gameObject.tag;
+			//if (script.enteredTriggerTag != "MiddlePlayerCollider")
+			//	script.enteredTriggerTag = gameObject.tag;
+
+			script.ReceiveHitInfo (gameObject.tag);
 			//Debug.Log(other.gameObject.name);
 		}
 	}
