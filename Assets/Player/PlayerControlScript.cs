@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 using UnityEngine.UI;
 
 public class PlayerControlScript : MonoBehaviour {
@@ -109,7 +108,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		AssetDatabase.Refresh();
+		//AssetDatabase.Refresh();
 
 		//cameraTarget = GameObject.Find ("Player");
 		cameraTarget = transform.parent.gameObject;
@@ -136,6 +135,16 @@ public class PlayerControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        #if UNITY_ANDROID
+	    if (Input.touchCount == 3)
+	    {
+            Application.LoadLevel("main");
+	    }
+        #endif
+
+
+
 		if (Input.GetKey(KeyCode.R))
 		{
 			Application.LoadLevel("main");
@@ -311,12 +320,12 @@ public class PlayerControlScript : MonoBehaviour {
 		// Calculate input:
 		if (hp > 0)
 		{
-			if (Input.GetKey (KeyCode.A) && state != StateTypes.stunned)
+            if (GlobalInput.IsLeft() && state != StateTypes.stunned)
 			{
 				tempSpeed [0] -= turnAccel * Time.deltaTime;
 				turnPressed = 1;
 			}
-			else if (Input.GetKey (KeyCode.D) && state != StateTypes.stunned)
+			else if (GlobalInput.IsRight() && state != StateTypes.stunned)
 			{
 				tempSpeed [0] += turnAccel * Time.deltaTime;
 				turnPressed = 1;
