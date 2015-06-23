@@ -23,9 +23,11 @@ public class FollowingMachine : MonoBehaviour {
 
 
 	bool removing = false;
+
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        Debug.Log("Awake called");
 		this.player = GameObject.Find ("Player");
 
 		initialPosition = displacementFromPlayer;

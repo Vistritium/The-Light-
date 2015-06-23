@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using AssemblyCSharp;
+using Assets;
+using Assets.Level;
 
 public class TargetProviderProviderBall : TargetProviderProvider {
 
@@ -16,9 +19,14 @@ public class TargetProviderProviderBall : TargetProviderProvider {
         private Vector3 target;
         private bool targeted = false;
 
+
+
         void Start()
         {
+
             this.player = GameObject.Find("Audi");
+
+
         }
 
 
@@ -31,7 +39,18 @@ public class TargetProviderProviderBall : TargetProviderProvider {
             else
             {
                 targeted = true;
-				target = player.transform.position + bulletDisplacement;
+
+
+                var terrainGenerator = GameObject.Find("TerrainManager").GetComponent<TerrainGenerator>();
+                var floats = terrainGenerator.GetPaths();
+
+                var random = Random.Range(0, floats.Count());
+                
+                var f = (floats[random] - 4) * TileGenerator.tileScale;
+                Debug.Log("Random: " + random + " with the path " + f);
+                var pos = new Vector3(f, player.transform.position.y, player.transform.position.z);
+
+                target = pos + bulletDisplacement;
             }
 
             return target;

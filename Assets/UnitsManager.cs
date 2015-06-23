@@ -15,6 +15,12 @@ public class UnitsManager : MonoBehaviour {
 
 	}
 
+
+    public enum Side
+    {
+        LEFT,RIGHT
+    }
+
 	public float shortDurtation = 15;
 	public float mediumDuration = 35f;
 	public float longDuration = 50f;
@@ -36,9 +42,12 @@ public class UnitsManager : MonoBehaviour {
 	
 	}
 
+    public GameObject SpawnLaserMachine(MachineDuration machineDuration)
+    {
+        return SpawnLaserMachine(machineDuration, Side.RIGHT);
+    }
 
-
-	public GameObject SpawnLaserMachine(MachineDuration machineDuration){
+    public GameObject SpawnLaserMachine(MachineDuration machineDuration, Side side){
 
 		float duration = 0;
 
@@ -57,10 +66,16 @@ public class UnitsManager : MonoBehaviour {
 		}
 
 
-
 		var laserMachineTemplate = Templates.GetTemplate ("LaserShootingMachine");
 
 		var newLaserMachine = Instantiate (laserMachineTemplate);
+
+        if (side == Side.LEFT)
+        {
+            var followingMachine = newLaserMachine.GetComponent<FollowingMachine>();
+            var displacementFromPlayer = followingMachine.displacementFromPlayer;
+            followingMachine.displacementFromPlayer = new Vector3(-displacementFromPlayer.x, displacementFromPlayer.y, displacementFromPlayer.z);
+        }
 
 		newLaserMachine.SetActive (true);
 
@@ -71,7 +86,7 @@ public class UnitsManager : MonoBehaviour {
 
 
 
-		return newLaserMachine;
+        return newLaserMachine;
 	}
 
 

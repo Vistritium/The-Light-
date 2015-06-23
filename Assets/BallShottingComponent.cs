@@ -9,6 +9,8 @@ public class BallShottingComponent : MonoBehaviour
     private TargetProviderProvider targetProviderProvider;
     private SpeedProviderProvider speedProviderProvider;
 
+    private bool onPosition = false;
+
     // Use this for initialization
     private void Start()
     {
@@ -16,12 +18,15 @@ public class BallShottingComponent : MonoBehaviour
         firingTimeProvider = GetComponent<FiringTimeProvider>();
         targetProviderProvider = GetComponent<TargetProviderProvider>();
         speedProviderProvider = GetComponent<SpeedProviderProvider>();
+
+        GetComponent<FollowingMachine>().onPosition += () => onPosition = true;
+
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (firingTimeProvider.ShouldFire())
+        if (firingTimeProvider.ShouldFire() && onPosition)
         {
             Shot();
         }

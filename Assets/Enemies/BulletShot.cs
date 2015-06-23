@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using UnityEngine.Assertions.Comparers;
 
 public class BulletShot : MonoBehaviour {
 
@@ -8,14 +9,18 @@ public class BulletShot : MonoBehaviour {
 	public SpeedProvider speedProvider;
 	public GameObject boundary;
 
+    private Vector3 initialPosition = default(Vector3);
+
 	bool over = false;
+
+    private float lastDistance = float.MaxValue;
 	
 
 	// Use this for initialization
 	void Start () {
         this.speedProvider = GetComponent<SpeedProvider>();
         this.targetProvider = GetComponent<TargetProvider>();
-
+	    
 /*
 		this.speedProvider = GetComponent<SpeedProvider> ();
 		if (speedProvider == null) {
@@ -32,6 +37,11 @@ public class BulletShot : MonoBehaviour {
 
 
 	}
+
+    void Awake()
+    {
+       
+    }
 
 	void collision(){
 		var bulletCollisionHandler = GetComponent<BulletCollisionHandler> ();
@@ -54,18 +64,35 @@ public class BulletShot : MonoBehaviour {
 
 		if (!over) {
 			var target = targetProvider.GetTarget();
+
+		    if (initialPosition == default(Vector3))
+		    {
+                this.initialPosition = this.transform.position;
+		    }
 			
 			var toVector = (target - this.transform.position);
-			if (toVector.magnitude < 1) {
-				collision();
-			} else {
 				
 				var normalized = toVector.normalized;
 				
 				var speed = speedProvider.GetSpeed();
-				
-				this.transform.position = this.transform.position + normalized * Time.deltaTime * speed;
-			}
+
+			    var newPosition = this.transform.position + normalized * Time.deltaTime * speed;
+
+			    var distance = Vector3.Distance(target, newPosition);
+
+			    if (distance <= lastDistance)
+			    {
+			        this.lastDistance = distance;
+                    this.transform.position = newPosition;
+			    }
+			    else
+			    {
+			        this.transform.position = target;
+                    collision();
+			    }
+
+			   
+			
 		}
 
 
@@ -77,10 +104,19 @@ public class BulletShot : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject != boundary) {
+
+	    if (other.name.StartsWith("box"))
+	    {
+            other.GetComponent<Rigidbody>().constraints = ~(RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation);
+	    }
+
+
+	    other.gameObject.GetComponent<Rigidbody>().velocity = Random.onUnitSphere*50 + Vector3.up * 70;
+
+/*		if (other.gameObject != boundary) {
 			collision();
 
-		}
+		}*/
 	}
 
 

@@ -96,6 +96,11 @@ namespace Assets
 			enemy
 		}
 
+	    public float[] GetPaths()
+	    {
+	        return paths;
+	    }
+
 		public GeneratorStates state = GeneratorStates.normal;
 		
 		// Use this for initialization
