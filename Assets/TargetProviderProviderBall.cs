@@ -4,8 +4,13 @@ using AssemblyCSharp;
 
 public class TargetProviderProviderBall : TargetProviderProvider {
 
+	public Vector3 bulletDisplacement;
+
     class TargetPrivderBall : TargetProvider
     {
+
+		public Vector3 bulletDisplacement; 
+
         private GameObject player;
 
         private Vector3 target;
@@ -26,7 +31,7 @@ public class TargetProviderProviderBall : TargetProviderProvider {
             else
             {
                 targeted = true;
-                target = player.transform.position + Vector3.forward*125;
+				target = player.transform.position + bulletDisplacement;
             }
 
             return target;
@@ -36,6 +41,7 @@ public class TargetProviderProviderBall : TargetProviderProvider {
     public override void ProvideTargetProvider(GameObject gameObject)
     {
         gameObject.AddComponent<TargetPrivderBall>();
+		gameObject.GetComponent<TargetPrivderBall> ().bulletDisplacement = this.bulletDisplacement;
     }
 
     // Use this for initialization

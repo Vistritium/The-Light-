@@ -497,7 +497,11 @@ public class PlayerControlScript : MonoBehaviour {
 		dashEffect.SetActive(false);
 	}
 
-	public void ReceiveHitInfo(string tag, Vector3 pos = default(Vector3)){
+	public void ReceiveHitInfo(string tag){
+		ReceiveHitInfo (tag, default(Vector3));
+	}
+
+	public void ReceiveHitInfo(string tag, Vector3 pos){
 		// React accordingly if you hit something.
 		if (tag != "" && (state != StateTypes.stunned || tag == "MiddlePlayerCollider") && carStopped == false)
 		{
