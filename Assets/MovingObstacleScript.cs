@@ -15,7 +15,7 @@ public class MovingObstacleScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startPos = transform.position;
-		endPos = transform.position + new Vector3 (6, 0, 0);
+		//endPos = transform.position + new Vector3 (6, 0, 0);
 
 		player = GameObject.Find ("Audi");
 	}
@@ -28,13 +28,20 @@ public class MovingObstacleScript : MonoBehaviour {
 				active = true;
 		}
 
-		if (active == true)
+		if (active == true && timer <= timeToMove)
 		{
+			float part;
+
 			timer += Time.deltaTime;
 			if (timer > timeToMove)
-				timer = timeToMove;
+			{
+				part = 1;
+			}
+			else
+			{
+				part = timer / timeToMove;
+			}
 
-			float part = timer / timeToMove;
 
 			transform.position = ((endPos - startPos) * part) + startPos;
 		}

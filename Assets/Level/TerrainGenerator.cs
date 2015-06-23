@@ -200,6 +200,7 @@ namespace Assets
 					pathsCounters[i]++;
 			}
 
+			// Opponent counter measures time left before next opponent should be spawned:
 			if (opponentCounter > 0)
 			{
 				opponentCounter--;
@@ -213,8 +214,10 @@ namespace Assets
 				}
 			}
 
+			// Changed state counter measures time left, before state should return to normal:
 			if (changedStateCounter > 0)
 			{
+				// Spawn opponent, railExtraDist after technically state was changed:
 				if (changedStateCounter == timeWithOpponent - railExtraDist)
 				{
 					switch (nextOpponent)
@@ -229,6 +232,7 @@ namespace Assets
 					}
 				}
 
+				// If we are nearing end of opponent time, we remove it:
 				if (changedStateCounter == railExtraDist)
 					railObject.SendMessage("Remove");
 
@@ -236,7 +240,7 @@ namespace Assets
 
 				if (changedStateCounter == 0)
 				{
-					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax) + (int)(cameraScript.speed * enemyDistMultiplier);
+					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
 					state = GeneratorStates.normal;
 
 					switch (nextOpponent)
@@ -289,7 +293,31 @@ namespace Assets
 
 				
 				#endregion
-				
+
+				// Mark the possible driving routes for future iterations:
+				for (i = 0; i < 3; i++)
+				{
+					if (obstacles[i] == false)
+					{
+						//pathsCounters[i] = 1;
+					}
+					else
+					{
+						pathsCounters[i] = 1;
+					}
+				}
+
+				// Place pickups:
+				if (ringCounter == 0 && movingObstacleCounter > 0)
+				{
+					if (PlaceObject(obstacles, tile, audiRing, step, 1.5f) == 1)
+						ringCounter = UnityEngine.Random.Range(ringDistanceMin, ringDistanceMax);
+				}
+				else if (dashPadCounter == 0 && state == GeneratorStates.enemy)
+				{
+					if (PlaceObject(obstacles, tile, dashPad, step, 0f) == 1)
+						dashPadCounter = UnityEngine.Random.Range(dashPadDistanceMin, dashPadDistanceMax);
+				}
 				
 				// If it is time for moving obstacle, replace one of marked places with it:
 				if (movingObstacleCounter <= 0)
@@ -341,31 +369,6 @@ namespace Assets
 						//pathsCounters[i] = 8;
 					}
 				}
-				
-				// Place pickups:
-				if (ringCounter == 0)
-				{
-					if (PlaceObject(obstacles, tile, audiRing, step, 1.5f) == 1)
-						ringCounter = UnityEngine.Random.Range(ringDistanceMin, ringDistanceMax);
-				}
-				else if (dashPadCounter == 0 && state == GeneratorStates.enemy)
-				{
-					if (PlaceObject(obstacles, tile, dashPad, step, 0f) == 1)
-						dashPadCounter = UnityEngine.Random.Range(dashPadDistanceMin, dashPadDistanceMax);
-				}
-				
-				// Now, mark the possible driving routes for future iterations:
-				for (i = 0; i < 3; i++)
-				{
-					if (obstacles[i] == false)
-					{
-						//pathsCounters[i] = 1;
-					}
-					else
-					{
-						pathsCounters[i] = 1;
-					}
-				}
 			}
 			
 			/*
@@ -401,8 +404,8 @@ namespace Assets
 			wall.transform.parent = tile.transform;
 			wall.transform.localPosition = pos;
 
-			wall.GetComponent<MovingObstacleScript> ().startPos = wall.transform.position;
-			wall.GetComponent<MovingObstacleScript> ().endPos = wall.transform.TransformPoint(pos2);
+			wall.GetComponent<MovingObstacleScript> ().startPos = tile.transform.TransformPoint(pos);
+			wall.GetComponent<MovingObstacleScript> ().endPos = tile.transform.TransformPoint(pos2);
 			//wall.transform.localPosition = pos;
 		}
 		

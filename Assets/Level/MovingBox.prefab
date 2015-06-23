@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5c8efcb9e5ebc48beb11ba44065de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToMove: 1
+  timeToMove: .5
   activationDistance: 80
   startPos: {x: 0, y: 0, z: 0}
   endPos: {x: 0, y: 0, z: 0}
