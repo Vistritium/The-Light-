@@ -37,9 +37,6 @@ public class LaserShootingComponent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
 		if (!firing && firingTimeProvider.ShouldFire ()) {
 			Debug.Log("Firing");
 			firing = true;

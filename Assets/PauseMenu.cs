@@ -42,6 +42,11 @@ public class PauseMenu : MonoBehaviour {
 		Time.timeScale = 1.0f;
 	}
 
+	public void Restart() {
+		Resume ();
+		Application.LoadLevel("main");
+	}
+
 	public void ClickQuit(){
 		quitMenu.enabled = true;
 		pauseMenu.enabled = false;
