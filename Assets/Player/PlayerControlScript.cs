@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 using UnityEngine.UI;
 
 public class PlayerControlScript : MonoBehaviour {
@@ -110,7 +109,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		AssetDatabase.Refresh();
+		//AssetDatabase.Refresh();
 
 		//cameraTarget = GameObject.Find ("Player");
 		cameraTarget = transform.parent.gameObject;
@@ -137,6 +136,16 @@ public class PlayerControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        #if UNITY_ANDROID
+	    if (Input.touchCount == 3)
+	    {
+            Application.LoadLevel("main");
+	    }
+        #endif
+
+
+
 		if (Input.GetKey(KeyCode.R))
 		{
 			Application.LoadLevel("main");
@@ -317,12 +326,12 @@ public class PlayerControlScript : MonoBehaviour {
 		// Calculate input:
 		if (hp > 0)
 		{
-			if (Input.GetKey (KeyCode.A) && state != StateTypes.stunned)
+            if (GlobalInput.IsLeft() && state != StateTypes.stunned)
 			{
 				tempSpeed [0] -= turnAccel * Time.deltaTime;
 				turnPressed = 1;
 			}
-			else if (Input.GetKey (KeyCode.D) && state != StateTypes.stunned)
+			else if (GlobalInput.IsRight() && state != StateTypes.stunned)
 			{
 				tempSpeed [0] += turnAccel * Time.deltaTime;
 				turnPressed = 1;
@@ -445,10 +454,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#region Update HUD
 
-/*		needle.transform.rotation = Quaternion.identity;
-		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speed);
-		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedAdditional);
-		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedMax);
+		needle.transform.rotation = Quaternion.identity;
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
 		                              125 -
@@ -456,11 +462,11 @@ public class PlayerControlScript : MonoBehaviour {
 		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
 		                              / (cameraTarget.GetComponent<CameraTargetScript>().speedMax + 1))
 		                              * 220);// * Time.deltaTime);
-*/
-		score += (cameraTarget.GetComponent<CameraTargetScript>().speed +
-		          cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
-		scoreText.text = Mathf.Floor(score).ToString();
+		score += (cameraTarget.GetComponent<CameraTargetScript>().speed +
+		          cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime * 0.05f;
+
+		scoreText.text = "Score: " + Mathf.Floor(score).ToString();
 
 		#endregion
 	}
