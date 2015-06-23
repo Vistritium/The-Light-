@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
-//using UnityEngine.Assertions.Comparers;
 
 public class BulletShot : MonoBehaviour {
 
@@ -47,11 +46,10 @@ public class BulletShot : MonoBehaviour {
 		var bulletCollisionHandler = GetComponent<BulletCollisionHandler> ();
 
 		if (bulletCollisionHandler == null) {
-			Debug.Log("Destroying whole bulllet");
 			Destroy (this.gameObject);
 		} else {
-			Debug.Log("Destroying only component");
 			over = true;
+            bulletCollisionHandler.Collide();
 			Destroy(this);
 		}
 

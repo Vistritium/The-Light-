@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
 
 public class BulletCollisionHandler : MonoBehaviour {
 
@@ -12,4 +13,15 @@ public class BulletCollisionHandler : MonoBehaviour {
 	void Update () {
 	
 	}
+
+
+
+    public void Collide()
+    {
+        var obstacle = Instantiate(Templates.GetTemplate("Obstacle"));
+        obstacle.SetActive(true);
+        obstacle.transform.position = this.gameObject.transform.position;
+        Destroy(this.gameObject);
+
+    }
 }
