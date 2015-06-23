@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
-using UnityEngine.Assertions.Comparers;
+//using UnityEngine.Assertions.Comparers;
 
 public class BulletShot : MonoBehaviour {
 
