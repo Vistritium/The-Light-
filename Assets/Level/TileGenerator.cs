@@ -21,6 +21,8 @@ namespace Assets.Level
         private GameObject player;
         private GameObject levelObject;
 
+        public static float tileScale;
+
         private List<GameObject> allTilesWithoutLast = new List<GameObject>();
 
         // Use this for initialization
@@ -28,6 +30,7 @@ namespace Assets.Level
         {
             this.tileChooser = GetComponent<TileChooser>();
             this.lastTile = GameObject.Find("Tile0");
+            tileScale = lastTile.transform.localScale.x;
             this.player = GameObject.Find("Player");
             this.levelObject = GameObject.Find("Level");
         }
