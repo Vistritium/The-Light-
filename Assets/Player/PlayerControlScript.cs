@@ -80,6 +80,8 @@ public class PlayerControlScript : MonoBehaviour {
 	private GameObject modelTarget;
 	private TrailRenderer[] trails;
 	public GameObject[] smokes;
+	public GameObject dashEffect;
+	public GameObject audiStartParticles;
 
 	public GameObject shot;
 	public Transform shotSpawn;
@@ -118,6 +120,8 @@ public class PlayerControlScript : MonoBehaviour {
 
 		trails [0] = GameObject.Find ("Trail1").GetComponent<TrailRenderer>();
 		trails [1] = GameObject.Find ("Trail2").GetComponent<TrailRenderer>();
+
+		//dashEffect = GameObject.Find ("DashEffect");
 
 		//smokes = new GameObject[2];
 
@@ -160,6 +164,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 				EndSmokeEffects();
 				EndDashEffects();
+				EndAudiEffects();
 			}
 		}
 
@@ -476,6 +481,18 @@ public class PlayerControlScript : MonoBehaviour {
 			smokes [i].SetActive (false);
 	}
 
+	public void ApplyAudiEffects()
+	{
+		GameObject temp = (GameObject)Instantiate (audiStartParticles, transform.position, transform.rotation);
+		temp.transform.parent = transform;
+		dashEffect.SetActive(true);
+	}
+
+	public void EndAudiEffects()
+	{
+		dashEffect.SetActive(false);
+	}
+
 	public void ReceiveHitInfo(string tag, Vector3 pos = default(Vector3)){
 		// React accordingly if you hit something.
 		if (tag != "" && (state != StateTypes.stunned || tag == "MiddlePlayerCollider") && carStopped == false)
@@ -513,6 +530,7 @@ public class PlayerControlScript : MonoBehaviour {
 					
 					ApplyDashEffects();
 					ApplySmokeEffects();
+					ApplyAudiEffects();
 				}
 			}
 			// If you hit a wall, check, which side and subtract hp:
