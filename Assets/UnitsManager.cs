@@ -24,11 +24,11 @@ public class UnitsManager : MonoBehaviour {
 	void Start () {
 	
 
-
+		/*
 		Defer.DeferAction (() => {
 			SpawnLaserBallShooterMachine(MachineDuration.SHORT_DURATION);
 		}, 1f);
-
+		*/
 	}
 	
 	// Update is called once per frame

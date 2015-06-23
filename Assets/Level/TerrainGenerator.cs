@@ -15,6 +15,7 @@ namespace Assets
 		public GameObject dashPad;
 		public GameObject audiRing;
 		public GameObject rail;
+		public GameObject movingObstacle;
 		System.Random rnd = new System.Random();
 		public int n;
 		public int p;
@@ -62,8 +63,14 @@ namespace Assets
 
 		public int opponentDistanceMin = 1000;
 		public int opponentDistanceMax = 1500;
+		public float enemyDistMultiplier = 100;
 		public int timeWithOpponent = 500;
 		public int opponentCounter = 0;
+		private int nextOpponent = 1;
+
+		public int movingObstacleMin = 200;
+		public int movingObstacleMax = 600;
+		public int movingObstacleCounter = 2000;
 
 		public int railLength = 10;
 		public int railExtraDist = 50;
@@ -177,6 +184,9 @@ namespace Assets
 			
 			// Decrement counters:
 			obstacleCounter--;
+
+			if (movingObstacleCounter > 0)
+				movingObstacleCounter--;
 			
 			if (ringCounter > 0)
 				ringCounter--;
@@ -206,7 +216,18 @@ namespace Assets
 			if (changedStateCounter > 0)
 			{
 				if (changedStateCounter == timeWithOpponent - railExtraDist)
-					railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION);
+				{
+					switch (nextOpponent)
+					{
+					case 0:
+						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION);
+						break;
+
+					case 1:
+						railObject = unitManager.SpawnLaserBallShooterMachine(UnitsManager.MachineDuration.LONG_DURATION);
+						break;
+					}
+				}
 
 				if (changedStateCounter == railExtraDist)
 					railObject.SendMessage("Remove");
@@ -215,14 +236,25 @@ namespace Assets
 
 				if (changedStateCounter == 0)
 				{
-					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
+					opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax) + (int)(cameraScript.speed * enemyDistMultiplier);
 					state = GeneratorStates.normal;
+
+					switch (nextOpponent)
+					{
+					case 0:
+						nextOpponent = 1;
+						break;
+
+					case 1:
+						nextOpponent = 0;
+						break;
+					}
 
 					//railObject.SendMessage("Remove");
 				}
 			}
 
-			if (opponentCounter < 1)
+			if (opponentCounter < 1 && nextOpponent != 1)
 			{
 				railCounter--;
 
@@ -259,6 +291,46 @@ namespace Assets
 				#endregion
 				
 				
+				// If it is time for moving obstacle, replace one of marked places with it:
+				if (movingObstacleCounter <= 0)
+				{
+					int numberLanes = 0;
+					int[] startLanes = new int[15];
+					int[] endLanes = new int[15];
+
+					for (i = 0; i < 3; i++)
+					{
+						if (obstacles[i] == false)
+						{
+							if (i > 0)
+								if (obstacles[i-1] == true)
+								{
+									startLanes[numberLanes] = i;
+									endLanes[numberLanes] = i-1;
+									numberLanes++;
+								}
+
+							if (i < 2)
+								if (obstacles[i+1] == true)
+								{
+									startLanes[numberLanes] = i;
+									endLanes[numberLanes] = i+1;
+									numberLanes++;
+								}
+						}
+					}
+
+					if (numberLanes > 0)
+					{
+						numberLanes = UnityEngine.Random.Range(0, numberLanes);
+
+						obstacles[endLanes[numberLanes]] = false;
+						CreateMovingTile(tile, new Vector3(paths[startLanes[numberLanes]] - 4f, 0.5f, step - 4.5f), new Vector3(paths[endLanes[numberLanes]] - 4f, 0.5f, step - 4.5f));
+
+						movingObstacleCounter = UnityEngine.Random.Range(movingObstacleMin, movingObstacleMax);
+					}
+				}
+
 				// For each one of chosen lanes, create a wall there:
 				for (i = 0; i < 3; i++)
 				{
@@ -276,7 +348,7 @@ namespace Assets
 					if (PlaceObject(obstacles, tile, audiRing, step, 1.5f) == 1)
 						ringCounter = UnityEngine.Random.Range(ringDistanceMin, ringDistanceMax);
 				}
-				else if (dashPadCounter == 0)
+				else if (dashPadCounter == 0 && state == GeneratorStates.enemy)
 				{
 					if (PlaceObject(obstacles, tile, dashPad, step, 0f) == 1)
 						dashPadCounter = UnityEngine.Random.Range(dashPadDistanceMin, dashPadDistanceMax);
@@ -321,6 +393,17 @@ namespace Assets
 			{
 				CreateBlock(tile, new Vector3(pos.x + smallObstacles[chosen, i, 0], pos.y + smallObstacles[chosen, i, 1], pos.z + smallObstacles[chosen, i, 2]), terrain);
 			}
+		}
+
+		private void CreateMovingTile(GameObject tile, Vector3 pos, Vector3 pos2)
+		{
+			var wall = Instantiate (movingObstacle);
+			wall.transform.parent = tile.transform;
+			wall.transform.localPosition = pos;
+
+			wall.GetComponent<MovingObstacleScript> ().startPos = wall.transform.position;
+			wall.GetComponent<MovingObstacleScript> ().endPos = wall.transform.TransformPoint(pos2);
+			//wall.transform.localPosition = pos;
 		}
 		
 		private void CreateBlock(GameObject tile, Vector3 pos, GameObject obj)

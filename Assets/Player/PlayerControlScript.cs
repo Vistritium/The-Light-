@@ -23,6 +23,7 @@ public class PlayerControlScript : MonoBehaviour {
 	public float hitStunDuration = 1;
 
 	public float powerUpDuration = 10;
+	public float powerWarningTime = 1.5f;
 
 	public float stunTimer = 0;
 	public float poweredTimer = 0;
@@ -156,15 +157,20 @@ public class PlayerControlScript : MonoBehaviour {
 		if (poweredTimer > 0)
 		{
 			poweredTimer -= Time.deltaTime;
+
 			if (poweredTimer <= 0)
 			{
 				poweredTimer = 0;
 				state = StateTypes.normal;
 
-				EndSmokeEffects();
-				EndDashEffects();
+				//EndSmokeEffects();
+				//EndDashEffects();
 				EndAudiEffects();
 			}
+			else if (poweredTimer <= powerWarningTime)
+				EndDashEffects();
+			else if (poweredTimer <= powerWarningTime * 2)
+				EndSmokeEffects();
 		}
 
 		if (stunTimer > 0)
@@ -222,7 +228,7 @@ public class PlayerControlScript : MonoBehaviour {
 			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
 			//wheelObjects[i].transform.rotation = Quaternion.AngleAxis(-wheelTotalRotation, modelTarget.transform.forward);
-			if (i < 3)
+			if (i < 2)
 				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, (GetComponent<Rigidbody>().velocity[0] - lastTurningSpeed) * Time.deltaTime * 1500f, -wheelTotalRotation);
 			else
 				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, 0, -wheelTotalRotation);
