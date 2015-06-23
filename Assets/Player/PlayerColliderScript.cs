@@ -48,7 +48,7 @@ public class PlayerColliderScript : MonoBehaviour {
 			//script.enteredTriggerTag = other.gameObject.tag;
 			if (other.gameObject)
 			{
-				script.ReceiveHitInfo (other.gameObject.tag);
+				script.ReceiveHitInfo (other.gameObject.tag, other.gameObject.transform.position);
 				Destroy(other.gameObject);
 			}
 		}

@@ -38,6 +38,9 @@ public class PlayerControlScript : MonoBehaviour {
 	public float rotation = 0;
 	public float rotationSpeed = 0;
 
+	private float trailTargetTime = 0;
+	private float trailChangeSpeed = 0.2f;
+
 	public float wheelRotationSpeed = 2;
 	private float wheelTotalRotation = 0;
 	private float lastTurningSpeed = 0;
@@ -132,6 +135,8 @@ public class PlayerControlScript : MonoBehaviour {
 			
 		}
 
+		int i;
+
 		ringFlag = false;
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
@@ -168,6 +173,15 @@ public class PlayerControlScript : MonoBehaviour {
 			}
 		}
 
+
+		for (i = 0; i < 2; i++)
+		{
+			if (Mathf.Abs(trails[i].time - trailTargetTime) < trailChangeSpeed * Time.deltaTime)
+				trails[i].time = trailTargetTime;
+			else
+				trails[i].time += trailChangeSpeed * Time.deltaTime * Mathf.Sign(trailTargetTime - trails[i].time);
+		}
+
 		#endregion
 
 		#region Rotations
@@ -199,7 +213,7 @@ public class PlayerControlScript : MonoBehaviour {
 		}
 
 		// Rotate wheels accortingly to speed:
-		for (int i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)
 		{
 			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
@@ -438,14 +452,16 @@ public class PlayerControlScript : MonoBehaviour {
 
 	public void ApplyDashEffects()
 	{
-		for (int i = 0; i < 2; i++)
-			trails [i].time = 0.1f;
+		//for (int i = 0; i < 2; i++)
+		//	trails [i].time = 0.1f;
+		trailTargetTime = 0.1f;
 	}
 
 	public void EndDashEffects()
 	{
-		for (int i = 0; i < 2; i++)
-			trails [i].time = 0f;
+		//for (int i = 0; i < 2; i++)
+		//	trails [i].time = 0f;
+		trailTargetTime = 0;
 	}
 
 	public void ApplySmokeEffects()
@@ -460,9 +476,9 @@ public class PlayerControlScript : MonoBehaviour {
 			smokes [i].SetActive (false);
 	}
 
-	public void ReceiveHitInfo(string tag){
+	public void ReceiveHitInfo(string tag, Vector3 pos = default(Vector3)){
 		// React accordingly if you hit something.
-		if (tag != "" && state != StateTypes.stunned && carStopped == false)
+		if (tag != "" && (state != StateTypes.stunned || tag == "MiddlePlayerCollider") && carStopped == false)
 		{
 			// Since you can't change speedx, speedy or speedz directly, make a temp variable to operate on:
 			Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
@@ -484,7 +500,7 @@ public class PlayerControlScript : MonoBehaviour {
 			{
 				ringFlag = true;
 				ringsCollected++;
-				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
+				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(pos);
 				
 				if (ringsCollected >= 4)
 				{
