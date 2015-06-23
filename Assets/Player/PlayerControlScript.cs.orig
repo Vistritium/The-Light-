@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class PlayerControlScript : MonoBehaviour {
 
@@ -37,6 +38,9 @@ public class PlayerControlScript : MonoBehaviour {
 	public float rotationStart = 10;
 	public float rotation = 0;
 	public float rotationSpeed = 0;
+
+	private float trailTargetTime = 0;
+	private float trailChangeSpeed = 0.2f;
 
 	public float wheelRotationSpeed = 2;
 	private float wheelTotalRotation = 0;
@@ -77,11 +81,15 @@ public class PlayerControlScript : MonoBehaviour {
 	private GameObject modelTarget;
 	private TrailRenderer[] trails;
 	public GameObject[] smokes;
+	public GameObject dashEffect;
+	public GameObject audiStartParticles;
 
 	public GameObject shot;
 	public Transform shotSpawn;
 
 	public GameObject needle;
+	public Text scoreText;
+	private float score = 0f;
 
 	void Awake()
 	{
@@ -116,6 +124,8 @@ public class PlayerControlScript : MonoBehaviour {
 		trails [0] = GameObject.Find ("Trail1").GetComponent<TrailRenderer>();
 		trails [1] = GameObject.Find ("Trail2").GetComponent<TrailRenderer>();
 
+		//dashEffect = GameObject.Find ("DashEffect");
+
 		//smokes = new GameObject[2];
 
 		//smokes[0] = GameObject.Find ("Smoker1");
@@ -131,10 +141,17 @@ public class PlayerControlScript : MonoBehaviour {
 			Application.LoadLevel("main");
 			
 		}
+<<<<<<< HEAD
+
+		int i;
 
 		ringFlag = false;
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
+=======
+		
+		//needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
+>>>>>>> made and added some skyboxes, more or less sorted out the main menu, made it scale properly with different resolutions; did same thing for the speedometer -- also fixed it a bit; added basic score counter, messed around with the pause menu, added a neater font for everything
 
 		#region Timers and States
 
@@ -155,6 +172,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 				EndSmokeEffects();
 				EndDashEffects();
+				EndAudiEffects();
 			}
 		}
 
@@ -166,6 +184,15 @@ public class PlayerControlScript : MonoBehaviour {
 				stunTimer = 0;
 				state = StateTypes.normal;
 			}
+		}
+
+
+		for (i = 0; i < 2; i++)
+		{
+			if (Mathf.Abs(trails[i].time - trailTargetTime) < trailChangeSpeed * Time.deltaTime)
+				trails[i].time = trailTargetTime;
+			else
+				trails[i].time += trailChangeSpeed * Time.deltaTime * Mathf.Sign(trailTargetTime - trails[i].time);
 		}
 
 		#endregion
@@ -199,7 +226,7 @@ public class PlayerControlScript : MonoBehaviour {
 		}
 
 		// Rotate wheels accortingly to speed:
-		for (int i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)
 		{
 			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
@@ -421,41 +448,42 @@ public class PlayerControlScript : MonoBehaviour {
 
 		#region Update HUD
 
-<<<<<<< HEAD
 /*		needle.transform.rotation = Quaternion.identity;
-=======
-		needle.transform.rotation = Quaternion.identity;
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speed);
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedAdditional);
 		Debug.Log(cameraTarget.GetComponent<CameraTargetScript>().speedMax);
 
->>>>>>> 7bb9dd1b020e020bf3394f56a9ee459c3da3da46
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
 		                              125 -
 		                              ((cameraTarget.GetComponent<CameraTargetScript>().speed +
 		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
-<<<<<<< HEAD
-		                              / cameraTarget.GetComponent<CameraTargetScript>().speedMax)
-		                              * 260);// * Time.deltaTime);
-*/
-=======
 		                              / (cameraTarget.GetComponent<CameraTargetScript>().speedMax + 1))
 		                              * 220);// * Time.deltaTime);
+<<<<<<< HEAD
+*/
+=======
 
->>>>>>> 7bb9dd1b020e020bf3394f56a9ee459c3da3da46
+		score += (cameraTarget.GetComponent<CameraTargetScript>().speed +
+		          cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
+
+		scoreText.text = Mathf.Floor(score).ToString();
+
+>>>>>>> made and added some skyboxes, more or less sorted out the main menu, made it scale properly with different resolutions; did same thing for the speedometer -- also fixed it a bit; added basic score counter, messed around with the pause menu, added a neater font for everything
 		#endregion
 	}
 
 	public void ApplyDashEffects()
 	{
-		for (int i = 0; i < 2; i++)
-			trails [i].time = 0.1f;
+		//for (int i = 0; i < 2; i++)
+		//	trails [i].time = 0.1f;
+		trailTargetTime = 0.1f;
 	}
 
 	public void EndDashEffects()
 	{
-		for (int i = 0; i < 2; i++)
-			trails [i].time = 0f;
+		//for (int i = 0; i < 2; i++)
+		//	trails [i].time = 0f;
+		trailTargetTime = 0;
 	}
 
 	public void ApplySmokeEffects()
@@ -470,9 +498,21 @@ public class PlayerControlScript : MonoBehaviour {
 			smokes [i].SetActive (false);
 	}
 
-	public void ReceiveHitInfo(string tag){
+	public void ApplyAudiEffects()
+	{
+		GameObject temp = (GameObject)Instantiate (audiStartParticles, transform.position, transform.rotation);
+		temp.transform.parent = transform;
+		dashEffect.SetActive(true);
+	}
+
+	public void EndAudiEffects()
+	{
+		dashEffect.SetActive(false);
+	}
+
+	public void ReceiveHitInfo(string tag, Vector3 pos = default(Vector3)){
 		// React accordingly if you hit something.
-		if (tag != "" && state != StateTypes.stunned && carStopped == false)
+		if (tag != "" && (state != StateTypes.stunned || tag == "MiddlePlayerCollider") && carStopped == false)
 		{
 			// Since you can't change speedx, speedy or speedz directly, make a temp variable to operate on:
 			Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
@@ -494,7 +534,7 @@ public class PlayerControlScript : MonoBehaviour {
 			{
 				ringFlag = true;
 				ringsCollected++;
-				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
+				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(pos);
 				
 				if (ringsCollected >= 4)
 				{
@@ -507,6 +547,7 @@ public class PlayerControlScript : MonoBehaviour {
 					
 					ApplyDashEffects();
 					ApplySmokeEffects();
+					ApplyAudiEffects();
 				}
 			}
 			// If you hit a wall, check, which side and subtract hp:

@@ -91,7 +91,6 @@ NavMeshSettings:
 Transform:
   m_PrefabParentObject: {fileID: 463332, guid: 25c52170777369e4393b43166e99503d, type: 2}
   m_PrefabInternal: {fileID: 329006291}
-<<<<<<< HEAD
 --- !u!1 &43474929
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,10 +159,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 43474929}
---- !u!4 &80691290 stripped
-=======
 --- !u!4 &80691290
->>>>>>> prettier audi rings
 Transform:
   m_PrefabParentObject: {fileID: 463332, guid: 25c52170777369e4393b43166e99503d, type: 2}
   m_PrefabInternal: {fileID: 211870738}
@@ -350,6 +346,8 @@ MonoBehaviour:
   smokes:
   - {fileID: 858112426}
   - {fileID: 1466063015}
+  dashEffect: {fileID: 1479960607}
+  audiStartParticles: {fileID: 159086, guid: bb5e2f3417a053b498ac47424faffadb, type: 2}
   shot: {fileID: 192768, guid: b99acb8f9117fdc4c98ef854d76cdfad, type: 2}
   shotSpawn: {fileID: 141261630}
   needle: {fileID: 609672079}
@@ -501,11 +499,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.69000006
+      value: 3.69000435
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.0000037
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.z
@@ -513,19 +511,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.x
-      value: .101074129
+      value: .127804354
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .699846625
+      value: .724207461
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -.101065405
+      value: -.124573134
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .699846029
+      value: .666086495
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_RootOrder
@@ -632,31 +630,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.69000006
+      value: 3.68999457
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: .999998093
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: .99999994
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.x
-      value: .0984102562
+      value: -.121838562
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .700225353
+      value: -.666506052
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -.0984102711
+      value: .125256196
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .700225234
+      value: -.724731684
       objectReference: {fileID: 0}
     - target: {fileID: 469336, guid: 5518c59cb13c65f4f9f837860237f2df, type: 2}
       propertyPath: m_RootOrder
@@ -1145,7 +1143,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 473138, guid: 11595d330deda34479b5f3d209e744ec, type: 2}
   m_PrefabInternal: {fileID: 393784935}
-<<<<<<< HEAD
 --- !u!1 &412911435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,10 +1324,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 500482994}
---- !u!1 &505735976 stripped
-=======
 --- !u!1 &505735976
->>>>>>> prettier audi rings
 GameObject:
   m_PrefabParentObject: {fileID: 100030, guid: 6e0f4f7c79f82304f8664fafe1c8c42b, type: 3}
   m_PrefabInternal: {fileID: 1137215878}
@@ -1440,6 +1434,8 @@ GameObject:
   - 108: {fileID: 543078176}
   - 114: {fileID: 543078177}
   - 114: {fileID: 543078178}
+  - 114: {fileID: 543078180}
+  - 45: {fileID: 543078179}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1500,7 +1496,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
-  m_StereoMirrorMode: 0
 --- !u!4 &543078175
 Transform:
   m_ObjectHideFlags: 0
@@ -1600,6 +1595,153 @@ MonoBehaviour:
   shakeDuration: .5
   shakeAmount: 1
   decreaseFactor: 4
+--- !u!45 &543078179
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 543078170}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: f49e737dcefca3a4e81f6821735e2bff, type: 2}
+--- !u!114 &543078180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 543078170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd999d1b2cf94a45a5b0a47ce074bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  greenChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .0249999762
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .518210292
+      value: .419153363
+      inSlope: 1.06155872
+      outSlope: 1.06155872
+      tangentMode: 0
+    - time: 1
+      value: 1.02499998
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  blueChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: -.00624999963
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - time: .591556668
+      value: .225228071
+      inSlope: 1.08331442
+      outSlope: 1.08331442
+      tangentMode: 0
+    - time: 1
+      value: .993749976
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  useDepthCorrection: 1
+  zCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthRedChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthGreenChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthBlueChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  saturation: .800000012
+  selectiveCc: 1
+  selectiveFromColor: {r: 1, g: 1, b: 0, a: 1}
+  selectiveToColor: {r: 1, g: 1, b: .580882311, a: 1}
+  mode: 1
+  updateTextures: 1
+  colorCorrectionCurvesShader: {fileID: 4800000, guid: 62bcade1028c24ca1a39760ed84b9487,
+    type: 3}
+  simpleColorCorrectionCurvesShader: {fileID: 4800000, guid: 438ddd58d82c84d9eb1fdc56111702e1,
+    type: 3}
+  colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
+    type: 3}
 --- !u!1001 &587617192
 Prefab:
   m_ObjectHideFlags: 0
@@ -1662,6 +1804,7 @@ GameObject:
   - 114: {fileID: 609672080}
   - 114: {fileID: 609672083}
   - 114: {fileID: 609672084}
+  - 114: {fileID: 609672085}
   m_Layer: 5
   m_Name: Needle
   m_TagString: Untagged
@@ -1684,7 +1827,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Sprite: {fileID: 21300000, guid: ad34967cbaac1e04a9f9e9fd20f94060, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1702,21 +1845,16 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 609672079}
-  m_LocalRotation: {x: 1.39712073e-08, y: 1.47210568e-16, z: -7.10221304e-09, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -281}
+  m_LocalRotation: {x: -5.23920374e-09, y: 0, z: -5.23920418e-09, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1549136020}
-  m_RootOrder: 2
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-<<<<<<< HEAD
-  m_AnchoredPosition: {x: 333, y: 121}
-  m_SizeDelta: {x: 100, y: 100}
-=======
-  m_AnchoredPosition: {x: 19.1000004, y: 2.20000005}
-  m_SizeDelta: {x: 200, y: 200}
->>>>>>> prettier audi rings
+  m_Father: {fileID: 1109598240}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &609672083
 MonoBehaviour:
@@ -1746,6 +1884,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &609672085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 609672079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 0
+  m_AspectRatio: 1
 --- !u!1 &640029732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2220,7 @@ Transform:
   m_Children:
   - {fileID: 9924887}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &790610958
 Prefab:
   m_ObjectHideFlags: 0
@@ -2522,7 +2673,6 @@ MonoBehaviour:
   shakeAmount: .699999988
   decreaseFactor: 1
   state: 0
-<<<<<<< HEAD
 --- !u!1 &811318460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,10 +2764,76 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!1 &858112426 stripped
+<<<<<<< HEAD
+--- !u!1001 &827240990
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1479960608}
+    m_Modifications:
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: .160999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.0820000023
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: .31400001
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 129476, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_Name
+      value: AudiParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalScale.x
+      value: .0562962145
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .409660846
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalScale.z
+      value: .152931094
+      objectReference: {fileID: 0}
+    - target: {fileID: 129476, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &827240991
+Transform:
+  m_PrefabParentObject: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+  m_PrefabInternal: {fileID: 827240990}
 =======
+>>>>>>> made and added some skyboxes, more or less sorted out the main menu, made it scale properly with different resolutions; did same thing for the speedometer -- also fixed it a bit; added basic score counter, messed around with the pause menu, added a neater font for everything
 --- !u!1 &858112426
->>>>>>> prettier audi rings
 GameObject:
   m_PrefabParentObject: {fileID: 135808, guid: 6725a70ef7be46d4abc341e9e6448731, type: 2}
   m_PrefabInternal: {fileID: 791891770}
@@ -2749,7 +2965,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29a32f17540f40aadd4ee5b6272ce, type: 2}
   m_IsPrefabParent: 0
-<<<<<<< HEAD
 --- !u!1 &932464469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2772,7 +2987,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 932464469}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3a96b84fccba631438a7eca4119127d7, type: 3}
@@ -2847,7 +3062,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
---- !u!1 &950985459 stripped
+--- !u!1 &950985459
 GameObject:
   m_PrefabParentObject: {fileID: 100036, guid: 6e0f4f7c79f82304f8664fafe1c8c42b, type: 3}
   m_PrefabInternal: {fileID: 1137215878}
@@ -2966,14 +3181,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 953327752}
---- !u!1 &955341161 stripped
-=======
---- !u!1 &950985459
-GameObject:
-  m_PrefabParentObject: {fileID: 100036, guid: 6e0f4f7c79f82304f8664fafe1c8c42b, type: 3}
-  m_PrefabInternal: {fileID: 1137215878}
 --- !u!1 &955341161
->>>>>>> prettier audi rings
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: 51f86eac077549d4aa4627aa42653fb9, type: 2}
   m_PrefabInternal: {fileID: 1329099536}
@@ -3026,7 +3234,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 155adb4ef34dc9146bacd7336a85d13e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 155adb4ef34dc9146bacd7336a85d13e, type: 3}
@@ -3203,6 +3411,7 @@ GameObject:
   - 222: {fileID: 1109598239}
   - 114: {fileID: 1109598238}
   - 114: {fileID: 1109598241}
+  - 114: {fileID: 1109598242}
   m_Layer: 5
   m_Name: Speedometer
   m_TagString: Untagged
@@ -3244,16 +3453,17 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1109598237}
   m_LocalRotation: {x: 1.39712073e-08, y: 0, z: -7.10221304e-09, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -281}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 609672082}
   m_Father: {fileID: 1549136020}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 324, y: 118}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: .699999988, y: .699999988}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1109598241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3268,6 +3478,68 @@ MonoBehaviour:
   m_EffectColor: {r: .882352948, g: .175173014, b: .175173014, a: .501960814}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+<<<<<<< HEAD
+--- !u!1001 &1113407171
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1479960608}
+    m_Modifications:
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: .160999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.0820000023
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.31400001
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -1.62920685e-07
+      objectReference: {fileID: 0}
+    - target: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 129476, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+  m_IsPrefabParent: 0
+=======
+--- !u!114 &1109598242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109598237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1
+>>>>>>> made and added some skyboxes, more or less sorted out the main menu, made it scale properly with different resolutions; did same thing for the speedometer -- also fixed it a bit; added basic score counter, messed around with the pause menu, added a neater font for everything
 --- !u!1001 &1137215878
 Prefab:
   m_ObjectHideFlags: 0
@@ -3637,7 +3909,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a594dc19a720c5145a3136cad08b809f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: a594dc19a720c5145a3136cad08b809f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3891,7 +4163,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1284882000}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1284882000
@@ -4049,6 +4332,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3690e35f7064e24cb07cbcc3451ee50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1479960607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1479960608}
+  - 33: {fileID: 1479960611}
+  - 135: {fileID: 1479960610}
+  - 23: {fileID: 1479960609}
+  m_Layer: 0
+  m_Name: DashEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1479960608
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1479960607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0399999991, y: .970000029, z: -4.65660011e-10}
+  m_LocalScale: {x: 10.8542356, y: 3.39624643, z: 4.86018991}
+  m_Children:
+  - {fileID: 1896533481}
+  - {fileID: 827240991}
+  m_Father: {fileID: 89807139}
+  m_RootOrder: 19
+--- !u!23 &1479960609
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1479960607}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 89784b3e50b22c44b9868f36dbe96713, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!135 &1479960610
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1479960607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1479960611
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1479960607}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1549136019
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,7 +4437,6 @@ RectTransform:
   m_Children:
   - {fileID: 412911436}
   - {fileID: 1109598240}
-  - {fileID: 609672082}
   m_Father: {fileID: 543078175}
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
@@ -4257,7 +4614,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: df08d8f73524a8b4280007fb67314bef, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: df08d8f73524a8b4280007fb67314bef, type: 3}
       propertyPath: m_Name
@@ -4316,7 +4673,6 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: .5
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &1773328243
 MonoBehaviour:
@@ -4381,7 +4737,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: adfa7270a17b004418fb7a831d74b817, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: adfa7270a17b004418fb7a831d74b817, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4666,6 +5022,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 506091bbaa21ee4489948f08ca025825, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1896533481
+Transform:
+  m_PrefabParentObject: {fileID: 450296, guid: 27f375fa10adc8546bdfaf9a0baaf357, type: 2}
+  m_PrefabInternal: {fileID: 1113407171}
 --- !u!1 &1936655168
 GameObject:
   m_ObjectHideFlags: 0
@@ -4831,7 +5191,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464872, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6500214, guid: cfd1cf829d6a2574e84ffbf9f3a6e536, type: 2}
       propertyPath: m_Enabled

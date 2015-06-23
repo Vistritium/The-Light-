@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 58b9370c98564424697bcf7ba94ec210
+<<<<<<< HEAD
+timeCreated: 1434981028
+=======
 timeCreated: 1434996734
+>>>>>>> made and added some skyboxes, more or less sorted out the main menu, made it scale properly with different resolutions; did same thing for the speedometer -- also fixed it a bit; added basic score counter, messed around with the pause menu, added a neater font for everything
 licenseType: Free
 PluginImporter:
   serializedVersion: 1

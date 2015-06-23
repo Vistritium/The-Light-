@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class PlayerControlScript : MonoBehaviour {
 
@@ -87,6 +88,8 @@ public class PlayerControlScript : MonoBehaviour {
 	public Transform shotSpawn;
 
 	public GameObject needle;
+	public Text scoreText;
+	private float score = 0f;
 
 	void Awake()
 	{
@@ -138,13 +141,9 @@ public class PlayerControlScript : MonoBehaviour {
 			Application.LoadLevel("main");
 			
 		}
-
 		int i;
 
 		ringFlag = false;
-
-		needle.transform.RotateAround(needle.transform.position, needle.transform.forward, -(GetComponent<Rigidbody>().velocity.magnitude) * Time.deltaTime);
-
 		#region Timers and States
 
 		if (hp > 0)
@@ -452,6 +451,11 @@ public class PlayerControlScript : MonoBehaviour {
 		                              / (cameraTarget.GetComponent<CameraTargetScript>().speedMax + 1))
 		                              * 220);// * Time.deltaTime);
 */
+		score += (cameraTarget.GetComponent<CameraTargetScript>().speed +
+		          cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
+
+		scoreText.text = Mathf.Floor(score).ToString();
+
 		#endregion
 	}
 
