@@ -16,6 +16,8 @@ namespace Assets
 		public GameObject audiRing;
 		public GameObject rail;
 		public GameObject movingObstacle;
+		public GameObject railHolder;
+		public GameObject[] miscObjects;
 		System.Random rnd = new System.Random();
 		public int n;
 		public int p;
@@ -71,6 +73,11 @@ namespace Assets
 		public int movingObstacleMin = 200;
 		public int movingObstacleMax = 600;
 		public int movingObstacleCounter = 2000;
+
+		public int miscMinDist = 200;
+		public int miscMaxDist = 400;
+		public int miscCounter = 400;
+		private int miscChosenLane = -1;
 
 		public int railLength = 10;
 		public int railExtraDist = 50;
@@ -192,6 +199,15 @@ namespace Assets
 
 			if (movingObstacleCounter > 0)
 				movingObstacleCounter--;
+
+			if (miscCounter > 0)
+			{
+				miscCounter--;
+				if (miscCounter <= 0)
+				{
+					miscChosenLane = UnityEngine.Random.Range(0, 3);
+				}
+			}
 			
 			if (ringCounter > 0)
 				ringCounter--;
@@ -228,10 +244,14 @@ namespace Assets
 					switch (nextOpponent)
 					{
 					case 0:
-						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION);
+						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION, UnitsManager.Side.LEFT);
 						break;
 
 					case 1:
+						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION, UnitsManager.Side.RIGHT);
+						break;
+
+					case 2:
 						railObject = unitManager.SpawnLaserBallShooterMachine(UnitsManager.MachineDuration.LONG_DURATION);
 						break;
 					}
@@ -251,11 +271,15 @@ namespace Assets
 					switch (nextOpponent)
 					{
 					case 0:
-						nextOpponent = 1;
+						nextOpponent = 2;
 						break;
 
 					case 1:
-						nextOpponent = 0;
+						nextOpponent = 2;
+						break;
+
+					case 2:
+						nextOpponent = UnityEngine.Random.Range(0, 2);
 						break;
 					}
 
@@ -263,13 +287,17 @@ namespace Assets
 				}
 			}
 
-			if (opponentCounter < 1 && nextOpponent != 1)
+			if (opponentCounter < 1 && nextOpponent != 2)
 			{
 				railCounter--;
 
 				if (railCounter <= 0)
 				{
-					CreateRailSegment (tile, railOffset, step);
+					int sign = nextOpponent;
+					sign *= 2;
+					sign -= 1;
+
+					CreateRailSegment (tile, new Vector3(railOffset.x * sign, railOffset[1], railOffset[2]), step, 90 + 90 * sign);
 					railCounter = railLength;
 				}
 			}
@@ -318,7 +346,7 @@ namespace Assets
 					if (PlaceObject(obstacles, tile, audiRing, step, 1.5f) == 1)
 						ringCounter = UnityEngine.Random.Range(ringDistanceMin, ringDistanceMax);
 				}
-				else if (dashPadCounter == 0 && state == GeneratorStates.enemy)
+				else if (dashPadCounter == 0 && state == GeneratorStates.enemy && movingObstacleCounter > 0)
 				{
 					if (PlaceObject(obstacles, tile, dashPad, step, 0f) == 1)
 						dashPadCounter = UnityEngine.Random.Range(dashPadDistanceMin, dashPadDistanceMax);
@@ -369,7 +397,17 @@ namespace Assets
 				{
 					if (obstacles[i] == true)
 					{
-						CreateSmallObstacle(tile, new Vector3(paths[i] - 4f, 0.5f, step - 4.5f));
+						if (i == miscChosenLane)
+						{
+							CreateBlock(tile, new Vector3(paths[i] - 4f, 0.5f, step - 4.5f), miscObjects[UnityEngine.Random.Range(0, miscObjects.Length)]);
+
+							miscChosenLane = -1;
+							miscCounter = UnityEngine.Random.Range(miscMinDist, miscMaxDist);
+						}
+						else
+						{
+							CreateSmallObstacle(tile, new Vector3(paths[i] - 4f, 0.5f, step - 4.5f));
+						}
 						
 						//pathsCounters[i] = 8;
 					}
@@ -385,11 +423,16 @@ namespace Assets
 			*/
 		}
 
-		private void CreateRailSegment(GameObject tile, Vector3 pos, int step)
+		private void CreateRailSegment(GameObject tile, Vector3 pos, int step, float rotation)
 		{
 			var wall = Instantiate (rail);
 			wall.transform.parent = tile.transform;
 			wall.transform.localPosition = pos + new Vector3(0, 0, step);
+
+			var wall2 = Instantiate (railHolder);
+			wall2.transform.parent = tile.transform;
+			wall2.transform.localPosition = pos + new Vector3(0, 0, step);
+			wall2.transform.rotation = Quaternion.Euler (0, rotation, 0);
 		}
 		
 		

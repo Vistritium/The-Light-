@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: c501004d51c1a3940af4a9866b602e84
-timeCreated: 1435084258
+guid: 2d03f98b6e0e92d4697e06d61a06b735
+timeCreated: 1435095810
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: rail_001
-    400000: //RootNode
-    400002: rail_001
-    2300000: rail_001
-    3300000: rail_001
-    4300000: rail_001
+    100000: Box002
+    100002: //RootNode
+    400000: Box002
+    400002: //RootNode
+    2300000: Box002
+    3300000: Box002
+    4300000: Box002
   materials:
     importMaterials: 1
     materialName: 0
@@ -31,7 +31,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .25
+    globalScale: .0500000007
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
