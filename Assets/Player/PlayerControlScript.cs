@@ -504,10 +504,9 @@ public class PlayerControlScript : MonoBehaviour {
 				}
 			}
 			// If you hit a wall, check, which side and subtract hp:
-			else if (state != StateTypes.powered)
+			else if (state != StateTypes.powered && !ringFlag)
 			{
-				if (!ringFlag)
-					crashSound.Play();
+				crashSound.Play();
 
 				if (tag == "MiddlePlayerCollider")
 				{

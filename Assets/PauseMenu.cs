@@ -47,13 +47,14 @@ public class PauseMenu : MonoBehaviour {
 		Application.LoadLevel("main");
 	}
 
-	public void ClickQuit(){
+	public void ClickQuit() {
 		quitMenu.enabled = true;
 		pauseMenu.enabled = false;
 	}
 
-	public void YesQuit(){
-		Application.Quit ();
+	public void YesQuit() {
+		Resume ();
+		Application.LoadLevel ("menu");
 	}
 
 	public void NoQuit(){

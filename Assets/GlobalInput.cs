@@ -22,29 +22,29 @@ public static class GlobalInput {
     public static bool IsLeft()
     {
 
-#if UNITY_EDITOR
-        return Input.GetKey(KeyCode.A);
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
         if (IsTouch() && GetTouchCoords().x < Screen.width / 2)
         {
             return true;
         }
-        return false;       
+        return false;
+#else
+		return Input.GetKey(KeyCode.A);
 #endif
 
     }
 
     public static bool IsRight()
     {
-#if UNITY_EDITOR
-        return Input.GetKey(KeyCode.D);
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
 
         if (IsTouch() && GetTouchCoords().x > Screen.width / 2)
         {
             return true;
         }
         return false;
+#else
+		return Input.GetKey(KeyCode.D);
 #endif
     }
 

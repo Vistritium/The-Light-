@@ -18,6 +18,8 @@ public class PlayerColliderScript : MonoBehaviour {
 		// If the player is in AudiMode, blast hit boxes into oblivion:
 		if (script.state == PlayerControlScript.StateTypes.powered && other.gameObject.GetComponent<Rigidbody>())
 		{
+			script.crashSound.Play ();
+
 			GameObject temp = GameObject.Find("Player");
 			other.gameObject.GetComponent<Rigidbody>().constraints = ~(RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation);
 
