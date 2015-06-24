@@ -91,6 +91,12 @@ public class PlayerControlScript : MonoBehaviour {
 	public Text scoreText;
 	private float score = 0f;
 
+	public AudioSource crashSound;
+	public AudioSource bigCrashSound;
+	public AudioSource ringSound;
+	public AudioSource audiModeSound;
+	public AudioSource dashPadSound;
+
 	void Awake()
 	{
 		barHeight = Screen.height * 0.04f;
@@ -262,6 +268,8 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you touched DashPad:
 			if (enteredTriggerTag == "DashPad" && state != StateTypes.powered)
 			{
+				dashPadSound.Play();
+
 				if (state == StateTypes.normal)
 				{
 					dashing = 1;
@@ -274,11 +282,15 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you collected Audi ring:
 			else if (enteredTriggerTag == "Ring")
 			{
+				ringSound.Play();
+
 				ringsCollected++;
 				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
 
 				if (ringsCollected >= 4)
 				{
+					audiModeSound.Play();
+
 					ringsCollected = 0;
 
 					cameraTarget.GetComponent<CameraTargetScript> ().EnterAudi();
@@ -556,6 +568,8 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you hit a wall, check, which side and subtract hp:
 			else if (state != StateTypes.powered)
 			{
+				crashSound.Play();
+
 				if (tag == "MiddlePlayerCollider")
 				{
 					hp = 0;
@@ -590,6 +604,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	//called ONCE when player is dead
 	private void DeadOnce(){
+		bigCrashSound.Play();
 		CameraShake.ShakeCamera ();
 	}
 }
