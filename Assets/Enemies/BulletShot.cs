@@ -63,6 +63,8 @@ public class BulletShot : MonoBehaviour {
 		if (!over) {
 			var target = targetProvider.GetTarget();
 
+			this.transform.LookAt(target);
+
 		    if (initialPosition == default(Vector3))
 		    {
                 this.initialPosition = this.transform.position;

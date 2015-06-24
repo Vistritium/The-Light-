@@ -29,11 +29,11 @@ public class UnitsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		/*
-		Defer.DeferAction (() => {
-			SpawnLaserBallShooterMachine(MachineDuration.SHORT_DURATION);
-		}, 1f);
-		*/
+
+//		Defer.DeferAction (() => {
+//			SpawnLaserBallShooterMachine(MachineDuration.SHORT_DURATION);
+//		}, 1f);
+
 	}
 	
 	// Update is called once per frame
@@ -74,7 +74,11 @@ public class UnitsManager : MonoBehaviour {
             var followingMachine = newLaserMachine.GetComponent<FollowingMachine>();
             var displacementFromPlayer = followingMachine.displacementFromPlayer;
             followingMachine.displacementFromPlayer = new Vector3(-displacementFromPlayer.x, displacementFromPlayer.y, displacementFromPlayer.z);
-        }
+        
+			var transformToRot = newLaserMachine.GetComponent<LaserShootingComponent>().toRotate.transform;
+			transformToRot.localEulerAngles = new Vector3(transformToRot.localEulerAngles.x, 0, transformToRot.localEulerAngles.z);
+		
+		}
 
 		newLaserMachine.SetActive (true);
 

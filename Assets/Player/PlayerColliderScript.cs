@@ -53,7 +53,7 @@ public class PlayerColliderScript : MonoBehaviour {
 			}
 		}
 		// If you hit regular box, inform the player, from what direction did the hit come from:
-		else
+		else if (other.gameObject)
 		{
 			//if (script.enteredTriggerTag != "MiddlePlayerCollider")
 			//	script.enteredTriggerTag = gameObject.tag;

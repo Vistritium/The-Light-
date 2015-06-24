@@ -91,6 +91,13 @@ public class PlayerControlScript : MonoBehaviour {
 	public Text scoreText;
 	private float score = 0f;
 
+	public AudioSource crashSound;
+	public AudioSource bigCrashSound;
+	public AudioSource ringSound;
+	public AudioSource audiModeSound;
+	public AudioSource dashPadSound;
+	public AudioSource engineSound;
+
 	void Awake()
 	{
 		barHeight = Screen.height * 0.04f;
@@ -254,72 +261,7 @@ public class PlayerControlScript : MonoBehaviour {
 		turnPressed = 0;
 
 		// Since you can't change speedx, speedy or speedz directly, make a temp variable to operate on:
-		Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;
-
-		// React accordingly if you hit something.
-		if (enteredTriggerTag != "" && state != StateTypes.stunned && carStopped == false)
-		{
-			// If you touched DashPad:
-			if (enteredTriggerTag == "DashPad" && state != StateTypes.powered)
-			{
-				if (state == StateTypes.normal)
-				{
-					dashing = 1;
-					tempSpeed[2] = dashLocalSpeed;
-
-					cameraTarget.GetComponent<CameraTargetScript> ().StartDashing();
-					ApplyDashEffects();
-				}
-			}
-			// If you collected Audi ring:
-			else if (enteredTriggerTag == "Ring")
-			{
-				ringsCollected++;
-				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(transform.position);
-
-				if (ringsCollected >= 4)
-				{
-					ringsCollected = 0;
-
-					cameraTarget.GetComponent<CameraTargetScript> ().EnterAudi();
-
-					state = StateTypes.powered;
-					poweredTimer = powerUpDuration;
-
-					ApplyDashEffects();
-					ApplySmokeEffects();
-				}
-			}
-			// If you hit a wall, check, which side and subtract hp:
-			else if (state != StateTypes.powered)
-			{
-				if (enteredTriggerTag == "MiddlePlayerCollider")
-				{
-					hp = 0;
-					cameraTarget.GetComponent<CameraTargetScript> ().Stop();
-
-					rotationSpeed = rotationStart;
-					carStopped = true;
-				}
-				else if (enteredTriggerTag == "LeftPlayerCollider")
-				{
-					tempSpeed[0] = hitForce;
-				}
-				else if (enteredTriggerTag == "RightPlayerCollider")
-				{
-					tempSpeed[0] = -hitForce;
-				}
-
-				state = StateTypes.stunned;
-				stunTimer = hitStunDuration;
-
-				hp -= hitDamage;
-			}
-			else
-			{
-
-			}
-		}
+		Vector3 tempSpeed = GetComponent<Rigidbody>().velocity;		
 
 		enteredTriggerTag = "";
 
@@ -430,6 +372,8 @@ public class PlayerControlScript : MonoBehaviour {
 		// If you are dead, do something:
 		if (hp <= 0)
 		{
+			engineSound.Stop ();
+
 			//tempSpeed[1] = 4;
 			cameraTarget.GetComponent<CameraTargetScript> ().EndMoving();
 
@@ -523,6 +467,8 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you touched DashPad:
 			if (tag == "DashPad" && state != StateTypes.powered)
 			{
+				dashPadSound.Play();
+
 				if (state == StateTypes.normal)
 				{
 					dashing = 1;
@@ -535,12 +481,16 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you collected Audi ring:
 			else if (tag == "Ring" && ringFlag == false)
 			{
+				ringSound.Play ();
+
 				ringFlag = true;
 				ringsCollected++;
 				cameraTarget.GetComponent<CameraTargetScript> ().PickRing(pos);
 				
 				if (ringsCollected >= 4)
 				{
+					audiModeSound.Play();
+
 					ringsCollected = 0;
 					
 					cameraTarget.GetComponent<CameraTargetScript> ().EnterAudi();
@@ -556,6 +506,9 @@ public class PlayerControlScript : MonoBehaviour {
 			// If you hit a wall, check, which side and subtract hp:
 			else if (state != StateTypes.powered)
 			{
+				if (!ringFlag)
+					crashSound.Play();
+
 				if (tag == "MiddlePlayerCollider")
 				{
 					hp = 0;
@@ -590,6 +543,7 @@ public class PlayerControlScript : MonoBehaviour {
 
 	//called ONCE when player is dead
 	private void DeadOnce(){
+		bigCrashSound.Play();
 		CameraShake.ShakeCamera ();
 	}
 }
