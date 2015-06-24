@@ -146,6 +146,10 @@ namespace Assets
 			unitManager = GameObject.Find ("Systems").GetComponent<UnitsManager>();
 
 			opponentCounter = UnityEngine.Random.Range (opponentDistanceMin, opponentDistanceMax);
+
+			nextOpponent = UnityEngine.Random.Range (1, 3);
+			if (nextOpponent == 1)
+				nextOpponent = UnityEngine.Random.Range (0, 2);
 		}
 		
 		// Update is called once per frame

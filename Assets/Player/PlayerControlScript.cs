@@ -244,8 +244,8 @@ public class PlayerControlScript : MonoBehaviour {
 			wheelTotalRotation += wheelRotationSpeed * (cameraTarget.GetComponent<CameraTargetScript>().speed + cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime;
 
 			//wheelObjects[i].transform.rotation = Quaternion.AngleAxis(-wheelTotalRotation, modelTarget.transform.forward);
-			if (i < 2)
-				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, (GetComponent<Rigidbody>().velocity[0] - lastTurningSpeed) * Time.deltaTime * 1500f, -wheelTotalRotation);
+			if (i < 2 && GetComponent<Rigidbody>().velocity[0] != lastTurningSpeed)
+				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, Mathf.Sign(GetComponent<Rigidbody>().velocity[0] - lastTurningSpeed) * 20, -wheelTotalRotation);
 			else
 				wheelObjects[i].transform.localRotation = Quaternion.Euler(0, 0, -wheelTotalRotation);
 			//wheelObjects[i].transform.Rotate(new Vector3(0, -90, 0));
