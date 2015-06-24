@@ -96,6 +96,7 @@ namespace Assets
 		private float[] paths;
 		public int[] pathsCounters;
 
+		public AudioSource currentSound;
 
 		public enum GeneratorStates
 		{
@@ -244,10 +245,12 @@ namespace Assets
 					switch (nextOpponent)
 					{
 					case 0:
+						currentSound.Play();
 						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION, UnitsManager.Side.LEFT);
 						break;
 
 					case 1:
+						currentSound.Play();
 						railObject = unitManager.SpawnLaserMachine(UnitsManager.MachineDuration.LONG_DURATION, UnitsManager.Side.RIGHT);
 						break;
 
@@ -258,8 +261,10 @@ namespace Assets
 				}
 
 				// If we are nearing end of opponent time, we remove it:
-				if (changedStateCounter == railExtraDist)
+				if (changedStateCounter == railExtraDist) {
+					currentSound.Stop ();
 					railObject.SendMessage("Remove");
+				}
 
 				changedStateCounter--;
 
