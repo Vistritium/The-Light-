@@ -8,6 +8,9 @@ public class BallShottingComponent : MonoBehaviour
     private FiringTimeProvider firingTimeProvider;
     private TargetProviderProvider targetProviderProvider;
     private SpeedProviderProvider speedProviderProvider;
+    private Vector3 initialPosition;
+
+    private Oscilator oscilator;
 
     private bool onPosition = false;
 
@@ -19,7 +22,13 @@ public class BallShottingComponent : MonoBehaviour
         targetProviderProvider = GetComponent<TargetProviderProvider>();
         speedProviderProvider = GetComponent<SpeedProviderProvider>();
 
-        GetComponent<FollowingMachine>().onPosition += () => onPosition = true;
+        oscilator = new Oscilator(-5, 5, 1);
+
+        GetComponent<FollowingMachine>().onPosition += () =>
+        {
+            onPosition = true;
+            initialPosition = this.transform.position;
+        };
 
     }
 
@@ -30,8 +39,18 @@ public class BallShottingComponent : MonoBehaviour
         {
             Shot();
         }
+
+        if (onPosition)
+        {
+            this.transform.position = new Vector3(initialPosition.x + oscilator.GetCurrentValue(), this.transform.position.y, this.transform.position.z);
+        }
     }
 
+
+    private void Remove()
+    {
+        onPosition = false;
+    }
 
     void Shot()
     {
