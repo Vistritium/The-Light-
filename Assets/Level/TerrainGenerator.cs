@@ -68,7 +68,7 @@ namespace Assets
 		public float enemyDistMultiplier = 100;
 		public int timeWithOpponent = 500;
 		public int opponentCounter = 0;
-		private int nextOpponent = 1;
+		private int nextOpponent = 2;
 
 		public int movingObstacleMin = 200;
 		public int movingObstacleMax = 600;

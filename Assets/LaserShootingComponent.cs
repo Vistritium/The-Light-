@@ -7,6 +7,8 @@ public class LaserShootingComponent : MonoBehaviour {
 
 	ElectricLaser electricLaser;
 
+	public GameObject toRotate;
+
 	Vector3 localPlaceFrom;
 	Vector3 localPlaceTo;
 
@@ -66,6 +68,8 @@ public class LaserShootingComponent : MonoBehaviour {
 
 			electricLaser.from = this.transform.position;
 			electricLaser.to = currentPoint;
+
+			//toRotate.transform.LookAt(electricLaser.to, Vector3.forward);
 
 			sparks.transform.position = currentPoint;
 
