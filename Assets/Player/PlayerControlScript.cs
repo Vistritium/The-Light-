@@ -457,7 +457,7 @@ public class PlayerControlScript : MonoBehaviour {
 		needle.transform.rotation = Quaternion.identity;
 
 		needle.transform.RotateAround(needle.transform.position, needle.transform.forward,
-		                              125 -
+		                              48 -
 		                              ((cameraTarget.GetComponent<CameraTargetScript>().speed +
 		 								cameraTarget.GetComponent<CameraTargetScript>().speedAdditional)
 		                              / (cameraTarget.GetComponent<CameraTargetScript>().speedMax + 1))
@@ -466,7 +466,7 @@ public class PlayerControlScript : MonoBehaviour {
 		score += (cameraTarget.GetComponent<CameraTargetScript>().speed +
 		          cameraTarget.GetComponent<CameraTargetScript>().speedAdditional) * Time.deltaTime * 0.05f;
 
-		scoreText.text = "Score: " + Mathf.Floor(score).ToString();
+		scoreText.text = Mathf.Floor(score).ToString();
 
 		#endregion
 	}

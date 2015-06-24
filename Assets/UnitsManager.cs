@@ -29,7 +29,6 @@ public class UnitsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-
 		/*
 		Defer.DeferAction (() => {
 			SpawnLaserBallShooterMachine(MachineDuration.SHORT_DURATION);
