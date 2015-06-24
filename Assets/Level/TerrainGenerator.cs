@@ -82,6 +82,9 @@ namespace Assets
 		public int railLength = 10;
 		public int railExtraDist = 50;
 		public int railCounter = 0;
+		public int railHolderMin = 2;
+		public int railHolderMax = 5;
+		private int railHolderCounter = 0;
 		public Vector3 railOffset;
 
 		private GameObject railObject;
@@ -297,7 +300,13 @@ namespace Assets
 					sign *= 2;
 					sign -= 1;
 
-					CreateRailSegment (tile, new Vector3(railOffset.x * sign, railOffset[1], railOffset[2]), step, 90 + 90 * sign);
+					railHolderCounter--;
+
+					CreateRailSegment (tile, new Vector3(railOffset.x * sign, railOffset[1], railOffset[2]), step, 90 + 90 * sign, railHolderCounter <= 0);
+
+					if (railHolderCounter <= 0)
+						railHolderCounter = UnityEngine.Random.Range(railHolderMin, railHolderMax);
+
 					railCounter = railLength;
 				}
 			}
@@ -423,16 +432,19 @@ namespace Assets
 			*/
 		}
 
-		private void CreateRailSegment(GameObject tile, Vector3 pos, int step, float rotation)
+		private void CreateRailSegment(GameObject tile, Vector3 pos, int step, float rotation, bool createHolder)
 		{
 			var wall = Instantiate (rail);
 			wall.transform.parent = tile.transform;
 			wall.transform.localPosition = pos + new Vector3(0, 0, step);
 
-			var wall2 = Instantiate (railHolder);
-			wall2.transform.parent = tile.transform;
-			wall2.transform.localPosition = pos + new Vector3(0, 0, step);
-			wall2.transform.rotation = Quaternion.Euler (0, rotation, 0);
+			if (createHolder == true)
+			{
+				var wall2 = Instantiate (railHolder);
+				wall2.transform.parent = tile.transform;
+				wall2.transform.localPosition = pos + new Vector3 (0, 0, step);
+				wall2.transform.rotation = Quaternion.Euler (0, rotation, 0);
+			}
 		}
 		
 		
