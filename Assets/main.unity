@@ -3073,14 +3073,14 @@ MonoBehaviour:
   p: 0
   smallObstacleNumbers: 
   smallObstaclesAmount: 0
-  obstacleDistMin: 8
+  obstacleDistMin: 10
   obstacleDistMax: 20
-  obstacleDistSpeedMultiplier: .100000001
+  obstacleDistSpeedMultiplier: .150000006
   obstacleDistSpeedBase: 3
   obstacleDistBase: 10
   obstacleFreeTime: 10
-  ringDistanceMin: 100
-  ringDistanceMax: 200
+  ringDistanceMin: 200
+  ringDistanceMax: 300
   ringCounter: 200
   dashPadDistanceMin: 150
   dashPadDistanceMax: 250
@@ -3090,9 +3090,9 @@ MonoBehaviour:
   enemyDistMultiplier: 50
   timeWithOpponent: 700
   opponentCounter: 0
-  movingObstacleMin: 200
-  movingObstacleMax: 600
-  movingObstacleCounter: 400
+  movingObstacleMin: 100
+  movingObstacleMax: 300
+  movingObstacleCounter: 500
   miscMinDist: 100
   miscMaxDist: 400
   miscCounter: 200
@@ -3160,7 +3160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enteredTriggerTag: 
   speed: 30
-  speedMax: 70
+  speedMax: 90
   speedAcceleration: .5
   speedAdditional: 0
   deadDampen: 10
